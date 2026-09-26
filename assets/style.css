@@ -117,6 +117,10 @@ h1 .cnt { font-size:.8rem; color:var(--muted); font-weight:400; }
 .chip-market { background:#047857; }
 .cat-market.v1 { color:#046778; border-left-color:#046778; }
 .cat-market.v2 { color:#047825; border-left-color:#047825; }
+.cat-ai { color:#7e22ce; border-left-color:#7e22ce; }
+.chip-ai { background:#7e22ce; }
+.cat-ai.v1 { color:#c922ce; border-left-color:#c922ce; }
+.cat-ai.v2 { color:#3322ce; border-left-color:#3322ce; }
 .cat-tech { color:#1e40af; border-left-color:#1e40af; }
 .chip-tech { background:#1e40af; }
 .cat-tech.v1 { color:#3b1eaf; border-left-color:#3b1eaf; }
@@ -194,6 +198,10 @@ h1 .cnt { font-size:.8rem; color:var(--muted); font-weight:400; }
   .chip-market { background:#6ee7b7; color:#111; }
   .cat-market.v1 { color:#6ee3e7; border-left-color:#6ee3e7; }
   .cat-market.v2 { color:#6ee783; border-left-color:#6ee783; }
+  .cat-ai { color:#d8b4fe; border-left-color:#d8b4fe; }
+  .chip-ai { background:#d8b4fe; color:#111; }
+  .cat-ai.v1 { color:#f8b4fe; border-left-color:#f8b4fe; }
+  .cat-ai.v2 { color:#b8b4fe; border-left-color:#b8b4fe; }
   .cat-tech { color:#93c5fd; border-left-color:#93c5fd; }
   .chip-tech { background:#93c5fd; color:#111; }
   .cat-tech.v1 { color:#9397fd; border-left-color:#9397fd; }
