@@ -1,0 +1,89 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>美國教育近況：從AI衝擊到十億美元捐贈</title><link rel="stylesheet" href="../assets/style.css?v=e691674b"></head>
+<body data-slug="2026-09-26-topic---661379.html"><div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+<h1 class="art">美國教育近況：從AI衝擊到十億美元捐贈</h1>
+<div class="art-meta cat-edu">2026-09-26　·　原創　·　依據 24 家來源：Vatican News、The Guardian、Reuters、The Economist、Boston Consulting Group、phys.org、WSJ、kptv.com、JNS.org、UNESCO、Taipei Times、The Washington Post</div>
+<p>近期美國教育領域出現了多條值得在美華人關注的動態，涉及政策數據、職業院校、學區招生以及人工智能帶來的衝擊。以下梳理幾件獨立但相互關聯的事件。</p>
+<p>**教育部數據採集大幅縮減。** 據報道，特朗普政府正在削減美國教育部的教育數據收集工作，而當前全美學生的數學與閱讀成績正呈下降趨勢。對在美華人家庭而言，這意味着未來關於學區、學校表現的官方統計數據可能更難獲取，家長在擇校和評估學區時需更加留意數據的時效性和完整性。建議密切關注所在州教育部門發佈的本地數據，同時參考第三方評估作爲補充。</p>
+<p>**法學院與AI的角力。** 美國教育部的一個顧問小組就美國律師協會（ABA）對法學院的監管角色陷入僵局，雙方未能達成一致意見。與此同時，美國各地法學院正在積極應對人工智能帶來的挑戰——部分院校禁止在課堂上使用筆記本電腦，另一些則開始增設技術類課程。對於考慮就讀法學院的華人學生而言，瞭解目標院校的AI政策和課程改革方向，將有助於提前做好準備。</p>
+<p>**教育路徑的多樣化選擇。** 據報道，科技行業的精英人士正在資助一種替代傳統大學的教育模式，爲年輕人提供不同於四年制本科的路徑。在大學學費持續上漲的背景下，這類新選擇對華人家庭尤其是第一代移民子女值得關注——但也要審慎評估其認證與就業認可度。另一方面，Nike聯合創始人Phil Knight向俄勒岡州捐贈了10億美元，這是近年來美國教育領域罕見的大額私人捐贈。此外，科羅拉多梅薩大學宣佈將對Aurora地區的學生保證錄取，這爲該學區的高中畢業生提供了更明確的升學預期。</p>
+<p>總體來看，美國教育正處於政策調整與技術變革的雙重壓力之下。在美華人家庭在面對擇校、升學規劃時，建議多渠道收集信息，關注學區官方公告，並對未來數據獲取可能減少做好準備。</p>
+<div class="notice">本文爲原創中文寫作：事實取自上述來源的公開報道並重新組織，
+未沿用任何來源的成段表達；不含外鏈。涉及政策與法律的內容僅供參考，
+具體個案請諮詢持牌專業人士。</div>
+</div>
+<section class="comments" id="comments">
+  <h3>讀者評論</h3>
+  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div id="c-list"><div class="c-note">正在載入評論…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想補充什麼？（2000 字以內）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="請勿填寫">
+    <button type="submit" id="c-send">提交評論</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">還沒有評論。歡迎做第一個。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">舉報</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已舉報，謝謝"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">評論載入失敗（不影響閱讀）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "內容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+        } else {
+          msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "沒提交成功：網絡或服務問題。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+<div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="tw/posts/2026-09-26-topic---661379.html">繁體</a></div><div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="../../posts/2026-09-26-topic---661379.html">簡體</a></div></body></html>

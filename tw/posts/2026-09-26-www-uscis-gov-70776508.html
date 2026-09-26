@@ -1,0 +1,95 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>非公民冒充美國公民投票，被聯邦大陪審團起訴</title><link rel="stylesheet" href="../assets/style.css?v=e691674b"></head><body data-slug="2026-09-26-www-uscis-gov-70776508.html"><div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+<h1 class="art">非公民冒充美國公民投票，被聯邦大陪審團起訴</h1>
+<div class="art-meta cat-uscis">2026-09-26　·　原創　·　依據：🛂 移民局新聞（USCIS）（www.uscis.gov）</div>
+<h2>案情概述</h2>
+<p>託皮卡聯邦大陪審團對一名尼日利亞裔人士提出起訴，指控其虛假聲稱自己是美國公民以非法參與選舉投票。此案由美國公民及移民服務局（USCIS）協助調查，堪薩斯州地區聯邦檢察官辦公室對外公佈了這一消息。</p>
+<h2>具體指控</h2>
+<p>根據法庭文件，被告名爲 George Olawunmi Johnson，現年67歲，此前居住於堪薩斯州奧拉瑟（Olathe）。他面臨四項指控：</p>
+<p>- 虛假聲稱美國公民身份 - 爲投票而虛假聲稱美國公民身份 - 選舉欺詐行爲 - 在聯邦選舉中非法投票</p>
+<p>調查文件顯示，Johnson 於2010年2月在堪薩斯州約翰遜縣（Johnson County）登記選民時，虛假聲稱自己是美國公民。到了2024年11月，在堪薩斯州選舉中，他再次虛假認證自己具備美國公民投票資格，並投票參與了包含美國總統、副總統、參議院和衆議院候選人在內的選舉，而他實際持有的是永久居留身份（綠卡），並非美國公民。</p>
+<p>國土安全部調查局（Homeland Security Investigations，HSI）正在主導此案的調查工作，USCIS 爲調查提供了協助。</p>
+<h2>對在美華人意味着什麼</h2>
+<p>這起案件釋放了一個明確的信號：即便已經取得永久居留身份（綠卡），參與聯邦選舉投票仍是嚴重違法行爲。綠卡持有人擁有在美國長期合法居留、工作和享受多項社會福利的權利，但沒有投票權。在選民登記和實際投票環節中，系統會覈實身份，而聯邦執法機構也會在事後追溯。Johnson 從2010年登記到2024年投票，跨越十幾年最終被起訴，說明執法部門並不會因爲時間久遠就放過違規行爲。</p>
+<p>對於在美華人而言，這一案例提醒我們：無論持何種合法身份，務必清楚自身權利的邊界。如果你是綠卡持有人，切勿在任何場合（包括駕照申請、求職表格、選民登記表等）勾選或聲稱自己是美國公民。一個錯誤的勾選，可能帶來刑事指控甚至影響綠卡身份。</p>
+<h2>具體該怎麼做</h2>
+<p>如果你發現周圍存在疑似移民福利欺詐或濫用行爲，可以採取以下方式：</p>
+<p>1. 通過 USCIS Tip Form（舉報表格）向 USCIS 提交線索，該渠道專門用於報告與移民福利相關的欺詐和濫用情況。 2. 如果涉及選舉投票環節的違法行爲，也可以向所在州的選舉主管部門反映。</p>
+<p>如果你對自身身份權利有任何不確定之處，建議諮詢持牌移民律師，切勿自行猜測或聽信非專業人士的意見。</p>
+<div class="notice">本文爲原創中文寫作，依據當日公開英文資料整理；不含外鏈。文中日期與數字均覈對自原始材料。</div>
+</div>
+<section class="comments" id="comments">
+  <h3>讀者評論</h3>
+  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div id="c-list"><div class="c-note">正在載入評論…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想補充什麼？（2000 字以內）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="請勿填寫">
+    <button type="submit" id="c-send">提交評論</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">還沒有評論。歡迎做第一個。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">舉報</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已舉報，謝謝"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">評論載入失敗（不影響閱讀）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "內容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+        } else {
+          msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "沒提交成功：網絡或服務問題。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+<div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="tw/posts/2026-09-26-www-uscis-gov-70776508.html">繁體</a></div><div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="../../posts/2026-09-26-www-uscis-gov-70776508.html">簡體</a></div></body></html>

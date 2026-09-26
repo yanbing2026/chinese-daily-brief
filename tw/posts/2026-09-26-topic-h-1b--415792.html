@@ -1,0 +1,90 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H-1B政策收緊：收費提案與行政令</title><link rel="stylesheet" href="../assets/style.css?v=e691674b"></head>
+<body data-slug="2026-09-26-topic-h-1b--415792.html"><div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+<h1 class="art">H-1B政策收緊：收費提案與行政令</h1>
+<div class="art-meta cat-visa">2026-09-26　·　原創　·　依據 24 家來源：American Council on Education、Office of the Attorney General of Virginia、WSJ、The American Bazaar、The Presidents&#x27; Alliance on Higher Education and Immigration、American Medical Association | AMA、The Hill、The Conference Boa</div>
+<h2>兩項政策動作</h2>
+<p>近期，美國H-1B工作簽證領域出現兩項重要動向，分別從行政審批和總統指令兩個方向對現有體系進行收緊。國土安全部（DHS）提出一項新規，擬對限額內（cap-subject）的H-1B申請徵收103,265美元的費用——這一數額遠高於現行申請成本，意味着符合條件的H-1B申請人將面臨六位數美元級別的支出。同期，總統簽署了一項關於H-1B項目完整性與跨部門協調的行政命令，其重點之一在於加強對H-1B崗位裁撤行爲的監管與遏制。</p>
+<h2>各方反彈</h2>
+<p>收費提案遭到了來自多個行業的強烈反彈。科技行業的反應最爲激烈——硅谷和大型科技公司公開要求政府撤回這項費用，認爲高昂的用人成本將直接削弱美國在全球人才競爭中的吸引力。高等教育界同樣表達了憂慮，有觀點指出新費用可能使僱主對招聘國際畢業生失去興趣，進而波及美國高校國際學生的就業路徑。醫療領域也公開表達了反對，醫療服務提供者認爲費用上調可能限制醫療機構的用人選擇，長期來看或對患者的就醫可及性產生不利影響。截至目前，多個機構已向DHS就該提案提交了正式意見。</p>
+<h2>對在美華人的影響與建議</h2>
+<p>對於在美持H-1B身份的華人而言，當前政策環境意味着明顯更高的不確定性與合規成本。建議從三方面着手：第一，密切關注DHS提案的後續進程，包括正式文本發佈與公衆評論期安排，如有切身影響可考慮提交個人意見；第二，與僱主保持及時溝通，瞭解所在機構對費用調整的應對策略，尤其是涉及H-1B續期或身份轉換的具體安排；第三，留意行政命令的實施細則落地情況，它可能進一步影響H-1B崗位的聘用標準與裁撤條件。在政策快速變動期，以政府發佈的官方文件爲首要信息源，對單一來源的傳聞保持審慎態度。</p>
+<div class="notice">本文爲原創中文寫作：事實取自上述來源的公開報道並重新組織，
+未沿用任何來源的成段表達；不含外鏈。涉及政策與法律的內容僅供參考，
+具體個案請諮詢持牌專業人士。</div>
+</div>
+<section class="comments" id="comments">
+  <h3>讀者評論</h3>
+  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div id="c-list"><div class="c-note">正在載入評論…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想補充什麼？（2000 字以內）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="請勿填寫">
+    <button type="submit" id="c-send">提交評論</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">還沒有評論。歡迎做第一個。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">舉報</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已舉報，謝謝"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">評論載入失敗（不影響閱讀）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "內容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+        } else {
+          msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "沒提交成功：網絡或服務問題。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+<div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="tw/posts/2026-09-26-topic-h-1b--415792.html">繁體</a></div><div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="../../posts/2026-09-26-topic-h-1b--415792.html">簡體</a></div></body></html>

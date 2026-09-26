@@ -1,0 +1,93 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>羅馬尼亞女子承認婚姻欺詐，量刑定於2027年1月</title><link rel="stylesheet" href="../assets/style.css?v=e691674b"></head><body data-slug="2026-09-26-www-uscis-gov-28028423.html"><div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+<h1 class="art">羅馬尼亞女子承認婚姻欺詐，量刑定於2027年1月</h1>
+<div class="art-meta cat-uscis">2026-09-26　·　原創　·　依據：🛂 移民局新聞（USCIS）（www.uscis.gov）</div>
+<h2>事件經過</h2>
+<p>新澤西州聯邦法院近日宣判了一起婚姻欺詐案件。來自大西洋城的羅馬尼亞籍女子 Antonia-Beatrice Mircea（33歲）在法庭上承認，她與美國公民 Victor Purilla 共謀進行虛假婚姻，目的是爲自己獲取美國合法永久居民身份。</p>
+<p>據法庭陳述和案件文件記載，Mircea 在向 U.S. Citizenship and Immigration Services（USCIS）提交的表格中謊稱自己與 Purilla 住在大西洋城的同一住所，但實際上 Purilla 從未與她同住，而是另有住所，居住在 Absecon。也就是說，兩人並無真實婚姻關係，整個婚姻完全是爲了騙取移民福利。美國新澤西州聯邦檢察官辦公室（U.S. Attorney's Office for the District of New Jersey）宣佈了這一認罪結果。</p>
+<h2>法律後果與調查背景</h2>
+<p>共謀婚姻欺詐（conspiracy to commit marriage fraud）這一罪名，最高可判處五年監禁、25萬美元罰款以及三年監管釋放。Mircea 的量刑聽證定於2027年1月25日舉行。此案由 Department of Homeland Security 旗下 Homeland Security Investigations 與 FBI Newark Field Office 聯合調查，USCIS 協助了調查工作。</p>
+<h2>對在美華人意味着什麼</h2>
+<p>這類案件對於通過婚姻途徑申請綠卡的在美華人來說，是一個明確的警示。美國移民局對婚姻真實性始終保持着嚴格的審查力度——不僅會覈查表格填報信息，還可能實地走訪住所、覈對共同生活的證據（如聯名賬單、租房合同、通訊記錄等）。一旦被認定爲虛假婚姻，後果遠不止被拒絕申請：當事人可能面臨刑事指控、入獄記錄、罰款，以及永久失去獲得合法移民身份的機會，甚至被驅逐出境。</p>
+<h2>可以怎麼做</h2>
+<p>如果你或身邊的人正在通過婚姻途徑申請移民身份，請務必確保材料真實、婚姻關係真實。具體而言：</p>
+<p>第一，所有提交給 USCIS 的表格和文件必須如實填寫，住所、收入、共同生活細節等信息與實際情況保持一致，切勿爲"好看"而做任何誇大或隱瞞。</p>
+<p>第二，準備充分的共同生活證據。USCIS 在面試時會詳細詢問你們的相識過程、日常分工、財務安排等細節，如果缺乏實質性共同生活的證據，即使婚姻本身是真實的，也可能引發質疑。</p>
+<p>第三，如果發現身邊存在婚姻欺詐行爲，可以通過 USCIS Tip Form 向移民局舉報。協助調查此類欺詐不僅是履行公民義務，也是維護合法移民羣體的公平待遇。</p>
+<div class="notice">本文爲原創中文寫作，依據當日公開英文資料整理；不含外鏈。文中日期與數字均覈對自原始材料。</div>
+</div>
+<section class="comments" id="comments">
+  <h3>讀者評論</h3>
+  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div id="c-list"><div class="c-note">正在載入評論…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想補充什麼？（2000 字以內）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="請勿填寫">
+    <button type="submit" id="c-send">提交評論</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">還沒有評論。歡迎做第一個。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">舉報</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已舉報，謝謝"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">評論載入失敗（不影響閱讀）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "內容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+        } else {
+          msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "沒提交成功：網絡或服務問題。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+<div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="tw/posts/2026-09-26-www-uscis-gov-28028423.html">繁體</a></div><div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="../../posts/2026-09-26-www-uscis-gov-28028423.html">簡體</a></div></body></html>

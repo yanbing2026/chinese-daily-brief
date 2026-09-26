@@ -1,0 +1,88 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>習特會晤與中美關係近期動態</title><link rel="stylesheet" href="../assets/style.css?v=e691674b"></head>
+<body data-slug="2026-09-26-topic---610694.html"><div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+<h1 class="art">習特會晤與中美關係近期動態</h1>
+<div class="art-meta cat-world v1">2026-09-26　·　原創　·　依據 24 家來源：Bloomberg、China-US Focus、webull.com、The East is Read、Bloomberg、Xinhua、Sinocism | Bill Bishop、China-US Focus、The East is Read、Hoover Institution、Sinocism | Bill Bishop、Geopolitechs</div>
+<p>特朗普與習近平的會晤是近期中美關係報道的核心事件。新華社以官方口徑指出，此次會晤爲中美關係帶來了新的戰略指引，境外媒體亦同步跟進報道了會晤本身及其成果。圍繞這次會晤，"建設性戰略穩定"成爲被反覆引用的關鍵詞——朱鋒對其內涵進行了拆解分析，吳新波認爲中美關係正處在又一個轉折點，賈慶國則指出2026年爲兩國關係趨於穩定提供了難得機遇，高志凱強調中美關係必須保持穩定並具備戰略視野。另有分析在會晤前即指出外界預期不高，會晤後亦有文章開始梳理具體成果，各方評價呈現出一定的審慎態度。</p>
+<p>外交層面，中國外長王毅的最新表態值得關注：他強調中美合作已非可有可無，而是當前形勢下的現實必需，同時呼籲在對美關係中堅持相互尊重的原則。王毅還與馬斯克舉行了會面，顯示出中方在政商雙線推進對美溝通的意圖。這些互動整體傳遞出中美高層溝通渠道正在恢復的信號。</p>
+<p>熊貓外交同樣被多家媒體提及。一對大熊貓將赴美國聖迭戈的消息與此次會晤在時間節點上相互呼應，有報道將熊貓往來與兩國關係回暖直接聯繫，視爲雙方互動升溫的象徵。</p>
+<p>對在美華人而言，兩國高層重新建立溝通渠道，短期內不必對中美關係急劇惡化抱有過高擔憂，但也應保持審慎——多位學者的分析基調都圍繞"穩定"與"戰略"並重展開。建議持續關注會晤成果的落實進展以及後續在AI等議題上的互動，據以判斷兩國關係的實際走向。</p>
+<div class="notice">本文爲原創中文寫作：事實取自上述來源的公開報道並重新組織，
+未沿用任何來源的成段表達；不含外鏈。涉及政策與法律的內容僅供參考，
+具體個案請諮詢持牌專業人士。</div>
+</div>
+<section class="comments" id="comments">
+  <h3>讀者評論</h3>
+  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div id="c-list"><div class="c-note">正在載入評論…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想補充什麼？（2000 字以內）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="請勿填寫">
+    <button type="submit" id="c-send">提交評論</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">還沒有評論。歡迎做第一個。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">舉報</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已舉報，謝謝"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">評論載入失敗（不影響閱讀）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "內容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+        } else {
+          msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "沒提交成功：網絡或服務問題。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+<div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="tw/posts/2026-09-26-topic---610694.html">繁體</a></div><div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a><a href="../../posts/2026-09-26-topic---610694.html">簡體</a></div></body></html>
