@@ -88,121 +88,18 @@
 })();
 </script>
 
-<div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a></div><div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a></div><script>
-(function () {
-  if (!("speechSynthesis" in window)) return;            // 老瀏覽器直接安靜退出
 
-  // zh-Hant / zh-Hant 映射到語音引擎認的 BCP-47 標籤
-  var pageLang = (document.documentElement.lang || "zh-Hant");
-  var lang = pageLang.indexOf("Hant") >= 0 ? "zh-TW" : "zh-CN";
 
-  function pickVoice() {
-    var wants = lang.toLowerCase();
-    var vs = window.speechSynthesis.getVoices() || [];
-    for (var i = 0; i < vs.length; i++) {
-      var l = (vs[i].lang || "").replace("_", "-").toLowerCase();
-      if (l === wants) return vs[i];
-    }
-    for (var j = 0; j < vs.length; j++) {
-      var l2 = (vs[j].lang || "").replace("_", "-").toLowerCase();
-      if (l2.indexOf(wants.split("-")[0]) === 0) return vs[j];
-    }
-    return null;
-  }
 
-  function textOf(region) {
-    var c = region.cloneNode(true);
-    // 去掉不該唸的部分：評論、免責聲明、導航、腳本
-    var drop = ".comments, .notice, .postnav, .c-link, .catnav, .speak, script, style, nav";
-    Array.prototype.forEach.call(c.querySelectorAll(drop), function (n) {
-      n.parentNode && n.parentNode.removeChild(n);
-    });
-    var t = (c.innerText || c.textContent || "").replace(/\s+/g, " ").trim();
-    return t;
-  }
 
-  // 長文切成小段排隊，避免部分瀏覽器對單次朗讀有長度/時長限制
-  function chunk(text) {
-    var out = [], buf = "";
-    var parts = text.split(/(?<=[。！？!?；;\n])/);
-    for (var i = 0; i < parts.length; i++) {
-      if ((buf + parts[i]).length > 220 && buf) { out.push(buf); buf = ""; }
-      buf += parts[i];
-    }
-    if (buf.trim()) out.push(buf);
-    return out;
-  }
 
-  var current = null;      // 正在朗讀的按鈕
 
-  function stop() {
-    window.speechSynthesis.cancel();
-    if (current) { current.textContent = "🔊 朗讀"; current = null; }
-  }
 
-  function speak(btn, region) {
-    stop();
-    var text = textOf(region);
-    if (text.length < 20) return;
-    var voice = pickVoice();
-    var pieces = chunk(text);
-    pieces.forEach(function (piece, i) {
-      var u = new SpeechSynthesisUtterance(piece);
-      u.lang = lang;
-      if (voice) u.voice = voice;
-      u.rate = 0.95; u.pitch = 1;
-      if (i === pieces.length - 1) {
-        u.onend = function () { if (current === btn) { btn.textContent = "🔊 朗讀"; current = null; } };
-      }
-      window.speechSynthesis.speak(u);
-    });
-    btn.textContent = "⏹ 停止";
-    current = btn;
-  }
 
-  function makeButton(region, host) {
-    var btn = document.createElement("button");
-    btn.className = "speak";
-    btn.type = "button";
-    btn.textContent = "🔊 朗讀";
-    btn.setAttribute("aria-label", "朗讀本文");
-    btn.addEventListener("click", function () {
-      if (current === btn) { stop(); } else { speak(btn, region); }
-    });
-    host.appendChild(btn);
-    return btn;
-  }
 
-  function mount() {
-    var arts = document.querySelectorAll("article");
-    if (arts.length) {
-      Array.prototype.forEach.call(arts, function (a) {
-        if (a.querySelector(".speak")) return;
-        var host = a.querySelector(".c-link") || a;
-        makeButton(a, host);
-      });
-      return;
-    }
-    // 單篇頁：沒有 <article>，整塊 .wrap 當朗讀區域，按鈕放到導航條裏
-    var wrap = document.querySelector(".wrap");
-    if (!wrap || wrap.querySelector(".speak")) return;
-    var host = wrap.querySelector(".postnav") || wrap.querySelector("h1");
-    if (host) makeButton(wrap, host);
-  }
 
-  // 語音列表在部分瀏覽器是異步加載的，第一次爲空時等 voiceschanged
-  if (!window.speechSynthesis.getVoices().length) {
-    window.speechSynthesis.addEventListener("voiceschanged", function () { }, { once: true });
-  }
-  window.addEventListener("pagehide", stop);
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", mount);
-  } else { mount(); }
-})();
-</script>
-<div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a></div><div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a></div>
-<div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a></div>
-<div class="postnav"><a href="../index.html">首頁</a><a href="../posts.html">往期</a></div><!--sub:start-->
+
+<!--sub:start-->
 <div class="subscribe" id="sub">
   <strong>每天早上一封，只發原創</strong>
   <span class="sub-note">在美華人資訊 · 簡繁都有 · 不發廣告 · 隨時可退</span>
@@ -286,23 +183,40 @@
   // 後者會把頁頭之類的東西順帶念出來。
   var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta, script, style, nav";
 
+  function clean(el) {
+    return (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
+  }
+
   function textOf(region) {
     var out = [];
-    var h = region.querySelector("h1");
-    if (h) {
-      var hc = h.cloneNode(true);
-      Array.prototype.forEach.call(hc.querySelectorAll(".chip, .cnt"), function (n) {
+    // 按偏好順序找標題：不能用一次性 querySelector("h1, a")——它返回**文檔順序**裏
+    // 第一個命中的元素，單篇頁裏 <a class="back">← 回首頁</a> 排在 h1 前面，會被當成標題。
+    var title = region.querySelector("h1.art") || region.querySelector("h1, h2, h3, .ttl")
+             || region.querySelector("a");
+    var titleText = "";
+    if (title && !(title.closest && title.closest(SKIP))) {
+      var tc = title.cloneNode(true);
+      Array.prototype.forEach.call(tc.querySelectorAll(".chip, .cnt"), function (n) {
         n.parentNode && n.parentNode.removeChild(n);
       });
-      var ht = (hc.innerText || hc.textContent || "").replace(/\s+/g, " ").trim();
-      if (ht) out.push(ht);
+      titleText = clean(tc);
+      if (titleText) out.push(titleText);
     }
     var nodes = region.querySelectorAll("h2, h3, p");
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
+      if (n === title) continue;
       if (n.closest && n.closest(SKIP)) continue;
-      var t = (n.innerText || n.textContent || "").replace(/\s+/g, " ").trim();
-      if (t) out.push(t);
+      var t = clean(n);
+      if (t && t !== titleText) out.push(t);
+    }
+    if (!out.length) {                       // 兜底：沒有段落的結構（如純列表項）
+      var c = region.cloneNode(true);
+      Array.prototype.forEach.call(c.querySelectorAll(SKIP + ", .speak"), function (n) {
+        n.parentNode && n.parentNode.removeChild(n);
+      });
+      var t2 = clean(c);
+      if (t2) out.push(t2);
     }
     return out.join("\n");
   }
@@ -332,7 +246,7 @@
   function speak(btn, region) {
     stop();
     var text = textOf(region);
-    if (text.length < 20) return;
+    if (text.length < 8) return;   // 列表頁只有標題，門檻別定太高
     var voice = pickVoice();
     var pieces = chunk(text);
     pieces.forEach(function (piece, i) {
@@ -358,25 +272,36 @@
     btn.addEventListener("click", function () {
       if (current === btn) { stop(); } else { speak(btn, region); }
     });
-    host.appendChild(btn);
+    if (host) host.appendChild(btn);     // host 爲空時由調用方決定插哪兒
     return btn;
   }
 
   function mount() {
-    var arts = document.querySelectorAll("article");
-    if (arts.length) {
-      Array.prototype.forEach.call(arts, function (a) {
-        if (a.querySelector(".speak")) return;
-        var host = a.querySelector(".c-link") || a;
-        makeButton(a, host);
+    // 首頁是 <article>（全文直鋪），往期/欄目頁是 <li>（只有標題）——兩種都要能念，
+    // 而且按鈕一律挨着標題放：之前掛在文章末尾的「讀者評論」那一行，
+    // 讀者得先讀完一整篇纔看得見按鈕。
+    var items = document.querySelectorAll("article, li");
+    if (items.length) {
+      Array.prototype.forEach.call(items, function (it) {
+        if (it.querySelector(".speak")) return;
+        var title = it.querySelector("h1, h2, h3, .ttl, a");
+        var btn = makeButton(it, null);
+        if (title) { title.insertAdjacentElement("afterend", btn); }
+        else { it.appendChild(btn); }
       });
       return;
     }
-    // 單篇頁：沒有 <article>，整塊 .wrap 當朗讀區域，按鈕放到導航條裏
+    // 單篇頁：沒有條目元素，整塊 .wrap 當朗讀區域，按鈕放到導航條裏
     var wrap = document.querySelector(".wrap");
     if (!wrap || wrap.querySelector(".speak")) return;
-    var host = wrap.querySelector(".postnav") || wrap.querySelector("h1");
-    if (host) makeButton(wrap, host);
+    // 按鈕插在標題**後面作爲兄弟節點**（insertAdjacentElement 是"之後"，不是"裏面"）：
+    // 早前用 appendChild(host) 時按鈕成了 h1 的子節點，標題文字裏就混進了「🔊 朗讀」，
+    // 被念出來變成"AI治理加速…🔊 朗讀"。另外單篇頁的 .postnav 在 .wrap 外面，別指望它。
+    var h1 = wrap.querySelector("h1.art") || wrap.querySelector("h1");
+    var btn = makeButton(wrap, null);
+    if (h1) { h1.insertAdjacentElement("afterend", btn); }
+    else if (wrap.firstElementChild) { wrap.insertBefore(btn, wrap.firstElementChild); }
+    else { wrap.appendChild(btn); }
   }
 
   window.addEventListener("pagehide", stop);

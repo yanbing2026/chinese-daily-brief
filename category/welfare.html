@@ -7,7 +7,7 @@
 </head><body><div class="wrap">
 <header class="top">
   <div class="brand">在美华人每日简报</div>
-  <div class="sub">原创中文写作 · 读英文资料 → 自己写 ｜ 移民 · 政策 · 报税 · 本地情报 ｜ 更新：2026-09-26 19:02 EDT</div>
+  <div class="sub">原创中文写作 · 读英文资料 → 自己写 ｜ 移民 · 政策 · 报税 · 本地情报 ｜ 更新：2026-09-26 19:14 EDT</div>
   <nav><a href="../index.html">今日原创</a><a href="../posts.html">往期原创</a>
   <a href="https://github.com/yanbing2026/chinese-daily-brief">源码</a><a href="../tw/category/welfare.html">繁體</a></nav>
 </header>
@@ -98,23 +98,40 @@
   // 后者会把页头之类的东西顺带念出来。
   var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta, script, style, nav";
 
+  function clean(el) {
+    return (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
+  }
+
   function textOf(region) {
     var out = [];
-    var h = region.querySelector("h1");
-    if (h) {
-      var hc = h.cloneNode(true);
-      Array.prototype.forEach.call(hc.querySelectorAll(".chip, .cnt"), function (n) {
+    // 按偏好顺序找标题：不能用一次性 querySelector("h1, a")——它返回**文档顺序**里
+    // 第一个命中的元素，单篇页里 <a class="back">← 回首页</a> 排在 h1 前面，会被当成标题。
+    var title = region.querySelector("h1.art") || region.querySelector("h1, h2, h3, .ttl")
+             || region.querySelector("a");
+    var titleText = "";
+    if (title && !(title.closest && title.closest(SKIP))) {
+      var tc = title.cloneNode(true);
+      Array.prototype.forEach.call(tc.querySelectorAll(".chip, .cnt"), function (n) {
         n.parentNode && n.parentNode.removeChild(n);
       });
-      var ht = (hc.innerText || hc.textContent || "").replace(/\s+/g, " ").trim();
-      if (ht) out.push(ht);
+      titleText = clean(tc);
+      if (titleText) out.push(titleText);
     }
     var nodes = region.querySelectorAll("h2, h3, p");
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
+      if (n === title) continue;
       if (n.closest && n.closest(SKIP)) continue;
-      var t = (n.innerText || n.textContent || "").replace(/\s+/g, " ").trim();
-      if (t) out.push(t);
+      var t = clean(n);
+      if (t && t !== titleText) out.push(t);
+    }
+    if (!out.length) {                       // 兜底：没有段落的结构（如纯列表项）
+      var c = region.cloneNode(true);
+      Array.prototype.forEach.call(c.querySelectorAll(SKIP + ", .speak"), function (n) {
+        n.parentNode && n.parentNode.removeChild(n);
+      });
+      var t2 = clean(c);
+      if (t2) out.push(t2);
     }
     return out.join("\n");
   }
@@ -144,7 +161,7 @@
   function speak(btn, region) {
     stop();
     var text = textOf(region);
-    if (text.length < 20) return;
+    if (text.length < 8) return;   // 列表页只有标题，门槛别定太高
     var voice = pickVoice();
     var pieces = chunk(text);
     pieces.forEach(function (piece, i) {
@@ -170,25 +187,36 @@
     btn.addEventListener("click", function () {
       if (current === btn) { stop(); } else { speak(btn, region); }
     });
-    host.appendChild(btn);
+    if (host) host.appendChild(btn);     // host 为空时由调用方决定插哪儿
     return btn;
   }
 
   function mount() {
-    var arts = document.querySelectorAll("article");
-    if (arts.length) {
-      Array.prototype.forEach.call(arts, function (a) {
-        if (a.querySelector(".speak")) return;
-        var host = a.querySelector(".c-link") || a;
-        makeButton(a, host);
+    // 首页是 <article>（全文直铺），往期/栏目页是 <li>（只有标题）——两种都要能念，
+    // 而且按钮一律挨着标题放：之前挂在文章末尾的「读者评论」那一行，
+    // 读者得先读完一整篇才看得见按钮。
+    var items = document.querySelectorAll("article, li");
+    if (items.length) {
+      Array.prototype.forEach.call(items, function (it) {
+        if (it.querySelector(".speak")) return;
+        var title = it.querySelector("h1, h2, h3, .ttl, a");
+        var btn = makeButton(it, null);
+        if (title) { title.insertAdjacentElement("afterend", btn); }
+        else { it.appendChild(btn); }
       });
       return;
     }
-    // 单篇页：没有 <article>，整块 .wrap 当朗读区域，按钮放到导航条里
+    // 单篇页：没有条目元素，整块 .wrap 当朗读区域，按钮放到导航条里
     var wrap = document.querySelector(".wrap");
     if (!wrap || wrap.querySelector(".speak")) return;
-    var host = wrap.querySelector(".postnav") || wrap.querySelector("h1");
-    if (host) makeButton(wrap, host);
+    // 按钮插在标题**后面作为兄弟节点**（insertAdjacentElement 是"之后"，不是"里面"）：
+    // 早前用 appendChild(host) 时按钮成了 h1 的子节点，标题文字里就混进了「🔊 朗读」，
+    // 被念出来变成"AI治理加速…🔊 朗读"。另外单篇页的 .postnav 在 .wrap 外面，别指望它。
+    var h1 = wrap.querySelector("h1.art") || wrap.querySelector("h1");
+    var btn = makeButton(wrap, null);
+    if (h1) { h1.insertAdjacentElement("afterend", btn); }
+    else if (wrap.firstElementChild) { wrap.insertBefore(btn, wrap.firstElementChild); }
+    else { wrap.appendChild(btn); }
   }
 
   window.addEventListener("pagehide", stop);
