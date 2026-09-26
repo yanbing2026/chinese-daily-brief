@@ -41,6 +41,25 @@ h1.art { border-left:4px solid var(--line); padding-left:.7rem; }
 .art-meta.cat-welfare, .art-meta.cat-tax, .art-meta.cat-cbp, .art-meta.cat-community,
 .art-meta.cat-f1, .art-meta.cat-deal, .art-meta.cat-local, .art-meta.cat-other
   { opacity:.82; }
+/* 评论区 */
+.comments { margin-top:2.2rem; padding-top:1.2rem; border-top:1px solid var(--line); }
+.comments h3 { font-size:1.05rem; margin:0 0 .2rem; }
+.comments .c-note { color:var(--muted); font-size:.84rem; margin-bottom:.9rem; }
+.c-item { background:var(--card); border:1px solid var(--line); border-radius:.5rem;
+  padding:.6rem .8rem; margin-bottom:.6rem; }
+.c-item .c-head { font-size:.82rem; color:var(--muted); margin-bottom:.25rem; }
+.c-item .c-body { white-space:pre-wrap; word-break:break-word; }
+.c-item .c-report { font-size:.78rem; color:var(--muted); background:none; border:0;
+  cursor:pointer; padding:0; margin-top:.3rem; text-decoration:underline; }
+.c-form input[type=text], .c-form textarea { width:100%; background:var(--bg); color:var(--fg);
+  border:1px solid var(--line); border-radius:.4rem; padding:.45rem .55rem;
+  font:inherit; font-size:.92rem; margin-bottom:.45rem; }
+.c-form textarea { min-height:5.2rem; resize:vertical; }
+.c-form button { background:var(--accent); color:#fff; border:0; border-radius:.4rem;
+  padding:.45rem .95rem; font:inherit; font-size:.9rem; cursor:pointer; }
+.c-form button[disabled] { opacity:.55; cursor:default; }
+.c-hp { position:absolute; left:-9999px; opacity:0; height:0; width:0; }
+.c-msg { font-size:.85rem; margin-top:.5rem; color:var(--muted); }
 .chip { display:inline-block, font-size:.72rem; padding:.05rem .4rem; border-radius:.3rem;
   color:#fff; margin-right:.4rem; vertical-align:.08em; }
 .cat-uscis { color:#1d4ed8; border-left-color:#1d4ed8; }
@@ -83,6 +102,34 @@ h1.art { border-left:4px solid var(--line); padding-left:.7rem; }
 .chip-deal { background:#a16207; }
 .cat-deal.v1 { color:#9da107; border-left-color:#9da107; }
 .cat-deal.v2 { color:#a11f07; border-left-color:#a11f07; }
+.cat-market { color:#047857; border-left-color:#047857; }
+.chip-market { background:#047857; }
+.cat-market.v1 { color:#046778; border-left-color:#046778; }
+.cat-market.v2 { color:#047825; border-left-color:#047825; }
+.cat-tech { color:#1e40af; border-left-color:#1e40af; }
+.chip-tech { background:#1e40af; }
+.cat-tech.v1 { color:#3b1eaf; border-left-color:#3b1eaf; }
+.cat-tech.v2 { color:#1e7faf; border-left-color:#1e7faf; }
+.cat-edu { color:#c2410c; border-left-color:#c2410c; }
+.chip-edu { background:#c2410c; }
+.cat-edu.v1 { color:#c2900c; border-left-color:#c2900c; }
+.cat-edu.v2 { color:#c20c26; border-left-color:#c20c26; }
+.cat-housing { color:#7c2d12; border-left-color:#7c2d12; }
+.chip-housing { background:#7c2d12; }
+.cat-housing.v1 { color:#7c5b12; border-left-color:#7c5b12; }
+.cat-housing.v2 { color:#7c1225; border-left-color:#7c1225; }
+.cat-election { color:#9d174d; border-left-color:#9d174d; }
+.chip-election { background:#9d174d; }
+.cat-election.v1 { color:#9d1b17; border-left-color:#9d1b17; }
+.cat-election.v2 { color:#9d1787; border-left-color:#9d1787; }
+.cat-economy { color:#065f46; border-left-color:#065f46; }
+.chip-economy { background:#065f46; }
+.cat-economy.v1 { color:#06515f; border-left-color:#06515f; }
+.cat-economy.v2 { color:#065f1f; border-left-color:#065f1f; }
+.cat-world { color:#1e3a8a; border-left-color:#1e3a8a; }
+.chip-world { background:#1e3a8a; }
+.cat-world.v1 { color:#311e8a; border-left-color:#311e8a; }
+.cat-world.v2 { color:#1e698a; border-left-color:#1e698a; }
 .cat-local { color:#0e7490; border-left-color:#0e7490; }
 .chip-local { background:#0e7490; }
 .cat-local.v1 { color:#0e3c90; border-left-color:#0e3c90; }
@@ -132,6 +179,34 @@ h1.art { border-left:4px solid var(--line); padding-left:.7rem; }
   .chip-deal { background:#fde68a; color:#111; }
   .cat-deal.v1 { color:#e2fd8a; border-left-color:#e2fd8a; }
   .cat-deal.v2 { color:#fdb48a; border-left-color:#fdb48a; }
+  .cat-market { color:#6ee7b7; border-left-color:#6ee7b7; }
+  .chip-market { background:#6ee7b7; color:#111; }
+  .cat-market.v1 { color:#6ee3e7; border-left-color:#6ee3e7; }
+  .cat-market.v2 { color:#6ee783; border-left-color:#6ee783; }
+  .cat-tech { color:#93c5fd; border-left-color:#93c5fd; }
+  .chip-tech { background:#93c5fd; color:#111; }
+  .cat-tech.v1 { color:#9397fd; border-left-color:#9397fd; }
+  .cat-tech.v2 { color:#93f3fd; border-left-color:#93f3fd; }
+  .cat-edu { color:#fdba74; border-left-color:#fdba74; }
+  .chip-edu { background:#fdba74; color:#111; }
+  .cat-edu.v1 { color:#fdf574; border-left-color:#fdf574; }
+  .cat-edu.v2 { color:#fd7f74; border-left-color:#fd7f74; }
+  .cat-housing { color:#fdba74; border-left-color:#fdba74; }
+  .chip-housing { background:#fdba74; color:#111; }
+  .cat-housing.v1 { color:#fdf574; border-left-color:#fdf574; }
+  .cat-housing.v2 { color:#fd7f74; border-left-color:#fd7f74; }
+  .cat-election { color:#f9a8d4; border-left-color:#f9a8d4; }
+  .chip-election { background:#f9a8d4; color:#111; }
+  .cat-election.v1 { color:#f9a8b1; border-left-color:#f9a8b1; }
+  .cat-election.v2 { color:#f9a8f7; border-left-color:#f9a8f7; }
+  .cat-economy { color:#a7f3d0; border-left-color:#a7f3d0; }
+  .chip-economy { background:#a7f3d0; color:#111; }
+  .cat-economy.v1 { color:#a7f3f1; border-left-color:#a7f3f1; }
+  .cat-economy.v2 { color:#a7f3af; border-left-color:#a7f3af; }
+  .cat-world { color:#bfdbfe; border-left-color:#bfdbfe; }
+  .chip-world { background:#bfdbfe; color:#111; }
+  .cat-world.v1 { color:#bfc0fe; border-left-color:#bfc0fe; }
+  .cat-world.v2 { color:#bff6fe; border-left-color:#bff6fe; }
   .cat-local { color:#67e8f9; border-left-color:#67e8f9; }
   .chip-local { background:#67e8f9; color:#111; }
   .cat-local.v1 { color:#67a9f9; border-left-color:#67a9f9; }

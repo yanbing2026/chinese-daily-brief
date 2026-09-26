@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-Hans"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>非公民冒充美国公民投票，被联邦大陪审团起诉</title><link rel="stylesheet" href="../assets/style.css?v=79992c85"></head><body><div class="wrap">
+<title>非公民冒充美国公民投票，被联邦大陪审团起诉</title><link rel="stylesheet" href="../assets/style.css?v=79992c85"></head><body data-slug="2026-09-26-www-uscis-gov-70776508.html"><div class="wrap">
 <a class="back" href="../index.html">← 回首页</a>
 <h1 class="art">非公民冒充美国公民投票，被联邦大陪审团起诉</h1>
 <div class="art-meta cat-uscis">2026-09-26　·　原创　·　依据：🛂 移民局新闻（USCIS）（www.uscis.gov）</div>
@@ -19,4 +19,77 @@
 <p>1. 通过 USCIS Tip Form（举报表格）向 USCIS 提交线索，该渠道专门用于报告与移民福利相关的欺诈和滥用情况。 2. 如果涉及选举投票环节的违法行为，也可以向所在州的选举主管部门反映。</p>
 <p>如果你对自身身份权利有任何不确定之处，建议咨询持牌移民律师，切勿自行猜测或听信非专业人士的意见。</p>
 <div class="notice">本文为原创中文写作，依据当日公开英文资料整理；不含外链。文中日期与数字均核对自原始材料。</div>
-</div></body></html>
+</div>
+<section class="comments" id="comments">
+  <h3>读者评论</h3>
+  <div class="c-note">评论需经审核后显示。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
+  <div id="c-list"><div class="c-note">正在载入评论…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="称呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想补充什么？（2000 字以内）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="请勿填写">
+    <button type="submit" id="c-send">提交评论</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">还没有评论。欢迎做第一个。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">举报</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已举报，谢谢"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">评论载入失败（不影响阅读）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "内容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          msg.textContent = "已提交，等审核通过后显示。谢谢。";
+        } else {
+          msg.textContent = "没提交成功：" + ((res.j && res.j.error) || "服务暂时不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "没提交成功：网络或服务问题。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+</body></html>
