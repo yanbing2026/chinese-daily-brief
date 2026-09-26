@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-Hans"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>习特会晤与中美关系近期动态</title><link rel="stylesheet" href="../assets/style.css?v=6596e220"></head>
+<title>习特会晤与中美关系近期动态</title><link rel="stylesheet" href="../assets/style.css?v=b77b4975"></head>
 <body data-slug="2026-09-26-topic---610694.html"><div class="wrap">
 <a class="back" href="../index.html">← 回首页</a>
 <h1 class="art">习特会晤与中美关系近期动态</h1>
@@ -198,7 +198,65 @@
 })();
 </script>
 <div class="postnav"><a href="../index.html">首页</a><a href="../posts.html">往期</a></div><div class="postnav"><a href="../index.html">首页</a><a href="../posts.html">往期</a></div>
-<div class="postnav"><a href="../index.html">首页</a><a href="../posts.html">往期</a></div><!--tts:start--><script>
+<div class="postnav"><a href="../index.html">首页</a><a href="../posts.html">往期</a></div>
+<div class="postnav"><a href="../index.html">首页</a><a href="../posts.html">往期</a></div><!--sub:start-->
+<div class="subscribe" id="sub">
+  <strong>每天早上一封，只发原创</strong>
+  <span class="sub-note">在美华人资讯 · 简繁都有 · 不发广告 · 随时可退</span>
+  <form class="sub-form" novalidate>
+    <input class="sub-mail" type="email" name="email" placeholder="你的邮箱" autocomplete="email" required>
+    <input class="sub-hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="sub-btn" type="submit">订阅</button>
+  </form>
+  <div class="sub-msg" role="status" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  var box = document.getElementById("sub");
+  if (!box) return;
+  var form = box.querySelector(".sub-form"), msg = box.querySelector(".sub-msg");
+  var KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SB = "https://oyurhnzkpjltswspehaz.supabase.co";
+  try {
+    if (window.localStorage && localStorage.getItem("subbed") === "1") {
+      box.querySelector("strong").textContent = "✓ 已订阅";
+      form.style.display = "none";
+      msg.textContent = "想退订就回一封邮件说一声。";
+      return;
+    }
+  } catch (e) { /* 隐私模式下 localStorage 可能不可用，忽略 */ }
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var mail = form.querySelector(".sub-mail").value.trim();
+    var hp = form.querySelector(".sub-hp").value;
+    if (!/^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$/.test(mail)) {
+      msg.textContent = "邮箱写得不太对，再检查一下？"; return;
+    }
+    msg.textContent = "提交中…";
+    var btn = form.querySelector(".sub-btn"); btn.disabled = true;
+    fetch(SB + "/rest/v1/rpc/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": KEY, "Authorization": "Bearer " + KEY },
+      body: JSON.stringify({ p_email: mail, p_hp: hp })
+    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        btn.disabled = false;
+        if (res.ok && res.j && res.j.ok) {
+          try { localStorage.setItem("subbed", "1"); } catch (e) {}
+          box.querySelector("strong").textContent = "✓ 已订阅";
+          form.style.display = "none";
+          msg.textContent = "记下了。想退订回一封邮件就行。";
+        } else {
+          msg.textContent = (res.j && res.j.error) || "没提交成功，稍后再试一次。";
+        }
+      }).catch(function () {
+        btn.disabled = false;
+        msg.textContent = "网络没通，稍后再试一次。";
+      });
+  });
+})();
+</script><!--sub:end-->
+<!--tts:start--><script>
 (function () {
   if (!("speechSynthesis" in window)) return;            // 老浏览器直接安静退出
 

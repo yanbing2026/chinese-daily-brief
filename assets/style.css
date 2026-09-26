@@ -42,6 +42,19 @@ h1.art { border-left:4px solid var(--line); padding-left:.7rem; }
 .art-meta.cat-f1, .art-meta.cat-deal, .art-meta.cat-local, .art-meta.cat-other
   { opacity:.82; }
 /* 评论区 */
+.subscribe { margin:2.2rem 0 1rem; padding:1rem 1.1rem; background:var(--card);
+  border:1px solid var(--line); border-radius:.7rem; display:flex; flex-direction:column; gap:.5rem; }
+.subscribe strong { font-size:1rem; }
+.sub-note { color:var(--muted); font-size:.84rem; }
+.sub-form { display:flex; gap:.5rem; flex-wrap:wrap; }
+.sub-mail { flex:1 1 12rem; min-width:0; padding:.5rem .7rem; font:inherit; font-size:.9rem;
+  background:var(--bg); color:var(--fg); border:1px solid var(--line); border-radius:.5rem; }
+.sub-mail:focus { outline:none; border-color:var(--accent); }
+.sub-hp { position:absolute; left:-9999px; width:1px; height:1px; opacity:0; }  /* 蜜罐：真人看不见 */
+.sub-btn { padding:.5rem 1rem; font:inherit; font-size:.9rem; cursor:pointer;
+  background:var(--accent); color:#fff; border:1px solid var(--accent); border-radius:.5rem; }
+.sub-btn[disabled] { opacity:.6; cursor:default; }
+.sub-msg { color:var(--muted); font-size:.84rem; min-height:1.1rem; }
 .speak { background:var(--card); color:var(--fg); border:1px solid var(--line);
   border-radius:1rem; padding:.2rem .7rem; font:inherit; font-size:.84rem; cursor:pointer; }
 .speak:hover { border-color:var(--accent); color:var(--accent); }

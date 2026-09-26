@@ -3,18 +3,75 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>国际 · 在美华人每日简报</title>
 <meta name="description" content="在美华人每日简报：折扣、移民、政策、本地情报，自动采集，附原始链接。">
-<link rel="stylesheet" href="../assets/style.css?v=6596e220">
+<link rel="stylesheet" href="../assets/style.css?v=b77b4975">
 </head><body><div class="wrap">
 <header class="top">
   <div class="brand">在美华人每日简报</div>
-  <div class="sub">原创中文写作 · 读英文资料 → 自己写 ｜ 移民 · 政策 · 报税 · 本地情报 ｜ 更新：2026-09-26 18:53 EDT</div>
+  <div class="sub">原创中文写作 · 读英文资料 → 自己写 ｜ 移民 · 政策 · 报税 · 本地情报 ｜ 更新：2026-09-26 19:02 EDT</div>
   <nav><a href="../index.html">今日原创</a><a href="../posts.html">往期原创</a>
   <a href="https://github.com/yanbing2026/chinese-daily-brief">源码</a><a href="../tw/category/world.html">繁體</a></nav>
 </header>
 <h1 class="art cat-world"><span class="chip chip-world">国际</span>国际　<span class="cnt">2 篇</span></h1><div class="catnav"><a class="chip chip-uscis" href="../category/uscis.html">移民局 8</a><a class="chip chip-visa" href="../category/visa.html">签证 3</a><a class="chip chip-ai" href="../category/ai.html">AI 2</a><a class="chip chip-edu" href="../category/edu.html">教育 2</a><a class="chip chip-world here" href="../category/world.html">国际 2</a><a class="chip chip-cbp" href="../category/cbp.html">入境 1</a><a class="chip chip-economy" href="../category/economy.html">经济 1</a><a class="chip chip-election" href="../category/election.html">选举 1</a><a class="chip chip-fr" href="../category/fr.html">法规 1</a><a class="chip chip-housing" href="../category/housing.html">房产 1</a><a class="chip chip-market" href="../category/market.html">市场 1</a><a class="chip chip-tech" href="../category/tech.html">科技 1</a><a class="chip chip-welfare" href="../category/welfare.html">福利 1</a></div><ul class="toc"><li><a class="cat-world" href="../posts/2026-09-26-topic---610694.html">习特会晤与中美关系近期动态</a><div class="art-meta cat-world">2026-09-26　·　中美关系　·　516 字</div></li><li><a class="cat-world v1" href="../posts/2026-09-26-topic---610671.html">中美华盛顿峰会：关税减让与台湾交锋</a><div class="art-meta cat-world">2026-09-26　·　国际大事　·　703 字</div></li></ul>
 <footer>内容由脚本从公开源自动采集与翻译，仅供参考，不构成法律、税务或投资建议。
 本文档的标题与链接归原始作者所有。</footer>
-</div><!--tts:start--><script>
+</div><!--sub:start-->
+<div class="subscribe" id="sub">
+  <strong>每天早上一封，只发原创</strong>
+  <span class="sub-note">在美华人资讯 · 简繁都有 · 不发广告 · 随时可退</span>
+  <form class="sub-form" novalidate>
+    <input class="sub-mail" type="email" name="email" placeholder="你的邮箱" autocomplete="email" required>
+    <input class="sub-hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="sub-btn" type="submit">订阅</button>
+  </form>
+  <div class="sub-msg" role="status" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  var box = document.getElementById("sub");
+  if (!box) return;
+  var form = box.querySelector(".sub-form"), msg = box.querySelector(".sub-msg");
+  var KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SB = "https://oyurhnzkpjltswspehaz.supabase.co";
+  try {
+    if (window.localStorage && localStorage.getItem("subbed") === "1") {
+      box.querySelector("strong").textContent = "✓ 已订阅";
+      form.style.display = "none";
+      msg.textContent = "想退订就回一封邮件说一声。";
+      return;
+    }
+  } catch (e) { /* 隐私模式下 localStorage 可能不可用，忽略 */ }
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var mail = form.querySelector(".sub-mail").value.trim();
+    var hp = form.querySelector(".sub-hp").value;
+    if (!/^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$/.test(mail)) {
+      msg.textContent = "邮箱写得不太对，再检查一下？"; return;
+    }
+    msg.textContent = "提交中…";
+    var btn = form.querySelector(".sub-btn"); btn.disabled = true;
+    fetch(SB + "/rest/v1/rpc/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": KEY, "Authorization": "Bearer " + KEY },
+      body: JSON.stringify({ p_email: mail, p_hp: hp })
+    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        btn.disabled = false;
+        if (res.ok && res.j && res.j.ok) {
+          try { localStorage.setItem("subbed", "1"); } catch (e) {}
+          box.querySelector("strong").textContent = "✓ 已订阅";
+          form.style.display = "none";
+          msg.textContent = "记下了。想退订回一封邮件就行。";
+        } else {
+          msg.textContent = (res.j && res.j.error) || "没提交成功，稍后再试一次。";
+        }
+      }).catch(function () {
+        btn.disabled = false;
+        msg.textContent = "网络没通，稍后再试一次。";
+      });
+  });
+})();
+</script><!--sub:end-->
+<!--tts:start--><script>
 (function () {
   if (!("speechSynthesis" in window)) return;            // 老浏览器直接安静退出
 
