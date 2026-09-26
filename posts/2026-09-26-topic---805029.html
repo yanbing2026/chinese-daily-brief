@@ -1,0 +1,92 @@
+<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>新墨西哥口岸重开与边境查缉动态</title><link rel="stylesheet" href="../assets/style.css?v=a31ea55e"></head>
+<body data-slug="2026-09-26-topic---805029.html"><div class="wrap">
+<a class="back" href="../index.html">← 回首页</a>
+<h1 class="art">新墨西哥口岸重开与边境查缉动态</h1>
+<div class="art-meta cat-cbp">2026-09-26　·　原创　·　依据 24 家来源：U.S. Customs and Border Protection (.gov)、Yahoo Finance、KFOX、KVIA、AG INFORMATION NETWORK OF THE WEST、Southeast AgNET、BorderReport、KDBC、Grand Forks Herald、Laredo Morning Times、El Paso Matters、San Antonio Express-News</div>
+<h2>Santa Teresa活畜口岸时隔一年重开</h2>
+<p>新墨西哥州Santa Teresa活畜口岸在因螺旋蝇（screwworm）疫情关闭约一年后重新开放，美国农业部（USDA）主导此次重开。多家媒体对重开的报道一致，口岸恢复后墨西哥方面的活畜贸易通道重新打通，墨西哥牧场主此前已在为此做准备，牛只出口贸易随之恢复。该口岸是美墨边境重要的活畜贸易节点，重开标志着跨境农业贸易的恢复。</p>
+<h2>Laredo口岸查获逾153磅毒品</h2>
+<p>DPS通报，在Laredo口岸的一次检查中，执法人员查获超过153磅毒品，2人因此被捕。该案件发生于边境口岸例行检查过程中，反映口岸查缉在打击毒品走私中持续发挥作用。</p>
+<h2>CBP完成全美首次入侵性害虫截获</h2>
+<p>美国海关与边境保护局（CBP）在George Bush Intercontinental Airport完成了一项全美首次的农业保护拦截行动。官方通报将此定性为首次在入境口岸截获病原体（pathogen），另有报道将所截获物描述为入侵性飞蛾，以及此前从未在美国口岸出现的大型鳞虫。不同来源对具体截获物的描述存在差异，准确信息以CBP官方口径为准。这类截获通常与保护美国农业免受外来有害生物侵害有关。</p>
+<h2>对在美华人的意义</h2>
+<p>上述动态反映出边境口岸在多个层面同时运作：农业贸易通道的重开、违禁品的查缉以及生物安全防线的建设。对从事农产品跨境贸易的华人商户而言，Santa Teresa口岸的恢复为美墨贸易往来重新打开了通道；对于经常往返中美的华人，口岸检查的严格程度提醒大家在出入境时如实申报所携物品，避免因携带违禁品或未申报物品而面临法律风险。</p>
+<div class="notice">本文为原创中文写作：事实取自上述来源的公开报道并重新组织，
+未沿用任何来源的成段表达；不含外链。涉及政策与法律的内容仅供参考，
+具体个案请咨询持牌专业人士。</div>
+</div>
+<section class="comments" id="comments">
+  <h3>读者评论</h3>
+  <div class="c-note">评论需经审核后显示。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
+  <div id="c-list"><div class="c-note">正在载入评论…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="称呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想补充什么？（2000 字以内）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="请勿填写">
+    <button type="submit" id="c-send">提交评论</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">还没有评论。欢迎做第一个。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">举报</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已举报，谢谢"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">评论载入失败（不影响阅读）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "内容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          msg.textContent = "已提交，等审核通过后显示。谢谢。";
+        } else {
+          msg.textContent = "没提交成功：" + ((res.j && res.j.error) || "服务暂时不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "没提交成功：网络或服务问题。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+</body></html>

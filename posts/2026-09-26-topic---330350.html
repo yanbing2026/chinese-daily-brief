@@ -1,0 +1,88 @@
+<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>30年期房贷利率重返7%，20个月来首次</title><link rel="stylesheet" href="../assets/style.css?v=a31ea55e"></head>
+<body data-slug="2026-09-26-topic---330350.html"><div class="wrap">
+<a class="back" href="../index.html">← 回首页</a>
+<h1 class="art">30年期房贷利率重返7%，20个月来首次</h1>
+<div class="art-meta cat-housing">2026-09-26　·　原创　·　依据 24 家来源：NPR、National Association of REALTORS®、WSJ、Yahoo Finance、ABC News - Breaking News, Latest News and Videos、NJ Spotlight News、KCRA、The New York Times、National Mortgage Professional、CBS News、WCTV、The Week</div>
+<p>美国30年期房贷平均利率近期再度突破7%，多家媒体在2026年9月下旬密集报道了这一变化。Yahoo Finance 于9月20日刊出的利率日更显示，房贷与再融资利率较前一周继续上行；Fortune 在9月25日的更新中又提到利率再度跳升。就"重回7%以上"这一事实，各家口径基本一致：ABC News 称这是30年期房贷平均利率连续第5周上涨，并已触及20个月来的最高水平；The Guardian 同样以"20个月来首次"表述；KCRA 与 Fox Business 则写作"自2025年1月以来首次"、"自2025年初以来首次"。NPR 的表述较为笼统，只说利率"一年多来首次超过7%"。三组说法指向同一时间窗口，差异只在起算点的选取上。</p>
+<p>具体点位上，媒体给出的数字略有差别。CNBC 报道利率升至7.45%，Mortgage News Daily 称已逼近7.5%，而"7%"是各家共同确认的整数关口。这些点位来自市场报价机构的测算，并非美联储设定的官方利率；美联储的联邦基金利率与房贷市场利率是两回事，读者不宜混为一谈。</p>
+<p>关于推升原因，NPR 将矛头指向美债收益率的上行，认为这加深了美国房市的僵局；The New York Times 则把伊朗战事的外溢效应列为压力来源之一，称其冲击了本已疲弱的房市。CNN、WCTV 等媒体在标题中共同确认的另一个事实是：本就"冻结"的房市因利率重返7%而进一步承压，住房可负担性危机加深。</p>
+<p>对在美华人而言，这意味着购房月供和再融资成本同步走高，市场上已有买家因价格与利率双重挤压而离场。NAR 的内容显示，部分买家正在转向能提供更低利率的渠道；National Mortgage Professional 也提到，建筑商正以某种方式争取买家。如果你近期有买房或再融资计划，可以把几件事放在同一张表上比较：锁定利率的时机、建筑商或卖方提供的利率买断优惠、以及不同贷款机构的报价差异。对未来五年的利率走向，Yahoo Finance 给出了延续至2031年的预测框架，CBS News 也在追问利率还能涨多高——但在数字落地之前，把预算按"利率维持在7%以上"来测算，会比押注利率回落更稳妥。</p>
+<div class="notice">本文为原创中文写作：事实取自上述来源的公开报道并重新组织，
+未沿用任何来源的成段表达；不含外链。涉及政策与法律的内容仅供参考，
+具体个案请咨询持牌专业人士。</div>
+</div>
+<section class="comments" id="comments">
+  <h3>读者评论</h3>
+  <div class="c-note">评论需经审核后显示。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
+  <div id="c-list"><div class="c-note">正在载入评论…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="称呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想补充什么？（2000 字以内）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="请勿填写">
+    <button type="submit" id="c-send">提交评论</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">还没有评论。欢迎做第一个。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">举报</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已举报，谢谢"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">评论载入失败（不影响阅读）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "内容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          msg.textContent = "已提交，等审核通过后显示。谢谢。";
+        } else {
+          msg.textContent = "没提交成功：" + ((res.j && res.j.error) || "服务暂时不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "没提交成功：网络或服务问题。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+</body></html>
