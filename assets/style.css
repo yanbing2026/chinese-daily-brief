@@ -42,7 +42,10 @@ h1.art { border-left:4px solid var(--line); padding-left:.7rem; }
 .art-meta.cat-f1, .art-meta.cat-deal, .art-meta.cat-local, .art-meta.cat-other
   { opacity:.82; }
 /* 评论区 */
-.comments { margin-top:2.2rem; padding-top:1.2rem; border-top:1px solid var(--line); }
+.c-link { margin-top:.55rem; font-size:.88rem; }
+.c-link a { color:var(--accent); text-decoration:none; }
+.c-link a:hover { text-decoration:underline; }
+.comments { margin-top:2.2rem, padding-top:1.2rem; border-top:1px solid var(--line); }
 .comments h3 { font-size:1.05rem; margin:0 0 .2rem; }
 .comments .c-note { color:var(--muted); font-size:.84rem; margin-bottom:.9rem; }
 .c-item { background:var(--card); border:1px solid var(--line); border-radius:.5rem;
