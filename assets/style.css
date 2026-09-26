@@ -45,99 +45,99 @@ h1.art { border-left:4px solid var(--line); padding-left:.7rem; }
   color:#fff; margin-right:.4rem; vertical-align:.08em; }
 .cat-uscis { color:#1d4ed8; border-left-color:#1d4ed8; }
 .chip-uscis { background:#1d4ed8; }
-.cat-uscis.v1 { color:#4f75e1; border-left-color:#4f75e1; }
-.cat-uscis.v2 { color:#7795e8; border-left-color:#7795e8; }
+.cat-uscis.v1 { color:#3d1dd8; border-left-color:#3d1dd8; }
+.cat-uscis.v2 { color:#1d9fd8; border-left-color:#1d9fd8; }
 .cat-fr { color:#6d28d9; border-left-color:#6d28d9; }
 .chip-fr { background:#6d28d9; }
-.cat-fr.v1 { color:#8d57e1; border-left-color:#8d57e1; }
-.cat-fr.v2 { color:#a77ee8; border-left-color:#a77ee8; }
+.cat-fr.v1 { color:#ba28d9; border-left-color:#ba28d9; }
+.cat-fr.v2 { color:#2830d9; border-left-color:#2830d9; }
 .cat-visa { color:#b45309; border-left-color:#b45309; }
 .chip-visa { background:#b45309; }
-.cat-visa.v1 { color:#c4793f; border-left-color:#c4793f; }
-.cat-visa.v2 { color:#d2986b; border-left-color:#d2986b; }
+.cat-visa.v1 { color:#b49d09; border-left-color:#b49d09; }
+.cat-visa.v2 { color:#b40909; border-left-color:#b40909; }
 .cat-greencard { color:#0f766e; border-left-color:#0f766e; }
 .chip-greencard { background:#0f766e; }
-.cat-greencard.v1 { color:#44948e; border-left-color:#44948e; }
-.cat-greencard.v2 { color:#6fada8; border-left-color:#6fada8; }
+.cat-greencard.v1 { color:#0f5176; border-left-color:#0f5176; }
+.cat-greencard.v2 { color:#0f7641; border-left-color:#0f7641; }
 .cat-welfare { color:#be123c; border-left-color:#be123c; }
 .chip-welfare { background:#be123c; }
-.cat-welfare.v1 { color:#cc4667; border-left-color:#cc4667; }
-.cat-welfare.v2 { color:#d8718a; border-left-color:#d8718a; }
+.cat-welfare.v1 { color:#be3312; border-left-color:#be3312; }
+.cat-welfare.v2 { color:#be1287; border-left-color:#be1287; }
 .cat-tax { color:#15803d; border-left-color:#15803d; }
 .chip-tax { background:#15803d; }
-.cat-tax.v1 { color:#489c68; border-left-color:#489c68; }
-.cat-tax.v2 { color:#73b38b; border-left-color:#73b38b; }
+.cat-tax.v1 { color:#15806b; border-left-color:#15806b; }
+.cat-tax.v2 { color:#1b8015; border-left-color:#1b8015; }
 .cat-cbp { color:#0369a1; border-left-color:#0369a1; }
 .chip-cbp { background:#0369a1; }
-.cat-cbp.v1 { color:#3a8ab6; border-left-color:#3a8ab6; }
-.cat-cbp.v2 { color:#68a5c7; border-left-color:#68a5c7; }
+.cat-cbp.v1 { color:#0325a1; border-left-color:#0325a1; }
+.cat-cbp.v2 { color:#03a195; border-left-color:#03a195; }
 .cat-community { color:#4338ca; border-left-color:#4338ca; }
 .chip-community { background:#4338ca; }
-.cat-community.v1 { color:#6c64d6; border-left-color:#6c64d6; }
-.cat-community.v2 { color:#8e88df; border-left-color:#8e88df; }
+.cat-community.v1 { color:#8238ca; border-left-color:#8238ca; }
+.cat-community.v2 { color:#386cca; border-left-color:#386cca; }
 .cat-f1 { color:#a21caf; border-left-color:#a21caf; }
 .chip-f1 { background:#a21caf; }
-.cat-f1.v1 { color:#b64ec1; border-left-color:#b64ec1; }
-.cat-f1.v2 { color:#c777cf; border-left-color:#c777cf; }
+.cat-f1.v1 { color:#af1c7c; border-left-color:#af1c7c; }
+.cat-f1.v2 { color:#621caf; border-left-color:#621caf; }
 .cat-deal { color:#a16207; border-left-color:#a16207; }
 .chip-deal { background:#a16207; }
-.cat-deal.v1 { color:#b6853e; border-left-color:#b6853e; }
-.cat-deal.v2 { color:#c7a16a; border-left-color:#c7a16a; }
+.cat-deal.v1 { color:#9da107; border-left-color:#9da107; }
+.cat-deal.v2 { color:#a11f07; border-left-color:#a11f07; }
 .cat-local { color:#0e7490; border-left-color:#0e7490; }
 .chip-local { background:#0e7490; }
-.cat-local.v1 { color:#4393a8; border-left-color:#4393a8; }
-.cat-local.v2 { color:#6eacbc; border-left-color:#6eacbc; }
+.cat-local.v1 { color:#0e3c90; border-left-color:#0e3c90; }
+.cat-local.v2 { color:#0e9074; border-left-color:#0e9074; }
 .cat-other { color:#525252; border-left-color:#525252; }
 .chip-other { background:#525252; }
-.cat-other.v1 { color:#787878; border-left-color:#787878; }
-.cat-other.v2 { color:#979797; border-left-color:#979797; }
+.cat-other.v1 { color:#525252; border-left-color:#525252; }
+.cat-other.v2 { color:#525252; border-left-color:#525252; }
 @media (prefers-color-scheme: dark) {
   .cat-uscis { color:#93b4fd; border-left-color:#93b4fd; }
   .chip-uscis { background:#93b4fd; color:#111; }
-  .cat-uscis.v1 { color:#abc4fd; border-left-color:#abc4fd; }
-  .cat-uscis.v2 { color:#bed2fe; border-left-color:#bed2fe; }
+  .cat-uscis.v1 { color:#a093fd; border-left-color:#a093fd; }
+  .cat-uscis.v2 { color:#93e2fd; border-left-color:#93e2fd; }
   .cat-fr { color:#c4b5fd; border-left-color:#c4b5fd; }
   .chip-fr { background:#c4b5fd; color:#111; }
-  .cat-fr.v1 { color:#d1c5fd; border-left-color:#d1c5fd; }
-  .cat-fr.v2 { color:#dcd3fe; border-left-color:#dcd3fe; }
+  .cat-fr.v1 { color:#e3b5fd; border-left-color:#e3b5fd; }
+  .cat-fr.v2 { color:#b5c5fd; border-left-color:#b5c5fd; }
   .cat-visa { color:#fcd34d; border-left-color:#fcd34d; }
   .chip-visa { background:#fcd34d; color:#111; }
-  .cat-visa.v1 { color:#fddd74; border-left-color:#fddd74; }
-  .cat-visa.v2 { color:#fde594; border-left-color:#fde594; }
+  .cat-visa.v1 { color:#d9fc4d; border-left-color:#d9fc4d; }
+  .cat-visa.v2 { color:#fc874d; border-left-color:#fc874d; }
   .cat-greencard { color:#5eead4; border-left-color:#5eead4; }
   .chip-greencard { background:#5eead4; color:#111; }
-  .cat-greencard.v1 { color:#81efdd; border-left-color:#81efdd; }
-  .cat-greencard.v2 { color:#9ef2e5; border-left-color:#9ef2e5; }
+  .cat-greencard.v1 { color:#5ec3ea; border-left-color:#5ec3ea; }
+  .cat-greencard.v2 { color:#5eea97; border-left-color:#5eea97; }
   .cat-welfare { color:#fda4af; border-left-color:#fda4af; }
   .chip-welfare { background:#fda4af; color:#111; }
-  .cat-welfare.v1 { color:#fdb8c1; border-left-color:#fdb8c1; }
-  .cat-welfare.v2 { color:#fec8cf; border-left-color:#fec8cf; }
+  .cat-welfare.v1 { color:#fdc0a4; border-left-color:#fdc0a4; }
+  .cat-welfare.v2 { color:#fda4d6; border-left-color:#fda4d6; }
   .cat-tax { color:#86efac; border-left-color:#86efac; }
   .chip-tax { background:#86efac; color:#111; }
-  .cat-tax.v1 { color:#a1f3be; border-left-color:#a1f3be; }
-  .cat-tax.v2 { color:#b6f5cd; border-left-color:#b6f5cd; }
+  .cat-tax.v1 { color:#86efda; border-left-color:#86efda; }
+  .cat-tax.v2 { color:#8eef86; border-left-color:#8eef86; }
   .cat-cbp { color:#7dd3fc; border-left-color:#7dd3fc; }
   .chip-cbp { background:#7dd3fc; color:#111; }
-  .cat-cbp.v1 { color:#9addfd; border-left-color:#9addfd; }
-  .cat-cbp.v2 { color:#b1e5fd; border-left-color:#b1e5fd; }
+  .cat-cbp.v1 { color:#7d9cfc; border-left-color:#7d9cfc; }
+  .cat-cbp.v2 { color:#7dfcee; border-left-color:#7dfcee; }
   .cat-community { color:#a5b4fc; border-left-color:#a5b4fc; }
   .chip-community { background:#a5b4fc; color:#111; }
-  .cat-community.v1 { color:#b9c4fd; border-left-color:#b9c4fd; }
-  .cat-community.v2 { color:#c9d2fd; border-left-color:#c9d2fd; }
+  .cat-community.v1 { color:#bca5fc; border-left-color:#bca5fc; }
+  .cat-community.v2 { color:#a5dafc; border-left-color:#a5dafc; }
   .cat-f1 { color:#f0abfc; border-left-color:#f0abfc; }
   .chip-f1 { background:#f0abfc; color:#111; }
-  .cat-f1.v1 { color:#f3bdfd; border-left-color:#f3bdfd; }
-  .cat-f1.v2 { color:#f6cdfd; border-left-color:#f6cdfd; }
+  .cat-f1.v1 { color:#fcabe5; border-left-color:#fcabe5; }
+  .cat-f1.v2 { color:#cdabfc; border-left-color:#cdabfc; }
   .cat-deal { color:#fde68a; border-left-color:#fde68a; }
   .chip-deal { background:#fde68a; color:#111; }
-  .cat-deal.v1 { color:#fdeca4; border-left-color:#fdeca4; }
-  .cat-deal.v2 { color:#fef0b9; border-left-color:#fef0b9; }
+  .cat-deal.v1 { color:#e2fd8a; border-left-color:#e2fd8a; }
+  .cat-deal.v2 { color:#fdb48a; border-left-color:#fdb48a; }
   .cat-local { color:#67e8f9; border-left-color:#67e8f9; }
   .chip-local { background:#67e8f9; color:#111; }
-  .cat-local.v1 { color:#88edfa; border-left-color:#88edfa; }
-  .cat-local.v2 { color:#a4f1fb; border-left-color:#a4f1fb; }
+  .cat-local.v1 { color:#67a9f9; border-left-color:#67a9f9; }
+  .cat-local.v2 { color:#67f9cb; border-left-color:#67f9cb; }
   .cat-other { color:#d4d4d4; border-left-color:#d4d4d4; }
   .chip-other { background:#d4d4d4; color:#111; }
-  .cat-other.v1 { color:#dddddd; border-left-color:#dddddd; }
-  .cat-other.v2 { color:#e5e5e5; border-left-color:#e5e5e5; }
+  .cat-other.v1 { color:#d4d4d4; border-left-color:#d4d4d4; }
+  .cat-other.v2 { color:#d4d4d4; border-left-color:#d4d4d4; }
 }
