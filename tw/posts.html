@@ -7,7 +7,7 @@
 </head><body><div class="wrap">
 <header class="top">
   <div class="brand">在美華人每日簡報</div>
-  <div class="sub">原創中文寫作 · 讀英文資料 → 自己寫 ｜ 移民 · 政策 · 報稅 · 本地情報 ｜ 更新：2026-09-26 18:49 EDT</div>
+  <div class="sub">原創中文寫作 · 讀英文資料 → 自己寫 ｜ 移民 · 政策 · 報稅 · 本地情報 ｜ 更新：2026-09-26 18:53 EDT</div>
   <nav><a href="index.html">今日原創</a><a href="posts.html">往期原創</a>
   <a href="https://github.com/yanbing2026/chinese-daily-brief">源碼</a><a href="../posts.html">簡體</a></nav>
 </header>
@@ -36,22 +36,37 @@
     return null;
   }
 
+  // 只念**標題 + 正文**：不念頁頭（站名/副標題）、meta 行（日期·欄目·字數）、
+  // 欄目條、免責聲明、評論。做法是"白名單取元素"，而不是"整塊減去黑名單"——
+  // 後者會把頁頭之類的東西順帶念出來。
+  var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta, script, style, nav";
+
   function textOf(region) {
-    var c = region.cloneNode(true);
-    // 去掉不該唸的部分：評論、免責聲明、導航、腳本
-    var drop = ".comments, .notice, .postnav, .c-link, .catnav, .speak, script, style, nav";
-    Array.prototype.forEach.call(c.querySelectorAll(drop), function (n) {
-      n.parentNode && n.parentNode.removeChild(n);
-    });
-    var t = (c.innerText || c.textContent || "").replace(/\s+/g, " ").trim();
-    return t;
+    var out = [];
+    var h = region.querySelector("h1");
+    if (h) {
+      var hc = h.cloneNode(true);
+      Array.prototype.forEach.call(hc.querySelectorAll(".chip, .cnt"), function (n) {
+        n.parentNode && n.parentNode.removeChild(n);
+      });
+      var ht = (hc.innerText || hc.textContent || "").replace(/\s+/g, " ").trim();
+      if (ht) out.push(ht);
+    }
+    var nodes = region.querySelectorAll("h2, h3, p");
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (n.closest && n.closest(SKIP)) continue;
+      var t = (n.innerText || n.textContent || "").replace(/\s+/g, " ").trim();
+      if (t) out.push(t);
+    }
+    return out.join("\n");
   }
 
   // 長文切成小段排隊，避免部分瀏覽器對單次朗讀有長度/時長限制。
   // 不用 lookbehind 正則（(?<=...)）：老版本 Safari 解析階段就報錯，會讓整段腳本失效。
   function chunk(text) {
     var out = [], buf = "";
-    var parts = text.split(/([。！？!?；;])/);
+    var parts = text.split(/([。！？!?；;\n])/);
     for (var i = 0; i < parts.length; i += 2) {
       var piece = (parts[i] || "") + (parts[i + 1] || "");
       if (!piece.trim()) continue;
