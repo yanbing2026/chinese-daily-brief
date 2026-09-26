@@ -3,15 +3,126 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>房产 · 在美华人每日简报</title>
 <meta name="description" content="在美华人每日简报：折扣、移民、政策、本地情报，自动采集，附原始链接。">
-<link rel="stylesheet" href="../assets/style.css?v=5d0ad3db">
+<link rel="stylesheet" href="../assets/style.css?v=6596e220">
 </head><body><div class="wrap">
 <header class="top">
   <div class="brand">在美华人每日简报</div>
-  <div class="sub">原创中文写作 · 读英文资料 → 自己写 ｜ 移民 · 政策 · 报税 · 本地情报 ｜ 更新：2026-09-26 18:47 EDT</div>
+  <div class="sub">原创中文写作 · 读英文资料 → 自己写 ｜ 移民 · 政策 · 报税 · 本地情报 ｜ 更新：2026-09-26 18:49 EDT</div>
   <nav><a href="../index.html">今日原创</a><a href="../posts.html">往期原创</a>
   <a href="https://github.com/yanbing2026/chinese-daily-brief">源码</a><a href="../tw/category/housing.html">繁體</a></nav>
 </header>
 <h1 class="art cat-housing"><span class="chip chip-housing">房产</span>房产　<span class="cnt">1 篇</span></h1><div class="catnav"><a class="chip chip-uscis" href="../category/uscis.html">移民局 8</a><a class="chip chip-visa" href="../category/visa.html">签证 3</a><a class="chip chip-ai" href="../category/ai.html">AI 2</a><a class="chip chip-edu" href="../category/edu.html">教育 2</a><a class="chip chip-world" href="../category/world.html">国际 2</a><a class="chip chip-cbp" href="../category/cbp.html">入境 1</a><a class="chip chip-economy" href="../category/economy.html">经济 1</a><a class="chip chip-election" href="../category/election.html">选举 1</a><a class="chip chip-fr" href="../category/fr.html">法规 1</a><a class="chip chip-housing here" href="../category/housing.html">房产 1</a><a class="chip chip-market" href="../category/market.html">市场 1</a><a class="chip chip-tech" href="../category/tech.html">科技 1</a><a class="chip chip-welfare" href="../category/welfare.html">福利 1</a></div><ul class="toc"><li><a class="cat-housing" href="../posts/2026-09-26-topic---330350.html">30年期房贷利率重返7%，20个月来首次</a><div class="art-meta cat-housing">2026-09-26　·　房贷与房价　·　612 字</div></li></ul>
 <footer>内容由脚本从公开源自动采集与翻译，仅供参考，不构成法律、税务或投资建议。
 本文档的标题与链接归原始作者所有。</footer>
-</div></body></html>
+</div><!--tts:start--><script>
+(function () {
+  if (!("speechSynthesis" in window)) return;            // 老浏览器直接安静退出
+
+  // zh-Hans / zh-Hant 映射到语音引擎认的 BCP-47 标签
+  var pageLang = (document.documentElement.lang || "zh-Hans");
+  var lang = pageLang.indexOf("Hant") >= 0 ? "zh-TW" : "zh-CN";
+
+  function pickVoice() {
+    var wants = lang.toLowerCase();
+    var vs = window.speechSynthesis.getVoices() || [];
+    for (var i = 0; i < vs.length; i++) {
+      var l = (vs[i].lang || "").replace("_", "-").toLowerCase();
+      if (l === wants) return vs[i];
+    }
+    for (var j = 0; j < vs.length; j++) {
+      var l2 = (vs[j].lang || "").replace("_", "-").toLowerCase();
+      if (l2.indexOf(wants.split("-")[0]) === 0) return vs[j];
+    }
+    return null;
+  }
+
+  function textOf(region) {
+    var c = region.cloneNode(true);
+    // 去掉不该念的部分：评论、免责声明、导航、脚本
+    var drop = ".comments, .notice, .postnav, .c-link, .catnav, .speak, script, style, nav";
+    Array.prototype.forEach.call(c.querySelectorAll(drop), function (n) {
+      n.parentNode && n.parentNode.removeChild(n);
+    });
+    var t = (c.innerText || c.textContent || "").replace(/\s+/g, " ").trim();
+    return t;
+  }
+
+  // 长文切成小段排队，避免部分浏览器对单次朗读有长度/时长限制。
+  // 不用 lookbehind 正则（(?<=...)）：老版本 Safari 解析阶段就报错，会让整段脚本失效。
+  function chunk(text) {
+    var out = [], buf = "";
+    var parts = text.split(/([。！？!?；;])/);
+    for (var i = 0; i < parts.length; i += 2) {
+      var piece = (parts[i] || "") + (parts[i + 1] || "");
+      if (!piece.trim()) continue;
+      if ((buf + piece).length > 220 && buf) { out.push(buf); buf = ""; }
+      buf += piece;
+    }
+    if (buf.trim()) out.push(buf);
+    return out;
+  }
+
+  var current = null;      // 正在朗读的按钮
+
+  function stop() {
+    window.speechSynthesis.cancel();
+    if (current) { current.textContent = "🔊 朗读"; current = null; }
+  }
+
+  function speak(btn, region) {
+    stop();
+    var text = textOf(region);
+    if (text.length < 20) return;
+    var voice = pickVoice();
+    var pieces = chunk(text);
+    pieces.forEach(function (piece, i) {
+      var u = new SpeechSynthesisUtterance(piece);
+      u.lang = lang;
+      if (voice) u.voice = voice;
+      u.rate = 0.95; u.pitch = 1;
+      if (i === pieces.length - 1) {
+        u.onend = function () { if (current === btn) { btn.textContent = "🔊 朗读"; current = null; } };
+      }
+      window.speechSynthesis.speak(u);
+    });
+    btn.textContent = "⏹ 停止";
+    current = btn;
+  }
+
+  function makeButton(region, host) {
+    var btn = document.createElement("button");
+    btn.className = "speak";
+    btn.type = "button";
+    btn.textContent = "🔊 朗读";
+    btn.setAttribute("aria-label", "朗读本文");
+    btn.addEventListener("click", function () {
+      if (current === btn) { stop(); } else { speak(btn, region); }
+    });
+    host.appendChild(btn);
+    return btn;
+  }
+
+  function mount() {
+    var arts = document.querySelectorAll("article");
+    if (arts.length) {
+      Array.prototype.forEach.call(arts, function (a) {
+        if (a.querySelector(".speak")) return;
+        var host = a.querySelector(".c-link") || a;
+        makeButton(a, host);
+      });
+      return;
+    }
+    // 单篇页：没有 <article>，整块 .wrap 当朗读区域，按钮放到导航条里
+    var wrap = document.querySelector(".wrap");
+    if (!wrap || wrap.querySelector(".speak")) return;
+    var host = wrap.querySelector(".postnav") || wrap.querySelector("h1");
+    if (host) makeButton(wrap, host);
+  }
+
+  window.addEventListener("pagehide", stop);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--tts:end-->
+</body></html>

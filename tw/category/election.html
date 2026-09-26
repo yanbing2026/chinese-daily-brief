@@ -3,15 +3,126 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>選舉 · 在美華人每日簡報</title>
 <meta name="description" content="在美華人每日簡報：折扣、移民、政策、本地情報，自動採集，附原始鏈接。">
-<link rel="stylesheet" href="../assets/style.css?v=5d0ad3db">
+<link rel="stylesheet" href="../assets/style.css?v=6596e220">
 </head><body><div class="wrap">
 <header class="top">
   <div class="brand">在美華人每日簡報</div>
-  <div class="sub">原創中文寫作 · 讀英文資料 → 自己寫 ｜ 移民 · 政策 · 報稅 · 本地情報 ｜ 更新：2026-09-26 18:47 EDT</div>
+  <div class="sub">原創中文寫作 · 讀英文資料 → 自己寫 ｜ 移民 · 政策 · 報稅 · 本地情報 ｜ 更新：2026-09-26 18:49 EDT</div>
   <nav><a href="../index.html">今日原創</a><a href="../posts.html">往期原創</a>
   <a href="https://github.com/yanbing2026/chinese-daily-brief">源碼</a><a href="../../category/election.html">簡體</a></nav>
 </header>
 <h1 class="art cat-election"><span class="chip chip-election">選舉</span>選舉　<span class="cnt">1 篇</span></h1><div class="catnav"><a class="chip chip-uscis" href="../category/uscis.html">移民局 8</a><a class="chip chip-visa" href="../category/visa.html">簽證 3</a><a class="chip chip-ai" href="../category/ai.html">AI 2</a><a class="chip chip-edu" href="../category/edu.html">教育 2</a><a class="chip chip-world" href="../category/world.html">國際 2</a><a class="chip chip-cbp" href="../category/cbp.html">入境 1</a><a class="chip chip-economy" href="../category/economy.html">經濟 1</a><a class="chip chip-election here" href="../category/election.html">選舉 1</a><a class="chip chip-fr" href="../category/fr.html">法規 1</a><a class="chip chip-housing" href="../category/housing.html">房產 1</a><a class="chip chip-market" href="../category/market.html">市場 1</a><a class="chip chip-tech" href="../category/tech.html">科技 1</a><a class="chip chip-welfare" href="../category/welfare.html">福利 1</a></div><ul class="toc"><li><a class="cat-election" href="../posts/2026-09-26-topic---721569.html">2026中期選舉：投票準備與公投議題升溫</a><div class="art-meta cat-election">2026-09-26　·　競選與選舉　·　712 字</div></li></ul>
 <footer>內容由腳本從公開源自動採集與翻譯，僅供參考，不構成法律、稅務或投資建議。
 本文檔的標題與鏈接歸原始作者所有。</footer>
-</div></body></html>
+</div><!--tts:start--><script>
+(function () {
+  if (!("speechSynthesis" in window)) return;            // 老瀏覽器直接安靜退出
+
+  // zh-Hant / zh-Hant 映射到語音引擎認的 BCP-47 標籤
+  var pageLang = (document.documentElement.lang || "zh-Hant");
+  var lang = pageLang.indexOf("Hant") >= 0 ? "zh-TW" : "zh-CN";
+
+  function pickVoice() {
+    var wants = lang.toLowerCase();
+    var vs = window.speechSynthesis.getVoices() || [];
+    for (var i = 0; i < vs.length; i++) {
+      var l = (vs[i].lang || "").replace("_", "-").toLowerCase();
+      if (l === wants) return vs[i];
+    }
+    for (var j = 0; j < vs.length; j++) {
+      var l2 = (vs[j].lang || "").replace("_", "-").toLowerCase();
+      if (l2.indexOf(wants.split("-")[0]) === 0) return vs[j];
+    }
+    return null;
+  }
+
+  function textOf(region) {
+    var c = region.cloneNode(true);
+    // 去掉不該唸的部分：評論、免責聲明、導航、腳本
+    var drop = ".comments, .notice, .postnav, .c-link, .catnav, .speak, script, style, nav";
+    Array.prototype.forEach.call(c.querySelectorAll(drop), function (n) {
+      n.parentNode && n.parentNode.removeChild(n);
+    });
+    var t = (c.innerText || c.textContent || "").replace(/\s+/g, " ").trim();
+    return t;
+  }
+
+  // 長文切成小段排隊，避免部分瀏覽器對單次朗讀有長度/時長限制。
+  // 不用 lookbehind 正則（(?<=...)）：老版本 Safari 解析階段就報錯，會讓整段腳本失效。
+  function chunk(text) {
+    var out = [], buf = "";
+    var parts = text.split(/([。！？!?；;])/);
+    for (var i = 0; i < parts.length; i += 2) {
+      var piece = (parts[i] || "") + (parts[i + 1] || "");
+      if (!piece.trim()) continue;
+      if ((buf + piece).length > 220 && buf) { out.push(buf); buf = ""; }
+      buf += piece;
+    }
+    if (buf.trim()) out.push(buf);
+    return out;
+  }
+
+  var current = null;      // 正在朗讀的按鈕
+
+  function stop() {
+    window.speechSynthesis.cancel();
+    if (current) { current.textContent = "🔊 朗讀"; current = null; }
+  }
+
+  function speak(btn, region) {
+    stop();
+    var text = textOf(region);
+    if (text.length < 20) return;
+    var voice = pickVoice();
+    var pieces = chunk(text);
+    pieces.forEach(function (piece, i) {
+      var u = new SpeechSynthesisUtterance(piece);
+      u.lang = lang;
+      if (voice) u.voice = voice;
+      u.rate = 0.95; u.pitch = 1;
+      if (i === pieces.length - 1) {
+        u.onend = function () { if (current === btn) { btn.textContent = "🔊 朗讀"; current = null; } };
+      }
+      window.speechSynthesis.speak(u);
+    });
+    btn.textContent = "⏹ 停止";
+    current = btn;
+  }
+
+  function makeButton(region, host) {
+    var btn = document.createElement("button");
+    btn.className = "speak";
+    btn.type = "button";
+    btn.textContent = "🔊 朗讀";
+    btn.setAttribute("aria-label", "朗讀本文");
+    btn.addEventListener("click", function () {
+      if (current === btn) { stop(); } else { speak(btn, region); }
+    });
+    host.appendChild(btn);
+    return btn;
+  }
+
+  function mount() {
+    var arts = document.querySelectorAll("article");
+    if (arts.length) {
+      Array.prototype.forEach.call(arts, function (a) {
+        if (a.querySelector(".speak")) return;
+        var host = a.querySelector(".c-link") || a;
+        makeButton(a, host);
+      });
+      return;
+    }
+    // 單篇頁：沒有 <article>，整塊 .wrap 當朗讀區域，按鈕放到導航條裏
+    var wrap = document.querySelector(".wrap");
+    if (!wrap || wrap.querySelector(".speak")) return;
+    var host = wrap.querySelector(".postnav") || wrap.querySelector("h1");
+    if (host) makeButton(wrap, host);
+  }
+
+  window.addEventListener("pagehide", stop);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--tts:end-->
+</body></html>

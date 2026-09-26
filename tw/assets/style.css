@@ -42,7 +42,11 @@ h1.art { border-left:4px solid var(--line); padding-left:.7rem; }
 .art-meta.cat-f1, .art-meta.cat-deal, .art-meta.cat-local, .art-meta.cat-other
   { opacity:.82; }
 /* 评论区 */
-.postnav { margin:1.6rem 0 .6rem; padding-top:.8rem; border-top:1px solid var(--line);
+.speak { background:var(--card); color:var(--fg); border:1px solid var(--line);
+  border-radius:1rem; padding:.2rem .7rem; font:inherit; font-size:.84rem; cursor:pointer; }
+.speak:hover { border-color:var(--accent); color:var(--accent); }
+.postnav .speak { margin-left:auto; }                 /* 导航条里靠右 */
+.postnav { margin:1.6rem 0 .6rem, padding-top:.8rem; border-top:1px solid var(--line);
   display:flex; gap:.9rem; font-size:.9rem; }
 .postnav a { color:var(--accent); text-decoration:none; }
 .postnav a:hover { text-decoration:underline; }
