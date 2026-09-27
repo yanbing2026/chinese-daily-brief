@@ -4,7 +4,7 @@
 动手前先读这份。站点：https://yanbing2026.github.io/chinese-daily-brief/
 
 ## 这个仓库是什么（关键）
-它只是**发布层（published site layer）**：全原创中文写作产出的纯静态 HTML。
+它只是**发布层（published site layer）**：AI 读英文资料后整理成中文稿的纯静态 HTML。
 **内容管道和生成器不在本仓库** —— 生成器在发布主机 `/root/.hermes/scripts/`：
 `brief-site-build.py`（由 `brief-publish.sh` 的每小时 cron 调用），每次整点重写下面那批文件。
 **不要在本仓库重建或复制生成器**（见 `SITE_ARCHITECTURE.md` 的 production boundary）。
