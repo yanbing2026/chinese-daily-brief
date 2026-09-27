@@ -209,7 +209,7 @@ h1 .cnt { font-size:.8rem; color:var(--muted); font-weight:400; }
 .chip-other { background:#525252; }
 .cat-other.v1 { color:#525252; border-left-color:#525252; }
 .cat-other.v2 { color:#525252; border-left-color:#525252; }
-@media (prefers-color-scheme: dark) {
+html[data-theme="dark"] {
   .cat-uscis { color:#93b4fd; border-left-color:#93b4fd; }
   .chip-uscis { background:#93b4fd; color:#111; }
   .cat-uscis.v1 { color:#a093fd; border-left-color:#a093fd; }
