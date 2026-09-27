@@ -393,3 +393,5 @@ article h2{scroll-margin-top:4.5rem}
 @media(prefers-reduced-motion:reduce){
  html{scroll-behavior:auto}
 }\n
+.category-filter{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:.5rem;padding:.38rem .55rem;max-width:12rem;font:inherit;font-size:.82rem}
+@media(max-width:600px){.category-filter{max-width:8.5rem;flex:0 0 auto}}
