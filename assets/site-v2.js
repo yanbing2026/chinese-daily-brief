@@ -5,7 +5,7 @@ ready(function(){
   var body=document.body, path=location.pathname;
   var isBrief=!!document.querySelector("article");
   var list=document.querySelectorAll("body > .wrap article, body > .wrap .toc > li");
-  var hasPosts=/posts\.html$/.test(path)||/\/category\//.test(path)||isBrief;
+  var hasPosts=/posts\.html$/.test(path)||/\/category\//.test(path)||/\/guide\//.test(path)||isBrief;
   if(hasPosts && list.length){
     var h=document.querySelector(".wrap > h1");
     var cat=document.querySelector(".catnav");
