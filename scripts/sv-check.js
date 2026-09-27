@@ -57,14 +57,21 @@ for (const f of files) {
   const nav = doc.querySelector(".catnav");
   const isHome = !!doc.querySelector("h1.today");
   const home = /index\.html$/.test(f) && !/\/category\/|\/guide\/|\/tw\//.test(f);
+  // 页面显式声明不挂搜索框（用户 2026-09-27 定：首页只要导航 + 列表，不要搜索框）
+  const noSearch = doc.body.hasAttribute("data-nosearch");
 
   ok(doc.querySelector(".read-progress") !== null, "进度条已挂");
   ok(doc.querySelector(".back-top") !== null, "返回顶部按钮已挂");
   ok(doc.querySelector(".back-top").hidden === true, "返回顶部初始隐藏");
   // 常读总目录这类页本来就没有"条目行"（它列的是常读页本身），没有行就不该出现搜索条
-  ok(!!bar === (rows.length > 0), rows.length ? `可搜索行 [data-srow] = ${rows.length}` : "无条目行 → 不挂搜索条");
+  if (noSearch) {
+    ok(!bar, "页面声明 data-nosearch → 不挂搜索条");
+  } else {
+    ok(!!bar === (rows.length > 0), rows.length ? `可搜索行 [data-srow] = ${rows.length}` : "无条目行 → 不挂搜索条");
+  }
   if (!rows.length) continue;
   ok(!!rows[0].getAttribute("data-cat"), "行上带 data-cat");
+  if (noSearch) continue;      // 无搜索条，下面的搜索/清除/计数断言都不适用
 
   const input = bar.querySelector("input");
   const clear = bar.querySelector(".clear-search");
