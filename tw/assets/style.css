@@ -1,13 +1,9 @@
 ':root { --fg:#1a1a1a; --muted:#6b7280; --bg:#fbfbfd; --card:#fff; --line:#e5e7eb; --accent:#0f766e;
   color-scheme: light; }
-/* 日/夜：手动指定优先，未指定才跟随系统。深色变量只有这一份；
-   下面那条媒体查询是"没跑 JS"时的兜底（head 里的脚本正常跑时一定会写上 data-theme）。 */
+/* 日/夜：默认「日」（不跟随系统设置），点按钮切到「夜」。深色变量只有这一份。 */
 html[data-theme="dark"] { --fg:#e8e8ea; --muted:#9aa0a6; --bg:#14161a; --card:#1b1e24; --line:#2c313a;
   --accent:#5eead4; color-scheme: dark; }
-@media (prefers-color-scheme: dark) {
-  html:not([data-theme]) { --fg:#e8e8ea; --muted:#9aa0a6; --bg:#14161a; --card:#1b1e24; --line:#2c313a;
-    --accent:#5eead4; color-scheme: dark; }
-}
+
 * { box-sizing: border-box; }
 body { margin:0; background:var(--bg); color:var(--fg); line-height:1.75;
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",
