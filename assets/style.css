@@ -167,14 +167,6 @@ ul { list-style: none; padding-left: 0; margin: 0; }
   letter-spacing: .02em;
 }
 
-/* 列表行里的分类 chip 现在是链接。
-   2026-09-27 起顶部那排分类 chip 行（.catnav）全站下线，手机端一屏挤进二十多个
-   彩色 chip 太乱；分类信息改由每条稿标题旁这一个 chip 承担。
-   代价是 /category/<key>.html 失去了唯一的导航入口，所以 chip 必须可点。
-   标题链接与 chip 是并列的两个 <a>（不是嵌套，嵌套是非法 HTML）。 */
-.chiplink a { color: inherit; text-decoration: none; }
-.chiplink a:hover { text-decoration: underline; }
-
 /* ---------- 工具条（搜索 / 筛选 / 今日速览） ---------- */
 [hidden] { display: none !important; }
 .site-tools {
