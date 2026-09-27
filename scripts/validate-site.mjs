@@ -97,6 +97,29 @@ if (fs.existsSync(cssPath) && fs.existsSync(jsPath) && fs.existsSync(catCssPath)
   notes.push(Object.entries(ver).map(([n, v]) => `${n}?v=${v}`).join("／"));
 }
 
+/* ---------- 2b. 设计文件的"覆盖检查" ---------- */
+// 允许整体重做外观（style.css 是手写文件），但不允许把控件样式弄丢 ——
+// 丢了页面看着正常、控件却变形/无样式，这类故障静态检查很难发现。
+const REQUIRED_SELECTORS = [
+  ".wrap", ".site-tools", ".searchbox", ".category-filter", ".result-count", ".clear-search",
+  ".read-progress", ".back-top", ".today-focus", ".catnav", ".chip", ".art", ".art-meta",
+  ".notice", ".c-link", ".ex", ".comments", ".c-form", ".c-item", ".c-report",
+  ".subscribe", ".sub-form", ".sub-btn", ".sub-msg", ".fsr", ".th", ".guide", ".lead", ".hl",
+  ".cnt", ".postnav",
+];
+if (fs.existsSync(cssPath)) {
+  const text = read(cssPath);
+  const missing = REQUIRED_SELECTORS.filter((s) => !text.includes(s));
+  if (missing.length) {
+    errors.push(
+      `assets/style.css 缺少这些选择器的样式（对应控件会没有外观）：${missing.join(" ")}。` +
+      `重做外观时请保留它们，或先确认对应控件已不再使用。`
+    );
+  }
+  if (/@import\s+url\(\s*["']?https?:/i.test(text)) errors.push("assets/style.css 出现外部 @import（本站零外链）");
+  if (/url\(\s*["']?https?:/i.test(text)) errors.push("assets/style.css 引用了外部资源（本站零外链）");
+}
+
 /* ---------- 3. site-v2.js 本体哈希钉住（生成器误写/手改都会被挡住） ---------- */
 const pinPath = path.join(root, "scripts", "site-v2.sha256");
 if (fs.existsSync(jsPath)) {
