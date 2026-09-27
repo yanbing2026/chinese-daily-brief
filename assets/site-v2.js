@@ -36,9 +36,13 @@
       return (s || "").toLowerCase().replace(/\s+/g, "");
     }
 
-    /* ---- 工具条：搜索框（首页再加类别筛选） ---- */
+    /* ---- 工具条：搜索框（首页再加类别筛选） ----
+       首页例外：用户 2026-09-27 明确说首页的搜索框「也拿掉，首页就只留导航 +
+       说明文字」。首页后来又改回列 10 条（不分分类），行回来了、工具条也会跟着回来，
+       所以这里要显式看 body 上的开关，不能只看 rows.length。 */
     var bar = null, input = null, clear = null, count = null, categoryValue = "";
-    if (rows.length) {
+    var noSearch = document.body.hasAttribute("data-nosearch");
+    if (rows.length && !noSearch) {
       bar = document.createElement("div");
       bar.className = "site-tools";
       bar.innerHTML =
@@ -55,7 +59,7 @@
     }
 
     function run() {
-      if (!rows.length) return;
+      if (!rows.length || !input) return;
       var q = norm(input.value), shown = 0;
       rows.forEach(function (el) {
         var catOk = !categoryValue || (el.getAttribute("data-cat") || "") === categoryValue;
