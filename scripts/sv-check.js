@@ -80,7 +80,7 @@ for (const f of files) {
   input.dispatchEvent(new window.Event("input", { bubbles: true }));
   const visible = Array.prototype.filter.call(doc.querySelectorAll("[data-srow]"), (r) => !r.hidden);
   ok(visible.length > 0 && visible.length <= rows.length, `搜「${sample}」→ 显示 ${visible.length}/${rows.length}`);
-  ok(/找到 \d+ 项/.test(count.textContent), `结果计数已更新：${count.textContent}`);
+  ok(/找到 \d+ [项項]/.test(count.textContent), `结果计数已更新：${count.textContent}`);
   ok(clear.hidden === false, "有输入时清除按钮出现");
 
   // 清除还原
