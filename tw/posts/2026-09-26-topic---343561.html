@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI推高標普500盈利，債息與集中度引關注</title><link rel="stylesheet" href="../assets/style.css?v=a46980a3"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--></head>
+<title>AI推高標普500盈利，債息與集中度引關注</title><link rel="stylesheet" href="../assets/style.css?v=42cfea0a"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var i=localStorage.getItem("th");var d=(i==="dark")||((!i||i==="auto")&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.setAttribute("data-theme",d?"dark":"light");}catch(e){}})();</script><!--th:end--></head>
 <body data-slug="2026-09-26-topic---343561.html"><div class="wrap">
 <a class="back" href="../index.html">← 回首頁</a>
 <h1 class="art" data-section="股票與市場">AI推高標普500盈利，債息與集中度引關注</h1>
@@ -134,6 +134,60 @@
   } else { mount(); }
 })();
 </script><!--fs:end-->
+<!--th:start--><script>
+(function () {
+  // 順序是"跟隨 → 夜 → 日"而不是"跟隨 → 日 → 夜"：淺色系統下從"跟隨"點到"日"，
+  // 視覺上完全沒變化，用戶會以爲按鈕壞了。按這個順序，每次點擊都看得見變化。
+  var MODES = ["auto", "dark", "light"];
+  var LABEL = { auto: "跟隨", light: "日", dark: "夜" };
+  var ICON  = { auto: "◐", light: "☀", dark: "🌙" };
+  var root = document.documentElement;
+  var mq = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
+
+  function intent() {
+    try { var v = localStorage.getItem("th"); return MODES.indexOf(v) >= 0 ? v : "auto"; }
+    catch (e) { return "auto"; }
+  }
+  function resolve(i) { return i === "auto" ? (mq && mq.matches ? "dark" : "light") : i; }
+  function apply(i) { root.setAttribute("data-theme", resolve(i)); }
+
+  var cur = intent();
+  apply(cur);
+
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "thm";
+  function label() {
+    btn.textContent = ICON[cur] + " " + LABEL[cur];
+    btn.setAttribute("aria-label", "配色：" + LABEL[cur] + "，點擊切換（跟隨系統 / 日 / 夜）");
+    btn.title = "配色：跟隨系統 / 日 / 夜";
+  }
+  label();
+  btn.addEventListener("click", function () {
+    cur = MODES[(MODES.indexOf(cur) + 1) % MODES.length];
+    try { localStorage.setItem("th", cur); } catch (e) {}
+    apply(cur); label();
+  });
+  // 選"跟隨"時，系統配色中途變了要跟着變（不然要刷新才生效）
+  if (mq && mq.addEventListener) {
+    mq.addEventListener("change", function () { if (cur === "auto") apply(cur); });
+  }
+
+  function mount() {
+    if (document.querySelector(".thm")) return;
+    var host = document.querySelector("nav") || document.querySelector(".postnav");
+    if (!host) {
+      var back = document.querySelector(".back") || document.querySelector("h1");
+      if (back) { back.insertAdjacentElement("afterend", btn); }
+      return;
+    }
+    host.appendChild(btn);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--th:end-->
 <!--sub:start-->
 <div class="subscribe" id="sub">
   <strong>每天早上一封，只發原創</strong>

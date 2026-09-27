@@ -1,6 +1,12 @@
-:root { --fg:#1a1a1a; --muted:#6b7280; --bg:#fbfbfd; --card:#fff; --line:#e5e7eb; --accent:#0f766e; }
+':root { --fg:#1a1a1a; --muted:#6b7280; --bg:#fbfbfd; --card:#fff; --line:#e5e7eb; --accent:#0f766e;
+  color-scheme: light; }
+/* 日/夜：手动指定优先，未指定才跟随系统。深色变量只有这一份；
+   下面那条媒体查询是"没跑 JS"时的兜底（head 里的脚本正常跑时一定会写上 data-theme）。 */
+html[data-theme="dark"] { --fg:#e8e8ea; --muted:#9aa0a6; --bg:#14161a; --card:#1b1e24; --line:#2c313a;
+  --accent:#5eead4; color-scheme: dark; }
 @media (prefers-color-scheme: dark) {
-  :root { --fg:#e8e8ea; --muted:#9aa0a6; --bg:#14161a; --card:#1b1e24; --line:#2c313a; --accent:#5eead4; }
+  html:not([data-theme]) { --fg:#e8e8ea; --muted:#9aa0a6; --bg:#14161a; --card:#1b1e24; --line:#2c313a;
+    --accent:#5eead4; color-scheme: dark; }
 }
 * { box-sizing: border-box; }
 body { margin:0; background:var(--bg); color:var(--fg); line-height:1.75;
@@ -55,10 +61,10 @@ h1.art { border-left:4px solid var(--line); padding-left:.7rem; }
   background:var(--accent); color:#fff; border:1px solid var(--accent); border-radius:.5rem; }
 .sub-btn[disabled] { opacity:.6; cursor:default; }
 .sub-msg { color:var(--muted); font-size:.84rem; min-height:1.1rem; }
-.fsr { background:var(--card); color:var(--fg); border:1px solid var(--line);
+.fsr, .thm { background:var(--card); color:var(--fg); border:1px solid var(--line);
   border-radius:1rem; padding:.15rem .6rem; font:inherit; font-size:.8rem; cursor:pointer; }
-.fsr:hover { border-color:var(--accent); color:var(--accent); }
-nav .fsr, .postnav .fsr { margin-left:.6rem; vertical-align:middle; }
+.fsr:hover, .thm:hover { border-color:var(--accent); color:var(--accent); }
+nav .fsr, .postnav .fsr, nav .thm, .postnav .thm { margin-left:.6rem; vertical-align:middle; }
 .speak { background:var(--card); color:var(--fg); border:1px solid var(--line);
   border-radius:1rem; padding:.2rem .7rem; font:inherit; font-size:.84rem; cursor:pointer; }
 .speak:hover { border-color:var(--accent); color:var(--accent); }
