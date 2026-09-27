@@ -28,6 +28,28 @@ ready(function(){
     }
     input.addEventListener("input",run);
     clear.addEventListener("click",function(){input.value="";run();input.focus();});
+
+    if(isBrief && cat){
+      var filter=document.createElement("select");
+      filter.className="category-filter";
+      filter.setAttribute("aria-label","按类别筛选");
+      var all=document.createElement("option");all.value="";all.textContent="全部类别";filter.appendChild(all);
+      var seen={};
+      Array.prototype.forEach.call(document.querySelectorAll("article h1[class*='cat-']"),function(h){
+        var m=(h.className.match(/cat-([a-z0-9_]+)/)||[])[1];
+        if(!m||seen[m])return;seen[m]=1;
+        var o=document.createElement("option");o.value=m;o.textContent=(h.querySelector(".chip")||{}).innerText||m;filter.appendChild(o);
+      });
+      bar.appendChild(filter);
+      filter.addEventListener("change",function(){
+        var c=filter.value;
+        Array.prototype.forEach.call(list,function(el){
+          var match=!c||!!el.querySelector(".cat-"+c);
+          el.hidden=!match;
+        });
+        run();
+      });
+    }
   }
 
   if(isBrief){
