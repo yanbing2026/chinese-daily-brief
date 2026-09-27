@@ -7,16 +7,30 @@
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="assets/style.css?v=e0a84025">
 <link rel="stylesheet" href="assets/cat-colors.css?v=f9ebf7b5">
+<style>
+/* 404 专属外观（手写页内样式：不碰 assets/style.css，就不用重盖全站资源指纹） */
+.nf { text-align:center; padding:2.6rem .5rem 2.2rem; }
+.nf-code { font-size:4.6rem; font-weight:800; letter-spacing:.06em; line-height:1;
+  color:var(--accent); }
+.nf h1.art { border-left:0; padding-left:0; margin:1rem 0 .5rem; font-size:1.45rem; }
+.nf .lead { color:var(--muted); }
+.nf-links { display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem; }
+.nf-links li { margin:0; padding:0; border:0; background:none; }
+.nf-links a { display:inline-block; padding:.55rem 1.25rem; border:1px solid var(--accent);
+  color:var(--accent); border-radius:.6rem; font-weight:600; }
+.nf-links a:hover { background:var(--accent); color:#fff; text-decoration:none; }
+</style>
 <!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--></head>
 <body>
 <div class="wrap">
 <header class="top">
   <div class="brand">在美華人每日簡報</div>
 </header>
-<article>
+<article class="nf">
+  <div class="nf-code" aria-hidden="true">404</div>
   <h1 class="art">這個地址沒有內容</h1>
-  <p class="lead">可能鏈接過期了，或者文章已經撤下。本站每天更新，回首頁看今天的原創稿。</p>
-  <ul class="toc">
+  <p class="lead">可能鏈接過期了，或者文章已經撤下。<br>本站每天早上更新，回首頁看看今天的原創稿。</p>
+  <ul class="toc nf-links">
     <li><a href="index.html">今日原創</a></li>
     <li><a href="posts.html">往期原創</a></li>
     <li><a href="guide/index.html">常讀</a></li>
@@ -336,3 +350,4 @@
 </script><!--tts:end-->
 <div class="postnav"><a href="index.html">首頁</a><a href="posts.html">往期</a><a href="../404.html">簡體</a></div></body>
 </html>
+
