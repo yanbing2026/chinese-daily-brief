@@ -194,6 +194,10 @@ h1 .cnt { font-size:.8rem; color:var(--muted); font-weight:400; }
 .chip-biz { background:#ca8a04; }
 .cat-biz.v1 { color:#b4ca04; border-left-color:#b4ca04; }
 .cat-biz.v2 { color:#ca3404; border-left-color:#ca3404; }
+.cat-wage { color:#166534; border-left-color:#166534; }
+.chip-wage { background:#166534; }
+.cat-wage.v1 { color:#166556; border-left-color:#166556; }
+.cat-wage.v2 { color:#1a6516; border-left-color:#1a6516; }
 .cat-other { color:#525252; border-left-color:#525252; }
 .chip-other { background:#525252; }
 .cat-other.v1 { color:#525252; border-left-color:#525252; }
@@ -299,6 +303,10 @@ h1 .cnt { font-size:.8rem; color:var(--muted); font-weight:400; }
   .chip-biz { background:#fde68a; color:#111; }
   .cat-biz.v1 { color:#e2fd8a; border-left-color:#e2fd8a; }
   .cat-biz.v2 { color:#fdb48a; border-left-color:#fdb48a; }
+  .cat-wage { color:#86efac; border-left-color:#86efac; }
+  .chip-wage { background:#86efac; color:#111; }
+  .cat-wage.v1 { color:#86efda; border-left-color:#86efda; }
+  .cat-wage.v2 { color:#8eef86; border-left-color:#8eef86; }
   .cat-other { color:#d4d4d4; border-left-color:#d4d4d4; }
   .chip-other { background:#d4d4d4; color:#111; }
   .cat-other.v1 { color:#d4d4d4; border-left-color:#d4d4d4; }

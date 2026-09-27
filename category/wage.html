@@ -1,91 +1,20 @@
-<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8">
+<!doctype html>
+<html lang="zh-Hans"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>30年期房贷利率重返7%，20个月来首次</title><link rel="stylesheet" href="../assets/style.css?v=6d20fa75"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--></head>
-<body data-slug="2026-09-26-topic---330350.html"><div class="wrap">
-<a class="back" href="../index.html">← 回首页</a>
-<h1 class="art" data-section="房贷与房价">30年期房贷利率重返7%，20个月来首次</h1>
-<div class="art-meta cat-housing">2026-09-26　·　原创　·　依据 24 家来源：NPR、National Association of REALTORS®、WSJ、Yahoo Finance、ABC News - Breaking News, Latest News and Videos、NJ Spotlight News、KCRA、The New York Times、National Mortgage Professional、CBS News、WCTV、The Week</div>
-<p>美国30年期房贷平均利率近期再度突破7%，多家媒体在2026年9月下旬密集报道了这一变化。Yahoo Finance 于9月20日刊出的利率日更显示，房贷与再融资利率较前一周继续上行；Fortune 在9月25日的更新中又提到利率再度跳升。就"重回7%以上"这一事实，各家口径基本一致：ABC News 称这是30年期房贷平均利率连续第5周上涨，并已触及20个月来的最高水平；The Guardian 同样以"20个月来首次"表述；KCRA 与 Fox Business 则写作"自2025年1月以来首次"、"自2025年初以来首次"。NPR 的表述较为笼统，只说利率"一年多来首次超过7%"。三组说法指向同一时间窗口，差异只在起算点的选取上。</p>
-<p>具体点位上，媒体给出的数字略有差别。CNBC 报道利率升至7.45%，Mortgage News Daily 称已逼近7.5%，而"7%"是各家共同确认的整数关口。这些点位来自市场报价机构的测算，并非美联储设定的官方利率；美联储的联邦基金利率与房贷市场利率是两回事，读者不宜混为一谈。</p>
-<p>关于推升原因，NPR 将矛头指向美债收益率的上行，认为这加深了美国房市的僵局；The New York Times 则把伊朗战事的外溢效应列为压力来源之一，称其冲击了本已疲弱的房市。CNN、WCTV 等媒体在标题中共同确认的另一个事实是：本就"冻结"的房市因利率重返7%而进一步承压，住房可负担性危机加深。</p>
-<p>对在美华人而言，这意味着购房月供和再融资成本同步走高，市场上已有买家因价格与利率双重挤压而离场。NAR 的内容显示，部分买家正在转向能提供更低利率的渠道；National Mortgage Professional 也提到，建筑商正以某种方式争取买家。如果你近期有买房或再融资计划，可以把几件事放在同一张表上比较：锁定利率的时机、建筑商或卖方提供的利率买断优惠、以及不同贷款机构的报价差异。对未来五年的利率走向，Yahoo Finance 给出了延续至2031年的预测框架，CBS News 也在追问利率还能涨多高——但在数字落地之前，把预算按"利率维持在7%以上"来测算，会比押注利率回落更稳妥。</p>
-<div class="notice">本文为原创中文写作：事实取自上述来源的公开报道并重新组织，
-未沿用任何来源的成段表达；不含外链。涉及政策与法律的内容仅供参考，
-具体个案请咨询持牌专业人士。</div>
-</div>
-<section class="comments" id="comments">
-  <h3>读者评论</h3>
-  <div class="c-note">评论需经审核后显示。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
-  <div id="c-list"><div class="c-note">正在载入评论…</div></div>
-  <form class="c-form" id="c-form" autocomplete="off">
-    <input type="text" id="c-author" maxlength="40" placeholder="称呼（可留空）">
-    <textarea id="c-body" maxlength="2000" placeholder="想补充什么？（2000 字以内）" required></textarea>
-    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="请勿填写">
-    <button type="submit" id="c-send">提交评论</button>
-    <div class="c-msg" id="c-msg"></div>
-  </form>
-</section>
-<script>
-(function () {
-  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
-  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
-  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
-  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
-
-  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
-
-  function load() {
-    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
-          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (rows) {
-        if (!rows.length) { list.innerHTML = '<div class="c-note">还没有评论。欢迎做第一个。</div>'; return; }
-        list.innerHTML = rows.map(function (c) {
-          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
-                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
-                 '<div class="c-body">' + esc(c.body) + '</div>' +
-                 '<button class="c-report" data-id="' + c.id + '">举报</button></div>';
-        }).join("");
-        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
-          b.addEventListener("click", function () {
-            fetch(SB + "/rest/v1/rpc/report_comment",
-                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
-              .then(function () { b.textContent = "已举报，谢谢"; b.disabled = true; });
-          });
-        });
-      })
-      .catch(function () { list.innerHTML = '<div class="c-note">评论载入失败（不影响阅读）。</div>'; });
-  }
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var body = document.getElementById("c-body").value.trim();
-    if (body.length < 2) { msg.textContent = "内容太短。"; return; }
-    send.disabled = true; msg.textContent = "提交中…";
-    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
-        p_slug: SLUG,
-        p_author: document.getElementById("c-author").value.trim(),
-        p_body: body,
-        p_hp: document.getElementById("c-hp").value
-      }) })
-      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-      .then(function (res) {
-        if (res.j && res.j.ok) {
-          form.reset();
-          msg.textContent = "已提交，等审核通过后显示。谢谢。";
-        } else {
-          msg.textContent = "没提交成功：" + ((res.j && res.j.error) || "服务暂时不可用");
-        }
-      })
-      .catch(function () { msg.textContent = "没提交成功：网络或服务问题。"; })
-      .finally(function () { send.disabled = false; });
-  });
-
-  load();
-})();
-</script>
-
-<!--fs:head--><script>
+<title>就业 · 在美华人每日简报</title>
+<meta name="description" content="在美华人每日简报：折扣、移民、政策、本地情报，自动采集，附原始链接。">
+<link rel="stylesheet" href="../assets/style.css?v=6d20fa75">
+<!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--></head><body><div class="wrap">
+<header class="top">
+  <div class="brand">在美华人每日简报</div>
+  <div class="sub">原创中文写作 · 读英文资料 → 自己写 ｜ 移民 · 政策 · 报税 · 本地情报 ｜ 更新：2026-09-26 20:39 EDT</div>
+  <nav><a href="../index.html">今日原创</a><a href="../posts.html">往期原创</a>
+  <a href="https://github.com/yanbing2026/chinese-daily-brief">源码</a><a href="../tw/category/wage.html">繁體</a></nav>
+</header>
+<h1 class="art cat-wage"><span class="chip chip-wage">就业</span>就业　<span class="cnt">1 篇</span></h1><div class="catnav"><a class="chip chip-uscis" href="../category/uscis.html">移民局 8</a><a class="chip chip-edu" href="../category/edu.html">教育 3</a><a class="chip chip-visa" href="../category/visa.html">签证 3</a><a class="chip chip-ai" href="../category/ai.html">AI 2</a><a class="chip chip-world" href="../category/world.html">国际 2</a><a class="chip chip-cbp" href="../category/cbp.html">入境 1</a><a class="chip chip-cost" href="../category/cost.html">生活成本 1</a><a class="chip chip-dmv" href="../category/dmv.html">驾照 1</a><a class="chip chip-economy" href="../category/economy.html">经济 1</a><a class="chip chip-election" href="../category/election.html">选举 1</a><a class="chip chip-fr" href="../category/fr.html">法规 1</a><a class="chip chip-health" href="../category/health.html">医疗 1</a><a class="chip chip-housing" href="../category/housing.html">房产 1</a><a class="chip chip-market" href="../category/market.html">市场 1</a><a class="chip chip-rent" href="../category/rent.html">租房 1</a><a class="chip chip-retire" href="../category/retire.html">退休 1</a><a class="chip chip-tax" href="../category/tax.html">报税 1</a><a class="chip chip-tech" href="../category/tech.html">科技 1</a><a class="chip chip-wage here" href="../category/wage.html">就业 1</a><a class="chip chip-welfare" href="../category/welfare.html">福利 1</a></div><ul class="toc"><li><a class="cat-wage" href="../posts/2026-09-26-topic---97695.html">多州最低工资上调，华人雇主须留意</a><div class="art-meta cat-wage">2026-09-26　·　就业与最低工资　·　909 字</div></li></ul>
+<footer>内容由脚本从公开源自动采集与翻译，仅供参考，不构成法律、税务或投资建议。
+本文档的标题与链接归原始作者所有。</footer>
+</div><!--fs:head--><script>
 (function () {
   var STEPS = [100, 112, 125, 90];          // 标准 → 大 → 特大 → 小 → 循环
   var LABEL = { 100: "标准", 112: "大", 125: "特大", 90: "小" };
@@ -340,4 +269,4 @@
   } else { mount(); }
 })();
 </script><!--tts:end-->
-<div class="postnav"><a href="../index.html">首页</a><a href="../posts.html">往期</a><a href="../tw/posts/2026-09-26-topic---330350.html">繁體</a></div></body></html>
+</body></html>
