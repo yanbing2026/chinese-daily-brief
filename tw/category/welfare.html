@@ -3,18 +3,62 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>福利 · 在美華人每日簡報</title>
 <meta name="description" content="在美華人每日簡報：折扣、移民、政策、本地情報，自動採集，附原始鏈接。">
-<link rel="stylesheet" href="../assets/style.css?v=b77b4975">
-</head><body><div class="wrap">
+<link rel="stylesheet" href="../assets/style.css?v=49fcd0d9">
+<!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--></head><body><div class="wrap">
 <header class="top">
   <div class="brand">在美華人每日簡報</div>
-  <div class="sub">原創中文寫作 · 讀英文資料 → 自己寫 ｜ 移民 · 政策 · 報稅 · 本地情報 ｜ 更新：2026-09-26 19:14 EDT</div>
+  <div class="sub">原創中文寫作 · 讀英文資料 → 自己寫 ｜ 移民 · 政策 · 報稅 · 本地情報 ｜ 更新：2026-09-26 19:59 EDT</div>
   <nav><a href="../index.html">今日原創</a><a href="../posts.html">往期原創</a>
   <a href="https://github.com/yanbing2026/chinese-daily-brief">源碼</a><a href="../../category/welfare.html">簡體</a></nav>
 </header>
 <h1 class="art cat-welfare"><span class="chip chip-welfare">福利</span>福利　<span class="cnt">1 篇</span></h1><div class="catnav"><a class="chip chip-uscis" href="../category/uscis.html">移民局 8</a><a class="chip chip-visa" href="../category/visa.html">簽證 3</a><a class="chip chip-ai" href="../category/ai.html">AI 2</a><a class="chip chip-edu" href="../category/edu.html">教育 2</a><a class="chip chip-world" href="../category/world.html">國際 2</a><a class="chip chip-cbp" href="../category/cbp.html">入境 1</a><a class="chip chip-economy" href="../category/economy.html">經濟 1</a><a class="chip chip-election" href="../category/election.html">選舉 1</a><a class="chip chip-fr" href="../category/fr.html">法規 1</a><a class="chip chip-housing" href="../category/housing.html">房產 1</a><a class="chip chip-market" href="../category/market.html">市場 1</a><a class="chip chip-tech" href="../category/tech.html">科技 1</a><a class="chip chip-welfare here" href="../category/welfare.html">福利 1</a></div><ul class="toc"><li><a class="cat-welfare" href="../posts/2026-09-26-topic---766441.html">新公共負擔規則生效 多州多城聯合起訴</a><div class="art-meta cat-welfare">2026-09-26　·　公共負擔與福利規則　·　820 字</div></li></ul>
 <footer>內容由腳本從公開源自動採集與翻譯，僅供參考，不構成法律、稅務或投資建議。
 本文檔的標題與鏈接歸原始作者所有。</footer>
-</div><!--sub:start-->
+</div><!--fs:head--><script>
+(function () {
+  var STEPS = [100, 112, 125, 90];          // 標準 → 大 → 特大 → 小 → 循環
+  var LABEL = { 100: "標準", 112: "大", 125: "特大", 90: "小" };
+  var root = document.documentElement;
+  var cur = 100;
+  try { cur = parseInt(localStorage.getItem("fs"), 10) || 100; } catch (e) {}
+  if (STEPS.indexOf(cur) < 0) cur = 100;
+
+  function apply(pct) {
+    root.style.fontSize = (16 * pct / 100) + "px";
+    try { localStorage.setItem("fs", String(pct)); } catch (e) {}
+  }
+
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "fsr";
+  function label() {
+    btn.textContent = "字 " + (LABEL[cur] || cur + "%");
+    btn.setAttribute("aria-label", "文字大小：" + (LABEL[cur] || cur + "%") + "，點擊切換");
+    btn.title = "點擊切換文字大小";
+  }
+  label();
+  btn.addEventListener("click", function () {
+    cur = STEPS[(STEPS.indexOf(cur) + 1) % STEPS.length];
+    apply(cur); label();
+  });
+
+  function mount() {
+    if (document.querySelector(".fsr")) return;
+    // 文字大小是整頁偏好，所以每頁只放一個，放在站點導航裏（不是每篇一個）
+    var host = document.querySelector("nav") || document.querySelector(".postnav");
+    if (!host) {
+      var back = document.querySelector(".back") || document.querySelector("h1");
+      if (back) { back.insertAdjacentElement("afterend", btn); return; }
+      return;
+    }
+    host.appendChild(btn);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--fs:end-->
+<!--sub:start-->
 <div class="subscribe" id="sub">
   <strong>每天早上一封，只發原創</strong>
   <span class="sub-note">在美華人資訊 · 簡繁都有 · 不發廣告 · 隨時可退</span>

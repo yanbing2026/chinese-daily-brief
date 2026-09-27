@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-Hans"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>非公民冒充美国公民投票，被联邦大陪审团起诉</title><link rel="stylesheet" href="../assets/style.css?v=b77b4975"></head><body data-slug="2026-09-26-www-uscis-gov-70776508.html"><div class="wrap">
+<title>非公民冒充美国公民投票，被联邦大陪审团起诉</title><link rel="stylesheet" href="../assets/style.css?v=49fcd0d9"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--></head><body data-slug="2026-09-26-www-uscis-gov-70776508.html"><div class="wrap">
 <a class="back" href="../index.html">← 回首页</a>
 <h1 class="art">非公民冒充美国公民投票，被联邦大陪审团起诉</h1>
 <div class="art-meta cat-uscis">2026-09-26　·　原创　·　依据：🛂 移民局新闻（USCIS）（www.uscis.gov）</div>
@@ -103,6 +103,52 @@
 
 
 
+
+
+<!--fs:head--><script>
+(function () {
+  var STEPS = [100, 112, 125, 90];          // 标准 → 大 → 特大 → 小 → 循环
+  var LABEL = { 100: "标准", 112: "大", 125: "特大", 90: "小" };
+  var root = document.documentElement;
+  var cur = 100;
+  try { cur = parseInt(localStorage.getItem("fs"), 10) || 100; } catch (e) {}
+  if (STEPS.indexOf(cur) < 0) cur = 100;
+
+  function apply(pct) {
+    root.style.fontSize = (16 * pct / 100) + "px";
+    try { localStorage.setItem("fs", String(pct)); } catch (e) {}
+  }
+
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "fsr";
+  function label() {
+    btn.textContent = "字 " + (LABEL[cur] || cur + "%");
+    btn.setAttribute("aria-label", "文字大小：" + (LABEL[cur] || cur + "%") + "，点击切换");
+    btn.title = "点击切换文字大小";
+  }
+  label();
+  btn.addEventListener("click", function () {
+    cur = STEPS[(STEPS.indexOf(cur) + 1) % STEPS.length];
+    apply(cur); label();
+  });
+
+  function mount() {
+    if (document.querySelector(".fsr")) return;
+    // 文字大小是整页偏好，所以每页只放一个，放在站点导航里（不是每篇一个）
+    var host = document.querySelector("nav") || document.querySelector(".postnav");
+    if (!host) {
+      var back = document.querySelector(".back") || document.querySelector("h1");
+      if (back) { back.insertAdjacentElement("afterend", btn); return; }
+      return;
+    }
+    host.appendChild(btn);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--fs:end-->
 <!--sub:start-->
 <div class="subscribe" id="sub">
   <strong>每天早上一封，只发原创</strong>

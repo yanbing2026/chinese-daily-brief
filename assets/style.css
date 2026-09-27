@@ -55,6 +55,10 @@ h1.art { border-left:4px solid var(--line); padding-left:.7rem; }
   background:var(--accent); color:#fff; border:1px solid var(--accent); border-radius:.5rem; }
 .sub-btn[disabled] { opacity:.6; cursor:default; }
 .sub-msg { color:var(--muted); font-size:.84rem; min-height:1.1rem; }
+.fsr { background:var(--card); color:var(--fg); border:1px solid var(--line);
+  border-radius:1rem; padding:.15rem .6rem; font:inherit; font-size:.8rem; cursor:pointer; }
+.fsr:hover { border-color:var(--accent); color:var(--accent); }
+nav .fsr, .postnav .fsr { margin-left:.6rem; vertical-align:middle; }
 .speak { background:var(--card); color:var(--fg); border:1px solid var(--line);
   border-radius:1rem; padding:.2rem .7rem; font:inherit; font-size:.84rem; cursor:pointer; }
 .speak:hover { border-color:var(--accent); color:var(--accent); }

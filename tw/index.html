@@ -3,11 +3,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>原創中文資訊 · 2026-09-26</title>
 <meta name="description" content="在美華人每日簡報：折扣、移民、政策、本地情報，自動採集，附原始鏈接。">
-<link rel="stylesheet" href="assets/style.css?v=b77b4975">
-</head><body><div class="wrap">
+<link rel="stylesheet" href="assets/style.css?v=49fcd0d9">
+<!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--></head><body><div class="wrap">
 <header class="top">
   <div class="brand">在美華人每日簡報</div>
-  <div class="sub">原創中文寫作 · 讀英文資料 → 自己寫 ｜ 移民 · 政策 · 報稅 · 本地情報 ｜ 更新：2026-09-26 19:14 EDT</div>
+  <div class="sub">原創中文寫作 · 讀英文資料 → 自己寫 ｜ 移民 · 政策 · 報稅 · 本地情報 ｜ 更新：2026-09-26 19:59 EDT</div>
   <nav><a href="index.html">今日原創</a><a href="posts.html">往期原創</a>
   <a href="https://github.com/yanbing2026/chinese-daily-brief">源碼</a><a href="../index.html">簡體</a></nav>
 </header>
@@ -225,7 +225,51 @@
 <p>如需向USCIS舉報疑似移民福利欺詐，可以通過USCIS官方舉報表格提交線索。</p><div class="c-link"><a href="posts/2026-09-26-www-uscis-gov-69963008.html#comments">讀者評論 →</a></div></article><hr><div class="notice">本站內容爲原創中文寫作，依據當日公開英文資料整理，不含外鏈。文中日期、金額與機構名均覈對自原始材料；僅供參考，不構成法律、稅務或投資建議。</div>
 <footer>內容由腳本從公開源自動採集與翻譯，僅供參考，不構成法律、稅務或投資建議。
 本文檔的標題與鏈接歸原始作者所有。</footer>
-</div><!--sub:start-->
+</div><!--fs:head--><script>
+(function () {
+  var STEPS = [100, 112, 125, 90];          // 標準 → 大 → 特大 → 小 → 循環
+  var LABEL = { 100: "標準", 112: "大", 125: "特大", 90: "小" };
+  var root = document.documentElement;
+  var cur = 100;
+  try { cur = parseInt(localStorage.getItem("fs"), 10) || 100; } catch (e) {}
+  if (STEPS.indexOf(cur) < 0) cur = 100;
+
+  function apply(pct) {
+    root.style.fontSize = (16 * pct / 100) + "px";
+    try { localStorage.setItem("fs", String(pct)); } catch (e) {}
+  }
+
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "fsr";
+  function label() {
+    btn.textContent = "字 " + (LABEL[cur] || cur + "%");
+    btn.setAttribute("aria-label", "文字大小：" + (LABEL[cur] || cur + "%") + "，點擊切換");
+    btn.title = "點擊切換文字大小";
+  }
+  label();
+  btn.addEventListener("click", function () {
+    cur = STEPS[(STEPS.indexOf(cur) + 1) % STEPS.length];
+    apply(cur); label();
+  });
+
+  function mount() {
+    if (document.querySelector(".fsr")) return;
+    // 文字大小是整頁偏好，所以每頁只放一個，放在站點導航裏（不是每篇一個）
+    var host = document.querySelector("nav") || document.querySelector(".postnav");
+    if (!host) {
+      var back = document.querySelector(".back") || document.querySelector("h1");
+      if (back) { back.insertAdjacentElement("afterend", btn); return; }
+      return;
+    }
+    host.appendChild(btn);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--fs:end-->
+<!--sub:start-->
 <div class="subscribe" id="sub">
   <strong>每天早上一封，只發原創</strong>
   <span class="sub-note">在美華人資訊 · 簡繁都有 · 不發廣告 · 隨時可退</span>
