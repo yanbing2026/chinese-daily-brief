@@ -135,6 +135,26 @@ article[data-srow] p { margin: .7em 0; }
 
 /* ---------- 列表页（往期 / 栏目 / 常读） ---------- */
 ul { list-style: none; padding-left: 0; margin: 0; }
+
+/* ---------- 首页「最新 10 条」 ----------
+   注意：.hfeed / .hlist 的样式**只存在于生成器 brief-site-build.py 的 CSS 常量里**，
+   而 assets/style.css 是手写设计文件、生成器只在文件缺失时播种不覆盖 —— 所以那份
+   常量对已存在的站点一直是无效的，这里必须手写。
+   用户 2026-09-27 定：标题不加下划线（此前没有任何规则命中 .hlist，于是走了浏览器
+   默认的 a { text-decoration: underline }，整页标题全是下划线）。 */
+.hfeed { list-style: none; padding: 0; margin: .2rem 0 1rem; }
+.hfeed li {
+  padding: .7rem 0; border-bottom: 1px solid var(--line);
+}
+.hfeed li:last-child { border-bottom: 0; }
+.hfeed .hlist {
+  display: block; text-decoration: none;      /* ← 标题不要下划线 */
+  color: var(--fg); font-size: 1.04rem; line-height: 1.45; font-weight: 500;
+}
+.hfeed .hlist:hover { color: var(--accent); text-decoration: none; }
+.hfeed .art-meta { margin-top: .25rem; }
+.hfeed .tags { margin-top: .3rem; }
+
 .toc li, .dates a {
   background: var(--card);
   border: 1px solid var(--line);
