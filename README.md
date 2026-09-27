@@ -18,8 +18,9 @@
 2. `write-articles.py` — 按优先级挑材料 → 抓原文 → **同题多源补捞** → **web 搜索做研究** → **写原创稿** → 验收 → 落盘
 3. `brief-site-build.py` — 建站：首页 = 今日原创全文，另有往期原创
 
-每小时（整点）由 cron 作业 `us-chinese-brief-publish` 跑完整条链，每轮 `write-articles --limit 2`
-（每天每栏目仍上限 1 篇）+ `write-topics --limit 1`（选题去重按「日期+选题」，一天轮完 19 个 beat）。
+每小时（整点）由 cron 作业 `us-chinese-brief-publish` 跑完整条链：`write-articles --limit 4`
+（材料线，每天每栏目仍上限 1 篇）+ `write-topics --limit 0`（选题线**不设篇数上限**，单轮 30 分钟
+时间预算，写不完的下一轮继续；选题去重按「日期+选题」，同一天同一个 beat 不会用同一批材料写两遍）。
 写作与翻译走 **Nous Portal 免费档**模型，模型链只有一处出处：`~/.hermes/scripts/brief_llm.py`
 （主力 `stepfun/step-3.7-flash:free`，备用 `ling-3.0-flash-fin:free` / `solar-pro4:free`；
 注意免费档要求请求体带 `tags` 且含 `user=`，去掉 `:free` 后缀会静默走付费额度）。
@@ -71,4 +72,4 @@
 
 - 内容只做**信息整理**，不构成法律、税务或投资建议
 - 移民、报税类数字以官方原文为准；稿件里的日期与金额均核对自材料
-- Google/AdSense 对"规模化自动生成内容"有惩罚条款，所以策略是**每轮少量、有依据、可操作的稿子**，不刷量（每小时 2 篇材料稿 + 1 篇选题稿，且每栏目每天上限 1 篇）
+- Google/AdSense 对"规模化自动生成内容"有惩罚条款。策略不是"少量"，而是**每篇都有多家来源 + web 研究支撑、可操作、不重复**（用户 2026-09-27：不再限制篇数）；真正需要盯的是同一天同一 beat 不复写、材料不足不出稿
