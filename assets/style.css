@@ -362,3 +362,34 @@ html[data-theme="dark"] .cat-other { color:#d4d4d4; border-left-color:#d4d4d4; }
 html[data-theme="dark"] .chip-other { background:#d4d4d4; color:#111; }
 html[data-theme="dark"] .cat-other.v1 { color:#d4d4d4; border-left-color:#d4d4d4; }
 html[data-theme="dark"] .cat-other.v2 { color:#d4d4d4; border-left-color:#d4d4d4; }
+\n/* v2 reading UX */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+.wrap{max-width:48rem}
+.site-tools{position:sticky;top:.35rem;z-index:20;display:flex;align-items:center;gap:.55rem;margin:.65rem 0 1rem;padding:.45rem;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:.7rem}
+.searchbox{display:flex;align-items:center;gap:.45rem;flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:.55rem;padding:.25rem .65rem;color:var(--muted)}
+.searchbox input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--fg);font:inherit;font-size:.92rem}
+.clear-search{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:.5rem;padding:.35rem .6rem;cursor:pointer}
+.result-count{font-size:.78rem;color:var(--muted);white-space:nowrap}
+.today-focus{margin:0 0 1.5rem;padding:.85rem 1rem;background:var(--card);border:1px solid var(--line);border-radius:.7rem}
+.today-focus strong{font-size:.92rem}
+.today-focus ol{margin:.45rem 0 0 1.25rem;padding:0}
+.today-focus li{padding:.15rem 0;margin:0;border:0;background:none}
+.today-focus a{color:var(--accent);text-decoration:none}
+.today-focus a:hover{text-decoration:underline}
+article{scroll-margin-top:4.5rem}
+.read-progress{position:fixed;z-index:100;left:0;top:0;width:0;height:3px;background:var(--accent);transition:width .08s linear}
+.back-top{position:fixed;z-index:50;right:1rem;bottom:1rem;width:2.5rem;height:2.5rem;border:1px solid var(--line);border-radius:50%;background:var(--card);color:var(--fg);font-size:1.1rem;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.12)}
+.back-top:hover{color:var(--accent);border-color:var(--accent)}
+article p{max-width:72ch}
+article h2{scroll-margin-top:4.5rem}
+@media(max-width:600px){
+ .wrap{padding-left:.85rem;padding-right:.85rem}
+ .site-tools{top:.15rem}
+ .result-count{display:none}
+ .today-focus{font-size:.9rem}
+ nav a{margin-right:.55rem}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+}\n
