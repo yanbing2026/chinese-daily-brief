@@ -170,6 +170,30 @@ h1 .cnt { font-size:.8rem; color:var(--muted); font-weight:400; }
 .chip-local { background:#0e7490; }
 .cat-local.v1 { color:#0e3c90; border-left-color:#0e3c90; }
 .cat-local.v2 { color:#0e9074; border-left-color:#0e9074; }
+.cat-rent { color:#65a30d; border-left-color:#65a30d; }
+.chip-rent { background:#65a30d; }
+.cat-rent.v1 { color:#24a30d; border-left-color:#24a30d; }
+.cat-rent.v2 { color:#a3a00d; border-left-color:#a3a00d; }
+.cat-health { color:#0891b2; border-left-color:#0891b2; }
+.chip-health { background:#0891b2; }
+.cat-health.v1 { color:#0847b2; border-left-color:#0847b2; }
+.cat-health.v2 { color:#08b289; border-left-color:#08b289; }
+.cat-dmv { color:#b91c1c; border-left-color:#b91c1c; }
+.chip-dmv { background:#b91c1c; }
+.cat-dmv.v1 { color:#b9601c; border-left-color:#b9601c; }
+.cat-dmv.v2 { color:#b91c60; border-left-color:#b91c60; }
+.cat-cost { color:#db2777; border-left-color:#db2777; }
+.chip-cost { background:#db2777; }
+.cat-cost.v1 { color:#db2729; border-left-color:#db2729; }
+.cat-cost.v2 { color:#db27c5; border-left-color:#db27c5; }
+.cat-retire { color:#57534e; border-left-color:#57534e; }
+.chip-retire { background:#57534e; }
+.cat-retire.v1 { color:#57574e; border-left-color:#57574e; }
+.cat-retire.v2 { color:#574f4e; border-left-color:#574f4e; }
+.cat-biz { color:#ca8a04; border-left-color:#ca8a04; }
+.chip-biz { background:#ca8a04; }
+.cat-biz.v1 { color:#b4ca04; border-left-color:#b4ca04; }
+.cat-biz.v2 { color:#ca3404; border-left-color:#ca3404; }
 .cat-other { color:#525252; border-left-color:#525252; }
 .chip-other { background:#525252; }
 .cat-other.v1 { color:#525252; border-left-color:#525252; }
@@ -251,6 +275,30 @@ h1 .cnt { font-size:.8rem; color:var(--muted); font-weight:400; }
   .chip-local { background:#67e8f9; color:#111; }
   .cat-local.v1 { color:#67a9f9; border-left-color:#67a9f9; }
   .cat-local.v2 { color:#67f9cb; border-left-color:#67f9cb; }
+  .cat-rent { color:#bef264; border-left-color:#bef264; }
+  .chip-rent { background:#bef264; color:#111; }
+  .cat-rent.v1 { color:#80f264; border-left-color:#80f264; }
+  .cat-rent.v2 { color:#f2e864; border-left-color:#f2e864; }
+  .cat-health { color:#67e8f9; border-left-color:#67e8f9; }
+  .chip-health { background:#67e8f9; color:#111; }
+  .cat-health.v1 { color:#67a9f9; border-left-color:#67a9f9; }
+  .cat-health.v2 { color:#67f9cb; border-left-color:#67f9cb; }
+  .cat-dmv { color:#fca5a5; border-left-color:#fca5a5; }
+  .chip-dmv { background:#fca5a5; color:#111; }
+  .cat-dmv.v1 { color:#fccba5; border-left-color:#fccba5; }
+  .cat-dmv.v2 { color:#fca5cb; border-left-color:#fca5cb; }
+  .cat-cost { color:#f9a8d4; border-left-color:#f9a8d4; }
+  .chip-cost { background:#f9a8d4; color:#111; }
+  .cat-cost.v1 { color:#f9a8b1; border-left-color:#f9a8b1; }
+  .cat-cost.v2 { color:#f9a8f7; border-left-color:#f9a8f7; }
+  .cat-retire { color:#d6d3d1; border-left-color:#d6d3d1; }
+  .chip-retire { background:#d6d3d1; color:#111; }
+  .cat-retire.v1 { color:#d6d5d1; border-left-color:#d6d5d1; }
+  .cat-retire.v2 { color:#d6d1d1; border-left-color:#d6d1d1; }
+  .cat-biz { color:#fde68a; border-left-color:#fde68a; }
+  .chip-biz { background:#fde68a; color:#111; }
+  .cat-biz.v1 { color:#e2fd8a; border-left-color:#e2fd8a; }
+  .cat-biz.v2 { color:#fdb48a; border-left-color:#fdb48a; }
   .cat-other { color:#d4d4d4; border-left-color:#d4d4d4; }
   .chip-other { background:#d4d4d4; color:#111; }
   .cat-other.v1 { color:#d4d4d4; border-left-color:#d4d4d4; }
