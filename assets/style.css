@@ -63,7 +63,7 @@ nav .fsr, .postnav .fsr { margin-left:.6rem; vertical-align:middle; }
   border-radius:1rem; padding:.2rem .7rem; font:inherit; font-size:.84rem; cursor:pointer; }
 .speak:hover { border-color:var(--accent); color:var(--accent); }
 .postnav .speak { margin-left:auto; }                 /* 导航条里靠右 */
-.postnav { margin:1.6rem 0 .6rem, padding-top:.8rem; border-top:1px solid var(--line);
+.postnav { margin:1.6rem 0 .6rem; padding-top:.8rem; border-top:1px solid var(--line);
   display:flex; gap:.9rem; font-size:.9rem; }
 .postnav a { color:var(--accent); text-decoration:none; }
 .postnav a:hover { text-decoration:underline; }
@@ -71,10 +71,15 @@ nav .fsr, .postnav .fsr { margin-left:.6rem; vertical-align:middle; }
 .catnav .chip { text-decoration:none; }
 .catnav .chip.here { outline:2px solid var(--fg); }
 h1 .cnt { font-size:.8rem; color:var(--muted); font-weight:400; }
-.c-link { margin-top:.55rem, font-size:.88rem; }
+.lead { font-size:1.02rem; margin:.2rem 0 .8rem; }
+.note { color:var(--muted); font-size:.88rem; margin:0 0 1rem; }
+.note .hl { color:var(--fg); font-weight:600; }
+.ex { color:var(--muted); font-size:.84rem; margin:.15rem 0 .7rem; }
+.guide h2, .wrap h2 { margin:1.5rem 0 .3rem; }
+.c-link { margin-top:.55rem; font-size:.88rem; }
 .c-link a { color:var(--accent); text-decoration:none; }
 .c-link a:hover { text-decoration:underline; }
-.comments { margin-top:2.2rem, padding-top:1.2rem; border-top:1px solid var(--line); }
+.comments { margin-top:2.2rem; padding-top:1.2rem; border-top:1px solid var(--line); }
 .comments h3 { font-size:1.05rem; margin:0 0 .2rem; }
 .comments .c-note { color:var(--muted); font-size:.84rem; margin-bottom:.9rem; }
 .c-item { background:var(--card); border:1px solid var(--line); border-radius:.5rem;
@@ -92,7 +97,7 @@ h1 .cnt { font-size:.8rem; color:var(--muted); font-weight:400; }
 .c-form button[disabled] { opacity:.55; cursor:default; }
 .c-hp { position:absolute; left:-9999px; opacity:0; height:0; width:0; }
 .c-msg { font-size:.85rem; margin-top:.5rem; color:var(--muted); }
-.chip { display:inline-block, font-size:.72rem; padding:.05rem .4rem; border-radius:.3rem;
+.chip { display:inline-block; font-size:.72rem; padding:.05rem .4rem; border-radius:.3rem;
   color:#fff; margin-right:.4rem; vertical-align:.08em; }
 .cat-uscis { color:#1d4ed8; border-left-color:#1d4ed8; }
 .chip-uscis { background:#1d4ed8; }
