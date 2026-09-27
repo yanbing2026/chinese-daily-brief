@@ -118,6 +118,18 @@
 .chip-us_china { background:#1f844f; }
 .cat-us_china.v1 { color:#1f847b; border-left-color:#1f847b; }
 .cat-us_china.v2 { color:#1f8423; border-left-color:#1f8423; }
+.cat-ent { color:#5d841f; border-left-color:#5d841f; }
+.chip-ent { background:#5d841f; }
+.cat-ent.v1 { color:#31841f; border-left-color:#31841f; }
+.cat-ent.v2 { color:#847f1f; border-left-color:#847f1f; }
+.cat-sports { color:#71841f; border-left-color:#71841f; }
+.chip-sports { background:#71841f; }
+.cat-sports.v1 { color:#45841f; border-left-color:#45841f; }
+.cat-sports.v2 { color:#846b1f; border-left-color:#846b1f; }
+.cat-science { color:#36841f; border-left-color:#36841f; }
+.chip-science { background:#36841f; }
+.cat-science.v1 { color:#1f8434; border-left-color:#1f8434; }
+.cat-science.v2 { color:#62841f; border-left-color:#62841f; }
 .cat-misc { color:#525252; border-left-color:#525252; }
 .chip-misc { background:#525252; }
 .cat-misc.v1 { color:#525252; border-left-color:#525252; }
@@ -242,6 +254,18 @@ html[data-theme="dark"] .cat-us_china { color:#a0e3c0; border-left-color:#a0e3c0
 html[data-theme="dark"] .chip-us_china { background:#a0e3c0; color:#111; }
 html[data-theme="dark"] .cat-us_china.v1 { color:#a0e3dd; border-left-color:#a0e3dd; }
 html[data-theme="dark"] .cat-us_china.v2 { color:#a0e3a3; border-left-color:#a0e3a3; }
+html[data-theme="dark"] .cat-ent { color:#c9e3a0; border-left-color:#c9e3a0; }
+html[data-theme="dark"] .chip-ent { background:#c9e3a0; color:#111; }
+html[data-theme="dark"] .cat-ent.v1 { color:#ace3a0; border-left-color:#ace3a0; }
+html[data-theme="dark"] .cat-ent.v2 { color:#e3e0a0; border-left-color:#e3e0a0; }
+html[data-theme="dark"] .cat-sports { color:#d7e3a0; border-left-color:#d7e3a0; }
+html[data-theme="dark"] .chip-sports { background:#d7e3a0; color:#111; }
+html[data-theme="dark"] .cat-sports.v1 { color:#bae3a0; border-left-color:#bae3a0; }
+html[data-theme="dark"] .cat-sports.v2 { color:#e3d2a0; border-left-color:#e3d2a0; }
+html[data-theme="dark"] .cat-science { color:#afe3a0; border-left-color:#afe3a0; }
+html[data-theme="dark"] .chip-science { background:#afe3a0; color:#111; }
+html[data-theme="dark"] .cat-science.v1 { color:#a0e3ae; border-left-color:#a0e3ae; }
+html[data-theme="dark"] .cat-science.v2 { color:#cce3a0; border-left-color:#cce3a0; }
 html[data-theme="dark"] .cat-misc { color:#d4d4d4; border-left-color:#d4d4d4; }
 html[data-theme="dark"] .chip-misc { background:#d4d4d4; color:#111; }
 html[data-theme="dark"] .cat-misc.v1 { color:#d4d4d4; border-left-color:#d4d4d4; }
