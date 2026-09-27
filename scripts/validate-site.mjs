@@ -139,10 +139,12 @@ if (fs.existsSync(jsPath)) {
 
 /* ---------- 4. 简繁镜像：页面结构一致 + 手写资源镜像逐字节一致 ---------- */
 const htmlSet = new Set(htmlFiles.map(rel));
+// 这些页面不需要繁体镜像：错误页（简繁同形，读者只看到几十个字）
+const NO_MIRROR = ["404.html"];
 for (const r of htmlSet) {
   if (r.startsWith("tw/")) {
     if (!htmlSet.has(r.slice(3))) errors.push(`繁体页 ${r} 没有对应的简体页 ${r.slice(3)}`);
-  } else if (!htmlSet.has("tw/" + r)) {
+  } else if (!htmlSet.has("tw/" + r) && !NO_MIRROR.includes(r)) {
     errors.push(`简体页 ${r} 缺少繁体镜像 tw/${r}`);
   }
 }
