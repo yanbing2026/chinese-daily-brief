@@ -15,7 +15,7 @@
 ## 生产线
 
 1. `us-chinese-brief.py` — 采集 11 个栏目（USCIS / Federal Register / Google News 中英文 / 星岛美国 / Slickdeals），产出材料清单 + `latest.json`
-2. `write-articles.py` — 按优先级挑材料 → 抓原文 → **写原创稿** → 验收 → 落盘
+2. `write-articles.py` — 按优先级挑材料 → 抓原文 → **同题多源补捞** → **web 搜索做研究** → **写原创稿** → 验收 → 落盘
 3. `brief-site-build.py` — 建站：首页 = 今日原创全文，另有往期原创
 
 每小时（整点）由 cron 作业 `us-chinese-brief-publish` 跑完整条链，每轮 `write-articles --limit 2`
