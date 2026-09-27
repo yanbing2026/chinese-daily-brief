@@ -3,11 +3,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>房产 · 在美华人每日简报</title>
 <meta name="description" content="在美华人每日简报：每日原创中文写作，读公开英文资料后自行成文，涵盖移民、签证、报税、教育与本地生活。">
-<link rel="stylesheet" href="../assets/style.css?v=e718f52e">
-<!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{document.documentElement.setAttribute("data-theme",localStorage.getItem("th")==="dark"?"dark":"light");}catch(e){}})();</script><!--th:end--></head><body><div class="wrap">
+<link rel="stylesheet" href="../assets/style.css?v=21c939c1">
+<!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--></head><body><div class="wrap">
 <header class="top">
   <div class="brand">在美华人每日简报</div>
-  <div class="sub">更新：2026-09-26 22:30 EDT</div>
+  <div class="sub">更新：2026-09-26 22:31 EDT</div>
   <nav><a href="../index.html">今日原创</a><a href="../posts.html">往期原创</a>
   <a href="../guide/index.html">常读</a>
 <a href="../tw/category/housing.html">繁體</a></nav>
@@ -61,8 +61,9 @@
 </script><!--fs:end-->
 <!--th:start--><script>
 (function () {
-  // 两态（日 ⇄ 夜），默认"日"。不要做"跟随系统"这个中间态：浅色机器上"跟随"和"日"
-  // 视觉完全相同，用户点一下看不出变化，会直接判定"坏了"。
+  // 两态（日 ⇄ 夜），默认"日"。不要"跟随系统"这个中间态：浅色机器上"跟随"和"日"
+  // 视觉完全相同，点一下看不出变化，会被判定为"按键没反应"。
+  var PALETTE = {"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};
   var MODES = ["light", "dark"];
   var LABEL = { light: "日", dark: "夜" };
   var ICON  = { light: "☀", dark: "🌙" };
@@ -72,7 +73,13 @@
     try { var v = localStorage.getItem("th"); return MODES.indexOf(v) >= 0 ? v : "light"; }
     catch (e) { return "light"; }
   }
-  function apply(i) { root.setAttribute("data-theme", i); }
+  // 颜色写成行内样式：不依赖外部 CSS 是否新鲜，也不受选择器优先级影响
+  function apply(i) {
+    var p = PALETTE[i] || PALETTE.light;
+    for (var k in p) { if (Object.prototype.hasOwnProperty.call(p, k)) root.style.setProperty(k, p[k]); }
+    root.style.colorScheme = (i === "dark") ? "dark" : "light";
+    root.setAttribute("data-theme", i);
+  }
 
   var cur = intent();
   apply(cur);
@@ -91,6 +98,7 @@
     try { localStorage.setItem("th", cur); } catch (e) {}
     apply(cur); label();
   });
+
   function mount() {
     if (document.querySelector(".thm")) return;
     var host = document.querySelector("nav") || document.querySelector(".postnav");

@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-Hans"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>社保退休年龄法案与2032年偿付危机</title><link rel="stylesheet" href="../assets/style.css?v=e718f52e"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{document.documentElement.setAttribute("data-theme",localStorage.getItem("th")==="dark"?"dark":"light");}catch(e){}})();</script><!--th:end--></head>
+<title>社保退休年龄法案与2032年偿付危机</title><link rel="stylesheet" href="../assets/style.css?v=21c939c1"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--></head>
 <body data-slug="2026-09-26-topic---948896.html"><div class="wrap">
 <a class="back" href="../index.html">← 回首页</a>
 <h1 class="art" data-section="退休与社保">社保退休年龄法案与2032年偿付危机</h1>
@@ -135,8 +135,9 @@
 </script><!--fs:end-->
 <!--th:start--><script>
 (function () {
-  // 两态（日 ⇄ 夜），默认"日"。不要做"跟随系统"这个中间态：浅色机器上"跟随"和"日"
-  // 视觉完全相同，用户点一下看不出变化，会直接判定"坏了"。
+  // 两态（日 ⇄ 夜），默认"日"。不要"跟随系统"这个中间态：浅色机器上"跟随"和"日"
+  // 视觉完全相同，点一下看不出变化，会被判定为"按键没反应"。
+  var PALETTE = {"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};
   var MODES = ["light", "dark"];
   var LABEL = { light: "日", dark: "夜" };
   var ICON  = { light: "☀", dark: "🌙" };
@@ -146,7 +147,13 @@
     try { var v = localStorage.getItem("th"); return MODES.indexOf(v) >= 0 ? v : "light"; }
     catch (e) { return "light"; }
   }
-  function apply(i) { root.setAttribute("data-theme", i); }
+  // 颜色写成行内样式：不依赖外部 CSS 是否新鲜，也不受选择器优先级影响
+  function apply(i) {
+    var p = PALETTE[i] || PALETTE.light;
+    for (var k in p) { if (Object.prototype.hasOwnProperty.call(p, k)) root.style.setProperty(k, p[k]); }
+    root.style.colorScheme = (i === "dark") ? "dark" : "light";
+    root.setAttribute("data-theme", i);
+  }
 
   var cur = intent();
   apply(cur);
@@ -165,6 +172,7 @@
     try { localStorage.setItem("th", cur); } catch (e) {}
     apply(cur); label();
   });
+
   function mount() {
     if (document.querySelector(".thm")) return;
     var host = document.querySelector("nav") || document.querySelector(".postnav");

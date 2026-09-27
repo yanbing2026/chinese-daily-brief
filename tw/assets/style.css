@@ -1,9 +1,6 @@
 ':root { --fg:#1a1a1a; --muted:#6b7280; --bg:#fbfbfd; --card:#fff; --line:#e5e7eb; --accent:#0f766e;
   color-scheme: light; }
-/* 日/夜：默认「日」（不跟随系统设置），点按钮切到「夜」。深色变量只有这一份。 */
-html[data-theme="dark"] { --fg:#e8e8ea; --muted:#9aa0a6; --bg:#14161a; --card:#1b1e24; --line:#2c313a;
-  --accent:#5eead4; color-scheme: dark; }
-
+{theme_head_style()}
 * { box-sizing: border-box; }
 body { margin:0; background:var(--bg); color:var(--fg); line-height:1.75;
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",
