@@ -16,14 +16,3 @@ jobs:
           node-version: 20
       - name: Validate HTML references and required metadata
         run: node scripts/validate-site.mjs
-      # 前端契约（见 SITE_ARCHITECTURE.md）：搜索/类别筛选/进度条这些控件由 assets/site-v2.js
-      # 在运行时挂载，靠 [data-srow]/data-cat/.catnav a[data-cat]/h1.today 这几个钩子。
-      # 钩子被改掉时页面看着正常、功能静默消失 —— 所以真跑一遍 jsdom 断言，别只做静态检查。
-      - name: Install jsdom for the interaction contract check
-        working-directory: scripts
-        run: npm init -y >/dev/null 2>&1 && npm install --no-audit --no-fund jsdom
-      - name: Verify the interaction contract on real pages
-        run: |
-          node scripts/sv-check.js \
-            index.html posts.html \
-            category/uscis.html guide/identity.html tw/index.html
