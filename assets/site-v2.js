@@ -16,10 +16,12 @@ ready(function(){
     else if(h) h.insertAdjacentElement("afterend",bar);
     var input=bar.querySelector("input"), clear=bar.querySelector(".clear-search"), count=bar.querySelector(".result-count");
     function norm(s){return (s||"").toLowerCase().replace(/\s+/g,"");}
+    var categoryValue="";
     function run(){
       var q=norm(input.value), shown=0;
       Array.prototype.forEach.call(list,function(el){
-        var hit=!q||norm(el.innerText).indexOf(q)>=0;
+        var categoryHit=!categoryValue||!!el.querySelector(".cat-"+categoryValue);
+        var hit=categoryHit&&(!q||norm(el.innerText).indexOf(q)>=0);
         el.hidden=!hit;
         if(hit) shown++;
       });
