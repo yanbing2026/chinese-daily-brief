@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="assets/style.css?v=6fb50781">
 <link rel="stylesheet" href="assets/cat-colors.css?v=f9ebf7b5">
 <style>
-/* 404 专属外观（手写页内样式：不碰 assets/style.css，就不用重盖全站资源指纹） */
+/* 404 專屬外觀（手寫頁內樣式：不碰 assets/style.css?v=6fb50781，就不用重蓋全站資源指紋） */
 .nf { text-align:center; padding:2.6rem .5rem 2.2rem; }
 .nf-code { font-size:4.6rem; font-weight:800; letter-spacing:.06em; line-height:1;
   color:var(--accent); }
@@ -37,7 +37,11 @@
   </ul>
 </article>
 </div>
-<script src="assets/site-v2.js?v=bb5d377e" defer></script>
+<script src="assets/site-v2.js?v=78d0c6cd" defer></script>
+
+
+
+
 <!--fs:head--><script>
 (function () {
   var STEPS = [100, 112, 125, 90];          // 標準 → 大 → 特大 → 小 → 循環
@@ -219,7 +223,9 @@
   // 只念**標題 + 正文**：不念頁頭（站名/副標題）、meta 行（日期·欄目·字數）、
   // 欄目條、免責聲明、評論。做法是"白名單取元素"，而不是"整塊減去黑名單"——
   // 後者會把頁頭之類的東西順帶念出來。
-  var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta, script, style, nav";
+  var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta, .subscribe, .sub-msg,"
+           + " .today-focus, .site-tools, .fsr, .speak, .top, .foot, .read-progress, .back-top,"
+           + " script, style, nav";
 
   function clean(el) {
     return (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
@@ -318,7 +324,18 @@
     // 首頁是 <article>（全文直鋪），往期/欄目頁是 <li>（只有標題）——兩種都要能念，
     // 而且按鈕一律挨着標題放：之前掛在文章末尾的「讀者評論」那一行，
     // 讀者得先讀完一整篇纔看得見按鈕。
-    var items = document.querySelectorAll("article, li");
+    // 只掛到**有正文的條目**：首頁卡片是 <article>（全文直鋪），單篇頁走下面的兜底分支。
+    // 兩條教訓疊出來的規則：
+    //   ① 用戶明確要求"朗讀鍵只有在正文裏面纔有" —— 列表頁(欄目/往期/常讀)每行只有標題，
+    //      34 行就是 34 個按鈕，念出來還是空氣；
+    //   ② 早前用 querySelectorAll("article, li")，把導航、目錄、postnav 也當成了條目，
+    //      頁面上出現"今日原創 [朗讀] 往期原創 [朗讀]"這種莫名其妙的東西。
+    // 錯誤頁（404）聲明瞭 noindex，就別在上面掛朗讀按鈕。
+    // 這裏用"取屬性再查字符串"，不用 [content~="noindex"] 這種屬性詞選擇器 ——
+    // 花式選擇器一旦不被支持就是整段腳本拋錯（朗讀按鈕全站消失），不值這個風險。
+    var rb = document.querySelector('meta[name="robots"]');
+    if (rb && (rb.getAttribute("content") || "").indexOf("noindex") >= 0) return;
+    var items = document.querySelectorAll("article[data-srow]");
     if (items.length) {
       Array.prototype.forEach.call(items, function (it) {
         if (it.querySelector(".speak")) return;
@@ -329,7 +346,10 @@
       });
       return;
     }
-    // 單篇頁：沒有條目元素，整塊 .wrap 當朗讀區域，按鈕放到導航條裏
+    // 單篇頁：沒有條目元素，整塊 .wrap 當朗讀區域，按鈕放到標題旁。
+    // 判據是生成器寫在 <body> 上的 data-page —— 不要從 DOM 裏認：
+    // 欄目頁的標題也是 h1.art（撞上了），.c-body 又是評論的正文容器（也撞上了）。
+    if ((document.body.getAttribute("data-page") || "") !== "post") return;
     var wrap = document.querySelector(".wrap");
     if (!wrap || wrap.querySelector(".speak")) return;
     // 按鈕插在標題**後面作爲兄弟節點**（insertAdjacentElement 是"之後"，不是"裏面"）：

@@ -19,6 +19,14 @@
     else fn();
   }
 
+  // 界面文案按页面语言出：繁体镜像页是同一份脚本，以前这里硬编码简体，
+  // 于是繁体版里搜索框写着"搜索本站内容…"、筛选写着"全部类别" —— i18n 漏网。
+  var L = (document.documentElement.lang || "zh-Hans").indexOf("Hant") >= 0
+    ? { search: "搜尋本站內容…", clear: "清除", found: "找到 ", item: " 項",
+        filter: "按類別篩選", all: "全部類別", focus: "今日快速入口" }
+    : { search: "搜索本站内容…", clear: "清除", found: "找到 ", item: " 项",
+        filter: "按类别筛选", all: "全部类别", focus: "今日快速入口" };
+
   ready(function () {
     var rows = Array.prototype.slice.call(document.querySelectorAll("[data-srow]"));
     var isHome = !!document.querySelector("h1.today");
@@ -35,8 +43,8 @@
       bar.className = "site-tools";
       bar.innerHTML =
         '<label class="searchbox"><span aria-hidden="true">⌕</span>' +
-        '<input type="search" placeholder="搜索本站内容…" aria-label="搜索本站内容"></label>' +
-        '<button type="button" class="clear-search" hidden>清除</button>' +
+        '<input type="search" placeholder="' + L.search + '" aria-label="' + L.search + '"></label>' +
+        '<button type="button" class="clear-search" hidden>' + L.clear + '</button>' +
         '<span class="result-count" aria-live="polite"></span>';
       var anchor = nav || document.querySelector(".wrap > h1") || document.querySelector("h1");
       if (anchor) anchor.insertAdjacentElement("afterend", bar);
@@ -56,7 +64,7 @@
         if (hit) shown++;
       });
       clear.hidden = !q;
-      count.textContent = q ? "找到 " + shown + " 项" : "";
+      count.textContent = q ? L.found + shown + L.item : "";
     }
 
     if (bar) {
@@ -74,10 +82,10 @@
       if (links.length > 1) {
         var filter = document.createElement("select");
         filter.className = "category-filter";
-        filter.setAttribute("aria-label", "按类别筛选");
+        filter.setAttribute("aria-label", L.filter);
         var all = document.createElement("option");
         all.value = "";
-        all.textContent = "全部类别";
+        all.textContent = L.all;
         filter.appendChild(all);
         links.forEach(function (a) {
           var o = document.createElement("option");
@@ -100,7 +108,7 @@
         var box = document.createElement("aside");
         box.className = "today-focus";
         var strong = document.createElement("strong");
-        strong.textContent = "今日快速入口";
+        strong.textContent = L.focus;
         box.appendChild(strong);
         var ol = document.createElement("ol");
         articles.slice(0, 5).forEach(function (a, i) {
@@ -109,8 +117,11 @@
           if (!a.id) a.id = "article-" + i;
           var li = document.createElement("li"), link = document.createElement("a");
           link.href = "#" + a.id;
-          // h1 里第一个元素是栏目标签（<span class="chip">），标题是它后面的文本
-          link.textContent = (h.innerText || h.textContent || "").replace(/^\S+\s*/, "").trim();
+          // 标题明文来自生成标记的 data-title —— 不要从 DOM 里猜：
+          // 老写法 (h.innerText||h.textContent||"").replace(/^\S+\s*/,"") 在中文标题上
+          // 是灾难（标题里没有空格，贪婪的 ^\S+ 会把**整串**吃掉，链接文字变成空字符串，
+          // 于是"今日快速入口"渲染出 5 个点不动的空链接）。DOM 里还可能被别的脚本注入按钮。
+          link.textContent = a.getAttribute("data-title") || (h.textContent || "").trim();
           li.appendChild(link);
           ol.appendChild(li);
         });
