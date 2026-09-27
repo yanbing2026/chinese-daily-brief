@@ -3,11 +3,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI 中文 · 在美華人每日簡報</title>
 <meta name="description" content="在美華人每日簡報：每日原創中文寫作，讀公開英文資料後自行成文，涵蓋移民、簽證、報稅、教育與本地生活。">
-<link rel="stylesheet" href="../assets/style.css?v=b97d0cd4">
+<link rel="stylesheet" href="../assets/style.css?v=e0a84025">
+<link rel="stylesheet" href="../assets/cat-colors.css?v=f9ebf7b5">
 <!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--></head><body><div class="wrap">
 <header class="top">
   <div class="brand">在美華人每日簡報</div>
-  <div class="sub">更新：2026-09-26 23:22 EDT</div>
+  <div class="sub">更新：2026-09-26 23:49 EDT</div>
   <nav><a href="../index.html">今日原創</a><a href="../posts.html">往期原創</a>
   <a href="../guide/index.html">常讀</a>
 <a href="../../category/ai_zh.html">簡體</a></nav>
@@ -175,8 +176,8 @@
 (function () {
   if (!("speechSynthesis" in window)) return;            // 老瀏覽器直接安靜退出
 
-  // zh-Hant / zh-Hant 映射到語音引擎認的 BCP-47 標籤
-  var pageLang = (document.documentElement.lang || "zh-Hant");
+  // zh-Hans / zh-Hant 映射到語音引擎認的 BCP-47 標籤
+  var pageLang = (document.documentElement.lang || "zh-Hans");
   var lang = pageLang.indexOf("Hant") >= 0 ? "zh-TW" : "zh-CN";
 
   function pickVoice() {

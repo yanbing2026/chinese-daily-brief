@@ -28,14 +28,23 @@ The repository is the published site layer:
 
 ## The rule that keeps front-end work alive
 
-**`assets/style.css` and every page file are generated. `assets/site-v2.js` is hand-maintained.**
+**Page files and `assets/cat-colors.css` are generated. `assets/style.css` (the design) and
+`assets/site-v2.js` (the interaction layer) are hand-maintained.**
+
+That split is deliberate: all *appearance* lives in `assets/style.css`, so a designer can restyle
+the whole site without touching the generator, and no build can overwrite that work. Only the
+data-driven category colours are generated (`assets/cat-colors.css`), because they must follow the
+category list. Hand-written assets are seeded once by the generator if missing, then left alone.
 
 So, in order of who owns what:
 
-1. Page markup, all CSS, and the widget hooks → edit `brief-site-build.py` (host), never the HTML.
-   Anything added straight to a generated file disappears on the next 07:00 build.
-2. Interaction behaviour → edit `assets/site-v2.js` (this repo). It is not regenerated.
-3. New shared assets (JS/images) → drop them in `assets/`; the build mirrors the whole directory
+1. **Appearance (layout, type, colour, spacing, motion) → `assets/style.css`** (this repo).
+   Nothing there is regenerated, so a redesign survives every build. See `docs/style-contract.md`
+   for the class names, CSS variables and required hooks.
+2. Page structure / markup / new sections / taxonomy keys → `brief-site-build.py` (host), never the
+   generated HTML. Anything added straight to a generated file disappears on the next 07:00 build.
+3. Interaction behaviour (search, filters, progress bar) → `assets/site-v2.js` (this repo).
+4. New shared assets (JS/images) → drop them in `assets/`; the build mirrors the whole directory
    into `tw/assets/` so the traditional pages resolve them too.
 
 ## Front-end contract

@@ -45,6 +45,7 @@ for (const file of htmlFiles) {
   if (!/<title>[^<]+<\/title>/i.test(text)) errors.push(`${r}: 缺 title`);
   if (!text.includes("assets/style.css")) errors.push(`${r}: 未加载 assets/style.css`);
   if (!text.includes("assets/site-v2.js")) errors.push(`${r}: 未加载 assets/site-v2.js`);
+  if (!text.includes("assets/cat-colors.css")) errors.push(`${r}: 未加载 assets/cat-colors.css`);
 
   for (const m of text.matchAll(/(?:href|src)="([^"]+)"/gi)) {
     const u = m[1];
@@ -72,11 +73,17 @@ for (const file of htmlFiles) {
 /* ---------- 2. 共享资源的指纹引用必须等于本体内容 ---------- */
 const cssPath = path.join(root, "assets", "style.css");
 const jsPath = path.join(root, "assets", "site-v2.js");
-if (!fs.existsSync(cssPath)) errors.push("assets/style.css 不存在（本应由生成器产出）");
+const catCssPath = path.join(root, "assets", "cat-colors.css");
+if (!fs.existsSync(cssPath)) errors.push("assets/style.css 不存在（手写设计文件）");
 if (!fs.existsSync(jsPath)) errors.push("assets/site-v2.js 不存在（手写前端层）");
+if (!fs.existsSync(catCssPath)) errors.push("assets/cat-colors.css 不存在（生成器产出）");
 
-if (fs.existsSync(cssPath) && fs.existsSync(jsPath)) {
-  const ver = { "style.css": md5(cssPath).slice(0, 8), "site-v2.js": md5(jsPath).slice(0, 8) };
+if (fs.existsSync(cssPath) && fs.existsSync(jsPath) && fs.existsSync(catCssPath)) {
+  const ver = {
+    "style.css": md5(cssPath).slice(0, 8),
+    "cat-colors.css": md5(catCssPath).slice(0, 8),
+    "site-v2.js": md5(jsPath).slice(0, 8),
+  };
   for (const file of htmlFiles) {
     const text = read(file);
     const r = rel(file);
@@ -87,7 +94,7 @@ if (fs.existsSync(cssPath) && fs.existsSync(jsPath)) {
       for (const f of found) if (f[1] !== v) errors.push(`${r}: ${name} 指纹 v=${f[1]} ≠ 本体现值 v=${v}`);
     }
   }
-  notes.push(`指纹 style.css?v=${ver["style.css"]}／site-v2.js?v=${ver["site-v2.js"]}`);
+  notes.push(Object.entries(ver).map(([n, v]) => `${n}?v=${v}`).join("／"));
 }
 
 /* ---------- 3. site-v2.js 本体哈希钉住（生成器误写/手改都会被挡住） ---------- */
