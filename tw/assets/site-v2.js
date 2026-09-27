@@ -101,33 +101,38 @@
       }
     }
 
-    /* ---- 首页：今日快速入口 ---- */
+    /* ---- 首页：今日快速入口 ----
+       首页 2026-09-27 起只列 10 条标题（不再全文直铺），所以入口改成"先看哪几条"：
+       从清单行里挑字数最多的 5 条（长稿通常是当天更值钱的那几条），链到单篇页。
+       标题一律取生成器写在行上的 data-title —— 不要从 DOM 里猜文字：
+       老写法用正则去掉开头那段非空白字符，在中文标题上是灾难
+       （标题没空格，贪婪匹配会吃掉整串，链接文字变成空字符串）。 */
     if (isHome) {
-      var articles = Array.prototype.slice.call(document.querySelectorAll("article[data-srow]"));
-      if (articles.length > 2) {
+      var rowsAll = Array.prototype.slice.call(document.querySelectorAll("[data-srow]"));
+      if (rowsAll.length > 2) {
         var box = document.createElement("aside");
         box.className = "today-focus";
         var strong = document.createElement("strong");
         strong.textContent = L.focus;
         box.appendChild(strong);
         var ol = document.createElement("ol");
-        articles.slice(0, 5).forEach(function (a, i) {
-          var h = a.querySelector("h1.art");
-          if (!h) return;
-          if (!a.id) a.id = "article-" + i;
-          var li = document.createElement("li"), link = document.createElement("a");
-          link.href = "#" + a.id;
-          // 标题明文来自生成标记的 data-title —— 不要从 DOM 里猜：
-          // 老写法 (h.innerText||h.textContent||"").replace(/^\S+\s*/,"") 在中文标题上
-          // 是灾难（标题里没有空格，贪婪的 ^\S+ 会把**整串**吃掉，链接文字变成空字符串，
-          // 于是"今日快速入口"渲染出 5 个点不动的空链接）。DOM 里还可能被别的脚本注入按钮。
-          link.textContent = a.getAttribute("data-title") || (h.textContent || "").trim();
-          li.appendChild(link);
-          ol.appendChild(li);
-        });
-        box.appendChild(ol);
-        var host = document.querySelector(".site-tools") || nav;
-        if (host) host.insertAdjacentElement("afterend", box);
+        rowsAll.map(function (r) { return { row: r, han: parseInt(r.getAttribute("data-han") || "0", 10) || 0 }; })
+          .sort(function (a, b) { return b.han - a.han; })
+          .slice(0, 5)
+          .forEach(function (it) {
+            var a = it.row.querySelector("a[href]");
+            if (!a) return;
+            var li = document.createElement("li"), link = document.createElement("a");
+            link.href = a.getAttribute("href");
+            link.textContent = it.row.getAttribute("data-title") || (a.textContent || "").trim();
+            li.appendChild(link);
+            ol.appendChild(li);
+          });
+        if (ol.children.length) {
+          box.appendChild(ol);
+          var host = document.querySelector(".site-tools") || nav;
+          if (host) host.insertAdjacentElement("afterend", box);
+        }
       }
     }
 
