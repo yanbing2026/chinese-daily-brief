@@ -20,7 +20,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>读者评论</h3>
-  <div class="c-note">评论需经审核后显示。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
+  <div class="c-note">评论提交后立即显示，并每 3 小时自动复查一次。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
   <div id="c-list"><div class="c-note">正在载入评论…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="称呼（可留空）">
@@ -77,7 +77,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等审核通过后显示。谢谢。";
+          // 提交即显示（2026-09-28 起从"待审"改成"先显示后复查"），
+          // 所以不能再承诺"审核通过后显示"——那会让人刷新半天找不到自己的评论。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "没提交成功：" + ((res.j && res.j.error) || "服务暂时不可用");
         }

@@ -6,7 +6,7 @@
 <body data-page="post" data-slug="2026-09-28-disc-nvidia-share-b310ce.html"><div class="wrap">
 <a class="back" href="../index.html">← 回首页</a>
 <h1 class="art" data-section="经济通胀">英伟达批准1500亿美元史上最大规模股票回购计划</h1>
-<div class="art-meta cat-economy v1">2026-09-28 10:06 EDT　·　AI 整理　·　依据 45 家来源（网络）　·　1413 字</div>
+<div class="art-meta cat-economy">2026-09-28 10:06 EDT　·　AI 整理　·　依据 45 家来源（网络）　·　1413 字</div>
 <p>英伟达（NVIDIA）董事会近日批准了一项1500亿美元的股票回购授权增幅，这是该公司历史上规模最大的单次回购授权。此举将英伟达的累计回购授权总额推高至2350亿美元，反映了这家人工智能芯片巨头在AI浪潮推动下的强劲现金流和回报股东的坚定决心。消息公布后，英伟达股价在盘前交易中上涨约1.2%，扭转了此前的下跌态势，竞争对手AMD和英特尔的股价也同步走高。</p>
 <h2>回购计划的具体内容与时间线</h2>
 <p>英伟达此次宣布的1500亿美元回购授权是在此前已有回购计划基础上的大幅追加。多家媒体报道称，英伟达董事会决定动用公司资产负债表上的资金来执行这些回购操作。该授权没有设定具体的到期日限制，但英伟达表示计划在2028财年结束前——即2028年1月之前——完成全部回购操作。这意味着公司有超过一年半的时间来灵活择机执行回购。</p>
@@ -23,7 +23,7 @@
 <p>投资者接下来应关注以下几个方面。首先是英伟达每季度的实际回购执行进度，1500亿美元的授权并不意味着公司会立即全部买入，具体节奏取决于管理层对股价估值和市场环境的判断。其次是自由现金流是否如FactSet预期般保持强劲，这直接关系到回购和股息政策的可持续性。第三是AI芯片需求能否持续支撑当前的营收增速，这是整个资本回报计划的底层基础。</p>
 <p>此外，英伟达同时在推进对AI初创公司Hugging Face约129亿美元的收购。这意味着公司在回购和战略并购两个方向上同时进行大规模资本部署，其资金分配策略和优先级值得持续跟踪。在AI竞争日益激烈的背景下，英伟达如何平衡股东回报与战略投资，将是观察其长期竞争力的重要维度。</p>
 <div class="c-link"><a href="#comments">读者评论 →</a></div>
-<div class="related kwrow"><div class="rhead">关键词</div><ul><li><a class="kw" href="../tag/英伟达.html">英伟达</a><span class="rmeta">3 篇</span></li><li><a class="kw" href="../tag/股票回购.html">股票回购</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/AI芯片.html">AI芯片</a><span class="rmeta">2 篇</span></li></ul></div>
+<div class="related kwrow"><div class="rhead">关键词</div><ul><li><a class="kw" href="../tag/英伟达.html">英伟达</a><span class="rmeta">4 篇</span></li><li><a class="kw" href="../tag/股票回购.html">股票回购</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/AI芯片.html">AI芯片</a><span class="rmeta">2 篇</span></li></ul></div>
 <div class="tags"><a class="chip chip-economy" data-cat="economy" href="../category/economy.html">经济</a></div>
 <div class="notice">本文由 AI 整理自公开英文资料后写成中文，事实与数据取自原始材料、
 未沿用来源的成段表达；不含外链。文章未经人工逐字校对，涉及政策与法律的内容
@@ -31,7 +31,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>读者评论</h3>
-  <div class="c-note">评论需经审核后显示。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
+  <div class="c-note">评论提交后立即显示，并每 3 小时自动复查一次。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
   <div id="c-list"><div class="c-note">正在载入评论…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="称呼（可留空）">
@@ -88,7 +88,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等审核通过后显示。谢谢。";
+          // 提交即显示（2026-09-28 起从"待审"改成"先显示后复查"），
+          // 所以不能再承诺"审核通过后显示"——那会让人刷新半天找不到自己的评论。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "没提交成功：" + ((res.j && res.j.error) || "服务暂时不可用");
         }

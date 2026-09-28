@@ -19,7 +19,7 @@
 <h2>後續待觀察節點</h2>
 <p>首先是白宮晚宴的成果：多家媒體報道稱，此次晚宴是雙方首次直接對話機會，核心議題將圍繞AI治理框架、黑名單禁令的調整空間展開，外界將密切關注會面後是否會有聯邦政府放寬對Anthropic限制的官方聲明。 其次是Anthropic的訴訟進展：目前上訴法院的裁決已經生效，Anthropic可能向聯邦最高法院申請複審，該申請是否被受理、最高法院是否會介入，將決定黑名單禁令的最終合法性。 第三是聯邦機構的過渡期進展：按照2026年2月27日行政令的要求，6個月過渡期將於2026年8月底結束，屆時所有聯邦機構需完全停用Anthropic的技術，外界將觀察是否有機構獲得豁免，以及切換過程中是否出現項目延誤等問題。 第四是AI行業的政策走向：此次事件是特朗普政府AI政策的核心風向標，若政府堅持將AI安全預警視爲“末日論”並收緊對相關企業的審查，整個AI行業的監管環境可能發生重大變化，行業企業及研究者需提前評估政策風險。（全文約1980字）</p>
 <div class="c-link"><a href="#comments">讀者評論 →</a></div>
-<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">19 篇</span></li><li><a class="kw" href="../tag/Anthropic.html">Anthropic</a><span class="rmeta">4 篇</span></li><li><span class="kw-solo">AI禁令</span></li><li><span class="kw-solo">白宮晚宴</span></li></ul></div>
+<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">20 篇</span></li><li><a class="kw" href="../tag/Anthropic.html">Anthropic</a><span class="rmeta">5 篇</span></li><li><span class="kw-solo">AI禁令</span></li><li><span class="kw-solo">白宮晚宴</span></li></ul></div>
 <div class="tags"><a class="chip chip-economy" data-cat="economy" href="../category/economy.html">經濟</a></div>
 <div class="notice">本文由 AI 整理自公開英文資料後寫成中文，事實與數據取自原始材料、
 未沿用來源的成段表達；不含外鏈。文章未經人工逐字校對，涉及政策與法律的內容
@@ -27,7 +27,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>讀者評論</h3>
-  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div class="c-note">評論提交後立即顯示，並每 3 小時自動複查一次。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
   <div id="c-list"><div class="c-note">正在載入評論…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
@@ -84,7 +84,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+          // 提交即顯示（2026-09-28 起從"待審"改成"先顯示後複查"），
+          // 所以不能再承諾"審覈通過後顯示"——那會讓人刷新半天找不到自己的評論。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
         }

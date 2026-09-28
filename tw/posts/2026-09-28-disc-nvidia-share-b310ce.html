@@ -6,7 +6,7 @@
 <body data-page="post" data-slug="2026-09-28-disc-nvidia-share-b310ce.html"><div class="wrap">
 <a class="back" href="../index.html">← 回首頁</a>
 <h1 class="art" data-section="經濟通脹">英偉達批准1500億美元史上最大規模股票回購計劃</h1>
-<div class="art-meta cat-economy v1">2026-09-28 10:06 EDT　·　AI 整理　·　依據 45 家來源（網絡）　·　1413 字</div>
+<div class="art-meta cat-economy">2026-09-28 10:06 EDT　·　AI 整理　·　依據 45 家來源（網絡）　·　1413 字</div>
 <p>英偉達（NVIDIA）董事會近日批准了一項1500億美元的股票回購授權增幅，這是該公司歷史上規模最大的單次回購授權。此舉將英偉達的累計回購授權總額推高至2350億美元，反映了這家人工智能芯片巨頭在AI浪潮推動下的強勁現金流和回報股東的堅定決心。消息公佈後，英偉達股價在盤前交易中上漲約1.2%，扭轉了此前的下跌態勢，競爭對手AMD和英特爾的股價也同步走高。</p>
 <h2>回購計劃的具體內容與時間線</h2>
 <p>英偉達此次宣佈的1500億美元回購授權是在此前已有回購計劃基礎上的大幅追加。多家媒體報道稱，英偉達董事會決定動用公司資產負債表上的資金來執行這些回購操作。該授權沒有設定具體的到期日限制，但英偉達表示計劃在2028財年結束前——即2028年1月之前——完成全部回購操作。這意味着公司有超過一年半的時間來靈活擇機執行回購。</p>
@@ -23,7 +23,7 @@
 <p>投資者接下來應關注以下幾個方面。首先是英偉達每季度的實際回購執行進度，1500億美元的授權並不意味着公司會立即全部買入，具體節奏取決於管理層對股價估值和市場環境的判斷。其次是自由現金流是否如FactSet預期般保持強勁，這直接關係到回購和股息政策的可持續性。第三是AI芯片需求能否持續支撐當前的營收增速，這是整個資本回報計劃的底層基礎。</p>
 <p>此外，英偉達同時在推進對AI初創公司Hugging Face約129億美元的收購。這意味着公司在回購和戰略併購兩個方向上同時進行大規模資本部署，其資金分配策略和優先級值得持續跟蹤。在AI競爭日益激烈的背景下，英偉達如何平衡股東回報與戰略投資，將是觀察其長期競爭力的重要維度。</p>
 <div class="c-link"><a href="#comments">讀者評論 →</a></div>
-<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/英偉達.html">英偉達</a><span class="rmeta">3 篇</span></li><li><a class="kw" href="../tag/股票回購.html">股票回購</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/AI芯片.html">AI芯片</a><span class="rmeta">2 篇</span></li></ul></div>
+<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/英偉達.html">英偉達</a><span class="rmeta">4 篇</span></li><li><a class="kw" href="../tag/股票回購.html">股票回購</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/AI芯片.html">AI芯片</a><span class="rmeta">2 篇</span></li></ul></div>
 <div class="tags"><a class="chip chip-economy" data-cat="economy" href="../category/economy.html">經濟</a></div>
 <div class="notice">本文由 AI 整理自公開英文資料後寫成中文，事實與數據取自原始材料、
 未沿用來源的成段表達；不含外鏈。文章未經人工逐字校對，涉及政策與法律的內容
@@ -31,7 +31,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>讀者評論</h3>
-  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div class="c-note">評論提交後立即顯示，並每 3 小時自動複查一次。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
   <div id="c-list"><div class="c-note">正在載入評論…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
@@ -88,7 +88,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+          // 提交即顯示（2026-09-28 起從"待審"改成"先顯示後複查"），
+          // 所以不能再承諾"審覈通過後顯示"——那會讓人刷新半天找不到自己的評論。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
         }

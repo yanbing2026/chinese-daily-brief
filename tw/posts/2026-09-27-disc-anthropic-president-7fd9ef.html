@@ -33,7 +33,7 @@
 <p>第四，阿莫迪此前呼籲的AI監管方案是否會獲得政府的某種形式的回應或採納。</p>
 <p>這場晚餐本身或許只是一頓飯，但它所承載的是全球最大AI公司之一與美國行政當局之間關於技術發展方向、監管邊界和國家安全之間平衡的深層對話。在AI估值動輒萬億美元、AI產品深刻改變各行各業當下的時間節點上，阿莫迪與特朗普的這場白宮晚宴，值得所有關注科技政策與資本市場的人持續追蹤後續進展。</p>
 <div class="c-link"><a href="#comments">讀者評論 →</a></div>
-<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/Anthropic.html">Anthropic</a><span class="rmeta">4 篇</span></li><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">19 篇</span></li><li><a class="kw" href="../tag/AI監管.html">AI監管</a><span class="rmeta">3 篇</span></li></ul></div>
+<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/Anthropic.html">Anthropic</a><span class="rmeta">5 篇</span></li><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">20 篇</span></li><li><a class="kw" href="../tag/AI監管.html">AI監管</a><span class="rmeta">3 篇</span></li></ul></div>
 <div class="tags"><a class="chip chip-economy" data-cat="economy" href="../category/economy.html">經濟</a></div>
 <div class="notice">本文由 AI 整理自公開英文資料後寫成中文，事實與數據取自原始材料、
 未沿用來源的成段表達；不含外鏈。文章未經人工逐字校對，涉及政策與法律的內容
@@ -41,7 +41,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>讀者評論</h3>
-  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div class="c-note">評論提交後立即顯示，並每 3 小時自動複查一次。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
   <div id="c-list"><div class="c-note">正在載入評論…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
@@ -98,7 +98,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+          // 提交即顯示（2026-09-28 起從"待審"改成"先顯示後複查"），
+          // 所以不能再承諾"審覈通過後顯示"——那會讓人刷新半天找不到自己的評論。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
         }

@@ -26,7 +26,7 @@
 <p>習近平表示，他預計今年還將與特朗普會面兩次。他邀請特朗普夫婦今年11月前往中國深圳出席亞太經合組織（APEC）峯會，並提到一個月後可在佛羅里達州特朗普國家多拉爾高爾夫俱樂部舉行的二十國集團（G20）峯會上再次會面。</p>
 <p>分析人士普遍認爲，這場峯會在排場上做足了文章，但在臺灣、人工智能和更廣泛貿易緊張關係等核心議題上幾乎沒有實質進展。外交關係委員會的評估標題直白地概括了這一點："特朗普與習近平"合影峯會"的侷限性"。接下來，兩個月後的關稅談判走向、AI溝通渠道能否真正運轉、以及APEC和G20的兩次會晤，將決定這次"友誼、力量與成功"的表態是否具有持久意義。</p>
 <div class="c-link"><a href="#comments">讀者評論 →</a></div>
-<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">19 篇</span></li><li><a class="kw" href="../tag/習近平.html">習近平</a><span class="rmeta">4 篇</span></li><li><a class="kw" href="../tag/華盛頓峯會.html">華盛頓峯會</a><span class="rmeta">2 篇</span></li><li><span class="kw-solo">關稅休戰</span></li></ul></div>
+<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">20 篇</span></li><li><a class="kw" href="../tag/習近平.html">習近平</a><span class="rmeta">4 篇</span></li><li><a class="kw" href="../tag/華盛頓峯會.html">華盛頓峯會</a><span class="rmeta">2 篇</span></li><li><span class="kw-solo">關稅休戰</span></li></ul></div>
 <div class="tags"><a class="chip chip-world" data-cat="world" href="../category/world.html">國際</a></div>
 <div class="notice">本文由 AI 整理自公開英文資料後寫成中文，事實與數據取自原始材料、
 未沿用來源的成段表達；不含外鏈。文章未經人工逐字校對，涉及政策與法律的內容
@@ -34,7 +34,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>讀者評論</h3>
-  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div class="c-note">評論提交後立即顯示，並每 3 小時自動複查一次。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
   <div id="c-list"><div class="c-note">正在載入評論…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
@@ -91,7 +91,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+          // 提交即顯示（2026-09-28 起從"待審"改成"先顯示後複查"），
+          // 所以不能再承諾"審覈通過後顯示"——那會讓人刷新半天找不到自己的評論。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
         }

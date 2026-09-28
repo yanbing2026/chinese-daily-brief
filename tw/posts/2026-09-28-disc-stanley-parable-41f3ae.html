@@ -6,7 +6,7 @@
 <body data-page="post" data-slug="2026-09-28-disc-stanley-parable-41f3ae.html"><div class="wrap">
 <a class="back" href="../index.html">← 回首頁</a>
 <h1 class="art" data-section="科技">Stanley Parable 聯合設計師解釋爲何玩一萬六千小時 Dota 2 仍痛恨它</h1>
-<div class="art-meta cat-tech">2026-09-28 11:05 EDT　·　AI 整理　·　依據 48 家來源（網絡）　·　1329 字</div>
+<div class="art-meta cat-tech v1">2026-09-28 11:05 EDT　·　AI 整理　·　依據 48 家來源（網絡）　·　1329 字</div>
 <p>遊戲設計師威廉·普格（William Pugh）近日公開了自己在 Dota 2 中投入超過一萬六千個小時的事實，並給出了一個令人意外的評價："這不是一款用愛製作的遊戲。這是一款由仇恨和征服欲驅動的遊戲。"普格最爲人熟知的身份是敘事解謎遊戲《Stanley Parable》（斯坦利寓言）的聯合設計師——他參與設計的這款遊戲本身就在探討"選擇"與"敘事"的關係，而他對 Dota 2 的尖銳評價，恰恰構成了一個關於遊戲設計與玩家心理的深刻註腳。</p>
 <h2>威廉·普格與《Stanley Parable》</h2>
 <p>《Stanley Parable》最初由戴夫·威登（Davey Wreden）於2011年以 Half-Life 2 模組的形態發佈。2013年，威登與威廉·普格在工作室 Galactic Cafe 的名義下將其重製爲獨立遊戲，於2013年10月17日通過 Steam 正式發售，定價11.99美元，首周享有20%的早期購買折扣。遊戲講述辦公室職員斯坦利（員工編號427）在某天發現所有同事憑空消失後，獨自探索辦公樓真相的故事。玩家以第一人稱視角在環境中移動、互動，但遊戲沒有戰鬥或動作操控——唯一的機制是"敘述性選擇"：玩家面對岔路時，敘述者會宣稱玩家走了某條路；若玩家服從，敘事看似正常推進；若玩家反抗，敘述者會調整、責罵、即興發揮或試圖引導玩家回頭。原始版本有六個結局，威登曾表示玩家約需一小時即可體驗全部。2013年重製版擴充至十個以上結局，並新增了彩蛋和更多選擇分支。</p>
@@ -30,7 +30,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>讀者評論</h3>
-  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div class="c-note">評論提交後立即顯示，並每 3 小時自動複查一次。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
   <div id="c-list"><div class="c-note">正在載入評論…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
@@ -87,7 +87,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+          // 提交即顯示（2026-09-28 起從"待審"改成"先顯示後複查"），
+          // 所以不能再承諾"審覈通過後顯示"——那會讓人刷新半天找不到自己的評論。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
         }

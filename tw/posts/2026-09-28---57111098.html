@@ -15,7 +15,7 @@
 <p>截至2026年9月下旬，美南兩國仍處於僵持與有限接觸並存的階段。美方尚未回應南非提出的對話邀約，美駐南大使此前的表態也顯示，簽證限制只是美方對南施壓的開端，後續不排除推出更多升級措施，包括但不限於擴大簽證限制範圍、對南非特定商品加徵關稅、凍結雙方官方往來等。當前關鍵的觀察節點包括：一是美方是否會公佈更多針對南非的單邊限制措施，以及相關措施的具體實施範圍；二是美國貿易代表辦公室（USTR）對南非AGOA資格的審查結果何時公佈，是否會取消南非的優惠貿易地位；三是雙方外交渠道能否恢復實質性對話，打破當前的僵持局面。此外，美方此前宣佈的17500名白人南非難民配額雖已公佈，但具體申請流程、審批標準及實施時間表尚未明確，仍需等待美方後續公告。</p>
 <p>（全文約1920字）</p>
 <div class="c-link"><a href="#comments">讀者評論 →</a></div>
-<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/南非.html">南非</a><span class="rmeta">3 篇</span></li><li><a class="kw" href="../tag/簽證限制.html">簽證限制</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/外交爭端.html">外交爭端</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">19 篇</span></li></ul></div>
+<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/南非.html">南非</a><span class="rmeta">3 篇</span></li><li><a class="kw" href="../tag/簽證限制.html">簽證限制</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/外交爭端.html">外交爭端</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">20 篇</span></li></ul></div>
 <div class="tags"><a class="chip chip-misc" data-cat="misc" href="../category/misc.html">綜合</a></div>
 <div class="notice">本文由 AI 整理自公開英文資料後寫成中文，事實與數據取自原始材料、
 未沿用來源的成段表達；不含外鏈。文章未經人工逐字校對，涉及政策與法律的內容
@@ -23,7 +23,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>讀者評論</h3>
-  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div class="c-note">評論提交後立即顯示，並每 3 小時自動複查一次。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
   <div id="c-list"><div class="c-note">正在載入評論…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
@@ -80,7 +80,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+          // 提交即顯示（2026-09-28 起從"待審"改成"先顯示後複查"），
+          // 所以不能再承諾"審覈通過後顯示"——那會讓人刷新半天找不到自己的評論。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
         }

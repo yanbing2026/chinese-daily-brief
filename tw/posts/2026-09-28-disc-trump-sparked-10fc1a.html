@@ -17,7 +17,7 @@
 <h2>後續走向：政治博弈與外交修復待觀察</h2>
 <p>截至發稿時，民主黨議員呼籲啓動憲法第25修正案的動議尚未獲得足夠支持。根據美國憲法規定，第25修正案的啓動需要內閣多數成員或國會兩院三分之二多數同意，目前由共和黨控制的國會並未就該動議展開正式討論或投票。在外交層面，美意雙方均未公開透露修復雙邊關係的具體時間表，跨大西洋盟友體系的信任修復進程仍需觀察特朗普後續的言論與政策動向。 此外，特朗普政府對伊政策是否會因國內外的反對聲音進行調整，國會選區重劃、白宮媒體禁令等國內爭議政策的最終走向，以及威斯康星州麻疹疫情防控、無證移民遣送等民生相關問題的解決方案，均是美國社會當前關注的焦點，相關政策的調整與落地將直接影響不同羣體的實際利益。（全文約2100字）</p>
 <div class="c-link"><a href="#comments">讀者評論 →</a></div>
-<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">19 篇</span></li><li><span class="kw-solo">外交危機</span></li><li><span class="kw-solo">第25修正案</span></li></ul></div>
+<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">20 篇</span></li><li><span class="kw-solo">外交危機</span></li><li><span class="kw-solo">第25修正案</span></li></ul></div>
 <div class="tags"><a class="chip chip-misc" data-cat="misc" href="../category/misc.html">綜合</a></div>
 <div class="notice">本文由 AI 整理自公開英文資料後寫成中文，事實與數據取自原始材料、
 未沿用來源的成段表達；不含外鏈。文章未經人工逐字校對，涉及政策與法律的內容
@@ -25,7 +25,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>讀者評論</h3>
-  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div class="c-note">評論提交後立即顯示，並每 3 小時自動複查一次。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
   <div id="c-list"><div class="c-note">正在載入評論…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
@@ -82,7 +82,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+          // 提交即顯示（2026-09-28 起從"待審"改成"先顯示後複查"），
+          // 所以不能再承諾"審覈通過後顯示"——那會讓人刷新半天找不到自己的評論。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
         }

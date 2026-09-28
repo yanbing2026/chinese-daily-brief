@@ -16,7 +16,7 @@
 <h2>後續關鍵節點</h2>
 <p>接下來SpaceX的試飛計劃將分兩步推進：第一步是繼續優化星艦的可靠性，驗證上面級返回大氣層、受控濺落的能力，預計未來6個月內將完成星艦上面級的首次可控返回測試；第二步是開展軌道在軌加註測試，計劃在2027年前完成兩次星艦加油機的對接加註演示，爲2028年的阿爾忒彌斯登月任務鋪路。對於Starlink業務，SpaceX計劃在2027年前完成至少100顆V3衛星的組網，率先在北美、歐洲等地區提供商用高速互聯網服務。普通航天愛好者可通過SpaceX官方渠道關注後續試飛直播，行業從業者可重點關注星艦的商業載荷發射報價、在軌加註技術的專利公開情況，以及NASA對星艦登月着陸器的最終認證進度。</p>
 <div class="c-link"><a href="#comments">讀者評論 →</a></div>
-<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><span class="kw-solo">SpaceX星艦</span></li><li><span class="kw-solo">星艦入軌</span></li><li><span class="kw-solo">NASA阿爾忒彌斯</span></li><li><span class="kw-solo">Starlink</span></li><li><span class="kw-solo">V3</span></li></ul></div>
+<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><span class="kw-solo">SpaceX星艦</span></li><li><span class="kw-solo">星艦入軌</span></li><li><span class="kw-solo">NASA阿爾忒彌斯</span></li><li><a class="kw" href="../tag/Starlink.html">Starlink</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/V3.html">V3</a><span class="rmeta">2 篇</span></li></ul></div>
 <div class="tags"><a class="chip chip-economy" data-cat="economy" href="../category/economy.html">經濟</a></div>
 <div class="notice">本文由 AI 整理自公開英文資料後寫成中文，事實與數據取自原始材料、
 未沿用來源的成段表達；不含外鏈。文章未經人工逐字校對，涉及政策與法律的內容
@@ -24,7 +24,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>讀者評論</h3>
-  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div class="c-note">評論提交後立即顯示，並每 3 小時自動複查一次。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
   <div id="c-list"><div class="c-note">正在載入評論…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
@@ -81,7 +81,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+          // 提交即顯示（2026-09-28 起從"待審"改成"先顯示後複查"），
+          // 所以不能再承諾"審覈通過後顯示"——那會讓人刷新半天找不到自己的評論。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
         }

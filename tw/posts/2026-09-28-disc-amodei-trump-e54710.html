@@ -28,7 +28,7 @@
 <p>目前尚不清楚晚宴的具體議程，特朗普本人也未披露討論內容。但幾個關鍵議題已經清晰浮現：Anthropic與五角大樓之間"供應鏈風險"標籤的法律戰將如何收場；特朗普政府是否會就AI監管採取任何具體措施；以及在中期選舉年政治壓力下，AI行業與聯邦政府之間的關係將向何處去。</p>
 <p>對AI行業而言，這場晚宴傳遞的信號是複雜的——一方面，特朗普願意與呼籲監管的AI公司CEO坐下來談；另一方面，他本人對任何形式的放緩都毫不妥協。對Anthropic而言，這是在IPO前夕修復政府關係的關鍵窗口，但能否將一次晚宴轉化爲實質性的政策轉變，仍有待觀察。</p>
 <div class="c-link"><a href="#comments">讀者評論 →</a></div>
-<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/Anthropic.html">Anthropic</a><span class="rmeta">4 篇</span></li><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">19 篇</span></li><li><a class="kw" href="../tag/AI監管.html">AI監管</a><span class="rmeta">3 篇</span></li></ul></div>
+<div class="related kwrow"><div class="rhead">關鍵詞</div><ul><li><a class="kw" href="../tag/Anthropic.html">Anthropic</a><span class="rmeta">5 篇</span></li><li><a class="kw" href="../tag/特朗普.html">特朗普</a><span class="rmeta">20 篇</span></li><li><a class="kw" href="../tag/AI監管.html">AI監管</a><span class="rmeta">3 篇</span></li></ul></div>
 <div class="tags"><a class="chip chip-ai" data-cat="ai" href="../category/ai.html">AI</a></div>
 <div class="notice">本文由 AI 整理自公開英文資料後寫成中文，事實與數據取自原始材料、
 未沿用來源的成段表達；不含外鏈。文章未經人工逐字校對，涉及政策與法律的內容
@@ -36,7 +36,7 @@
 </div><script src="../assets/site-v2.js?v=84d4d752" defer></script>
 <section class="comments" id="comments">
   <h3>讀者評論</h3>
-  <div class="c-note">評論需經審覈後顯示。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
+  <div class="c-note">評論提交後立即顯示，並每 3 小時自動複查一次。請勿發佈個人信息；本欄目歡迎補充事實與不同視角。</div>
   <div id="c-list"><div class="c-note">正在載入評論…</div></div>
   <form class="c-form" id="c-form" autocomplete="off">
     <input type="text" id="c-author" maxlength="40" placeholder="稱呼（可留空）">
@@ -93,7 +93,9 @@
       .then(function (res) {
         if (res.j && res.j.ok) {
           form.reset();
-          msg.textContent = "已提交，等審覈通過後顯示。謝謝。";
+          // 提交即顯示（2026-09-28 起從"待審"改成"先顯示後複查"），
+          // 所以不能再承諾"審覈通過後顯示"——那會讓人刷新半天找不到自己的評論。
+          msg.textContent = "已提交，刷新即可看到。";
         } else {
           msg.textContent = "沒提交成功：" + ((res.j && res.j.error) || "服務暫時不可用");
         }
