@@ -1,7 +1,7 @@
 <!doctype html><html lang="zh-Hans"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>亚太股市承压：油价与美债收益率双升拖累区域市场</title>
-<link rel="stylesheet" href="../assets/style.css?v=365deaff">
+<link rel="stylesheet" href="../assets/style.css?v=f36ea2ba">
 <link rel="stylesheet" href="../assets/cat-colors.css?v=a4de58e1"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--></head>
 <body data-page="post" data-slug="2026-09-28-disc-stocks-asia-fb7126.html"><div class="wrap">
 <a class="back" href="../index.html">← 回首页</a>
@@ -201,63 +201,6 @@
   } else { mount(); }
 })();
 </script><!--th:end-->
-<!--sub:start-->
-<div class="subscribe" id="sub">
-  <strong>新报告出炉就通知你，AI 读同题多家英文报道后写成中文</strong>
-  <span class="sub-note">实时新闻的详细报告 · 简繁都有 · 不发广告 · 随时可退</span>
-  <form class="sub-form" novalidate>
-    <input class="sub-mail" type="email" name="email" placeholder="你的邮箱" autocomplete="email" required>
-    <input class="sub-hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <button class="sub-btn" type="submit">订阅</button>
-  </form>
-  <div class="sub-msg" role="status" aria-live="polite"></div>
-</div>
-<script>
-(function () {
-  var box = document.getElementById("sub");
-  if (!box) return;
-  var form = box.querySelector(".sub-form"), msg = box.querySelector(".sub-msg");
-  var KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SB = "https://oyurhnzkpjltswspehaz.supabase.co";
-  try {
-    if (window.localStorage && localStorage.getItem("subbed") === "1") {
-      box.querySelector("strong").textContent = "✓ 已订阅";
-      form.style.display = "none";
-      msg.textContent = "想退订就回一封邮件说一声。";
-      return;
-    }
-  } catch (e) { /* 隐私模式下 localStorage 可能不可用，忽略 */ }
-
-  form.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    var mail = form.querySelector(".sub-mail").value.trim();
-    var hp = form.querySelector(".sub-hp").value;
-    if (!/^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$/.test(mail)) {
-      msg.textContent = "邮箱写得不太对，再检查一下？"; return;
-    }
-    msg.textContent = "提交中…";
-    var btn = form.querySelector(".sub-btn"); btn.disabled = true;
-    fetch(SB + "/rest/v1/rpc/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "apikey": KEY, "Authorization": "Bearer " + KEY },
-      body: JSON.stringify({ p_email: mail, p_hp: hp })
-    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-      .then(function (res) {
-        btn.disabled = false;
-        if (res.ok && res.j && res.j.ok) {
-          try { localStorage.setItem("subbed", "1"); } catch (e) {}
-          box.querySelector("strong").textContent = "✓ 已订阅";
-          form.style.display = "none";
-          msg.textContent = "记下了。想退订回一封邮件就行。";
-        } else {
-          msg.textContent = (res.j && res.j.error) || "没提交成功，稍后再试一次。";
-        }
-      }).catch(function () {
-        btn.disabled = false;
-        msg.textContent = "网络没通，稍后再试一次。";
-      });
-  });
-})();
-</script><!--sub:end-->
 <!--tts:start--><script>
 (function () {
   if (!("speechSynthesis" in window)) return;            // 老浏览器直接安静退出
@@ -283,7 +226,7 @@
   // 只念**标题 + 正文**：不念页头（站名/副标题）、meta 行（日期·栏目·字数）、
   // 栏目条、免责声明、评论。做法是"白名单取元素"，而不是"整块减去黑名单"——
   // 后者会把页头之类的东西顺带念出来。
-  var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta, .subscribe, .sub-msg,"
+  var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta,"
            + " .today-focus, .site-tools, .fsr, .speak, .top, .foot, .read-progress, .back-top,"
            + " script, style, nav";
 

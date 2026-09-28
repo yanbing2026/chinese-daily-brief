@@ -320,32 +320,10 @@ nav .fsr, .postnav .fsr, nav .thm, .postnav .thm { margin-left: .6rem; vertical-
 .c-link a:hover { text-decoration: underline; }
 
 /* ---------- 订阅 ---------- */
-.subscribe {
-  margin: 2.4rem 0 1rem; padding: 1.25rem 1.3rem;
-  background: var(--card); border: 1px solid var(--line);
-  border-top: 3px solid var(--accent); border-radius: var(--radius);
-  display: flex; flex-direction: column; gap: .55rem; box-shadow: var(--shadow);
-}
-.subscribe strong { font-family: var(--serif); font-size: 1.05rem; letter-spacing: .02em; }
-.sub-note { color: var(--muted); font-size: .84rem; }
-.sub-form { display: flex; gap: .55rem; flex-wrap: wrap; }
-.sub-mail {
-  flex: 1 1 12rem; min-width: 0; padding: .55rem .8rem;
-  font: inherit; font-size: .92rem;
-  background: var(--bg); color: var(--fg);
-  border: 1px solid var(--line); border-radius: .55rem;
-}
-.sub-mail:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent); }
-.sub-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; } /* 蜜罐：真人看不见 */
-.sub-btn {
-  padding: .55rem 1.3rem; font: inherit; font-size: .92rem; font-weight: 700; cursor: pointer;
-  background: var(--accent); color: var(--accent-ink);
-  border: 1px solid var(--accent); border-radius: .55rem;
-  transition: background .15s ease;
-}
-.sub-btn:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
-.sub-btn[disabled] { opacity: .6; cursor: default; }
-.sub-msg { color: var(--muted); font-size: .84rem; min-height: 1.1rem; }
+/* 邮件订阅表单已于 2026-09-28 移除（Gary："拿掉邮箱订阅"）。下面是它原来的样式，
+   整块删掉而不是留着 —— 留着没有元素用得上，但下次有人搜 ".sub-btn" 找样式时
+   会以为订阅功能还在。表单的 HTML 由 brief-site-build.py 的 inject_subscribe()
+   负责从已发布页面里清掉（它靠一对 HTML 注释标记定位）。 */
 
 /* ---------- 评论 ---------- */
 .comments { margin-top: 2.4rem; padding-top: 1.3rem; border-top: 3px double var(--line); }

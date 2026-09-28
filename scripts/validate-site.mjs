@@ -203,8 +203,11 @@ const REQUIRED_SELECTORS = [
   ".wrap", ".site-tools", ".searchbox", ".category-filter", ".result-count", ".clear-search",
   ".read-progress", ".back-top", ".today-focus", ".catnav", ".chip", ".art", ".art-meta",
   ".notice", ".c-link", ".ex", ".comments", ".c-form", ".c-item", ".c-report",
-  ".subscribe", ".sub-form", ".sub-btn", ".sub-msg", ".fsr", ".th", ".guide", ".lead", ".hl",
-  ".cnt", ".postnav",
+  ".fsr", ".th", ".guide", ".lead", ".hl", ".cnt", ".postnav",
+  // 邮件订阅表单已于 2026-09-28 移除（Gary："拿掉邮箱订阅"），对应的
+  // .subscribe/.sub-form/.sub-btn/.sub-msg 四个选择器也从必查清单里去掉。
+  // 保留它们会让"删样式"永远通不过 —— 这个检查的用意是**防丢样式**，
+  // 而控件已经不存在了，没有东西可丢。
 ];
 if (fs.existsSync(cssPath)) {
   const text = read(cssPath);
