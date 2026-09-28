@@ -70,6 +70,105 @@ for (const file of htmlFiles) {
   if (dup.length) errors.push(`${r}: 重复 id ${dup.join(", ")}`);
 }
 
+/* ---------- 1b. 零外链/无追踪的硬检查 ---------- */
+// 上面 1 里的 /(href|src)="..."/ 只覆盖了**带引号、且恰好是 href/src** 的写法。
+// 一旦破了零外链，泄漏读者 IP 的渠道远不止那一条，所以这里逐条堵：
+//
+//   1. 协议相对 //host/x        —— 现有正则 /^https?:/ 漏掉，但浏览器照样发请求
+//   2. srcset / imagesrcset     —— 现代 img 的多候选来源
+//   3. 内联 style 里的 url(…)    —— 背景图/字体，href/src 正则完全看不见
+//   4. 内联 <style> 里的 @import
+//   5. <base href>              —— 改写全站相对路径的解析基准
+//   6. http-equiv=refresh       —— 0 秒跳转到外站
+//   7. 脚本里 fetch/XHR/beacon/new Image —— 运行时才发生的请求，静态扫 href 抓不到
+//   8. <iframe>/<object>/<embed> —— 整页嵌别人的站
+//   9. <form action> 指到外站    —— 表单提交
+//  10. data:image/ 以外的 data: —— 少见但同源判定会放行
+//
+// 判据统一为「有没有指向站外的地址」。本站**允许**：站内绝对路径、页内锚点、
+// 相对路径、以及**纯 data: 图片**（data: 不产生网络请求，不泄漏任何东西）。
+const isExternal = (u) =>
+  /^\s*(?:https?:)?\/\//i.test(u) ||
+  /^\s*https?:/i.test(u);
+
+for (const file of htmlFiles) {
+  const text = read(file);
+  const r = rel(file);
+  const bad = (what, m) => errors.push(`${r}: ${what} ${String(m).slice(0, 80)}（本站零外链/无追踪）`);
+
+  // 1) 协议相对 / 绝对地址，扫**所有**属性值而不只是 href/src
+  for (const m of text.matchAll(/(?:href|src|action|data|poster|formaction|cite|background)\s*=\s*"([^"]*)"/gi)) {
+    if (isExternal(m[1])) bad("属性里指向站外", m[1]);
+  }
+  // 2) srcset：逗号分隔的候选，每个都可能是外站
+  for (const m of text.matchAll(/(?:srcset|imagesrcset)\s*=\s*"([^"]*)"/gi)) {
+    for (const cand of m[1].split(",")) {
+      const u = cand.trim().split(/\s+/)[0];
+      if (u && isExternal(u)) bad("srcset 候选指向站外", u);
+    }
+  }
+  // 3) 内联 style 属性 + 4) <style> 块里的 url() / @import
+  const styleBodies = [
+    ...text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi),
+  ].map((m) => m[1]);
+  for (const m of text.matchAll(/style\s*=\s*"([^"]*)"/gi)) styleBodies.push(m[1]);
+  for (const body of styleBodies) {
+    for (const m of body.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/gi)) {
+      if (isExternal(m[1]) && !/^\s*data:/i.test(m[1])) bad("CSS url() 指向站外", m[1]);
+    }
+    for (const m of body.matchAll(/@import\s+(?:url\()?\s*['"]([^'"]+)['"]/gi)) {
+      if (isExternal(m[1])) bad("CSS @import 指向站外", m[1]);
+    }
+  }
+  // 5) <base href>：会悄悄改写全站相对链接的基准
+  for (const m of text.matchAll(/<base[^>]+href\s*=\s*"([^"]*)"/gi)) {
+    if (isExternal(m[1])) bad("<base href> 指向站外", m[1]);
+  }
+  // 6) http-equiv=refresh
+  for (const m of text.matchAll(/http-equiv\s*=\s*["']?refresh["']?[^>]*url\s*=\s*([^"'\s>]+)/gi)) {
+    if (isExternal(m[1])) bad("meta refresh 跳转到站外", m[1]);
+  }
+  // 7) 运行时请求：脚本里拼出来的地址静态扫不出来，只能对"明显站外"报警
+  for (const m of text.matchAll(/(?:fetch|open)\(\s*[`'"]([^`'"]+)/gi)) {
+    if (isExternal(m[1])) bad("脚本运行时请求站外", m[1]);
+  }
+  for (const m of text.matchAll(/navigator\.sendBeacon\(\s*[`'"]([^`'"]+)/gi)) {
+    if (isExternal(m[1])) bad("sendBeacon 发往站外（会带读者 IP）", m[1]);
+  }
+  // 8) 嵌页 / 9) 表单提交目标
+  for (const m of text.matchAll(/<(iframe|object|embed)\b[^>]*\bsrc\s*=\s*"([^"]*)"/gi)) {
+    if (isExternal(m[2])) bad(`<${m[1]}> 嵌入站外页面`, m[2]);
+  }
+  for (const m of text.matchAll(/<form[^>]*\baction\s*=\s*"([^"]*)"/gi)) {
+    if (isExternal(m[1])) bad("<form> 提交到站外", m[1]);
+  }
+  // 10) 非常规 data:（图片类 data: 不产生网络请求，放行）
+  for (const m of text.matchAll(/(?:href|src)\s*=\s*"(data:[^"]*)"/gi)) {
+    if (!/^data:image\//i.test(m[1])) bad("非常规 data: 资源", m[1].slice(0, 24));
+  }
+}
+
+/* ---------- 1c. 手写资源（css/js）里的站外地址 ---------- */
+// assets/ 下的文件不经过上面的 HTML 扫描，只在 2b 查了 CSS 的 url()。
+// JS 里的地址没人查过 —— 而"无追踪"最容易被破的地方正是前端脚本。
+// 注意：这里**不能**引用 jsPath —— 它是下面 2 节用 const 声明的，在本节
+// 执行时还没初始化（TDZ），会直接抛 ReferenceError。allFiles 已经包含
+// assets/site-v2.js 本身，全量扫 .js 即可。
+for (const p of allFiles.filter((f) => f.endsWith(".js"))) {
+  if (!fs.existsSync(p)) continue;
+  const r = rel(p);
+  const text = read(p);
+  for (const m of text.matchAll(/(?:fetch|open)\(\s*[`'"]([^`'"]+)/gi)) {
+    if (isExternal(m[1])) errors.push(`${r}: fetch/open 指向站外 ${m[1].slice(0, 80)}`);
+  }
+  for (const m of text.matchAll(/navigator\.sendBeacon\(\s*[`'"]([^`'"]+)/gi)) {
+    if (isExternal(m[1])) errors.push(`${r}: sendBeacon 发往站外 ${m[1].slice(0, 80)}`);
+  }
+  for (const m of text.matchAll(/\.(?:src|href)\s*=\s*[`'"]([^`'"]+)/gi)) {
+    if (isExternal(m[1])) errors.push(`${r}: 动态设置 ${m[1].slice(0, 60)} 指向站外`);
+  }
+}
+
 /* ---------- 2. 共享资源的指纹引用必须等于本体内容 ---------- */
 const cssPath = path.join(root, "assets", "style.css");
 const jsPath = path.join(root, "assets", "site-v2.js");
