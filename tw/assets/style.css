@@ -94,12 +94,56 @@ h1.today {                             /* 首页「今日原创 · N 篇」 */
   border-bottom: 3px double var(--line);
   margin-bottom: 1.1rem;
 }
+/* 页面级 h2（往期日期分组、常读页「先看这几篇」）：整宽分隔线，因为它们切的是**页面的大块** */
 h2 {
   font-size: 1.12rem;
   margin: 2rem 0 .7rem;
   padding-bottom: .35rem;
   border-bottom: 1px solid var(--line);
 }
+
+/* ---------- 正文小标题（单篇页 h2）--------------------------------------
+   模型产出的小标题高度不统一：有的 4 个字（「结论」），有的 37 个
+   （「行情核心驱动：地缘风险与美债抛售双重施压」）。所以这里**不靠字号拉开
+   层级**——短标题撑不住大字号，长标题会折行。改用「左侧竖线 + 短横线」两段式：
+
+     结论
+     └── 2px 短横线（accent 色，随主题变）
+
+   竖线沿用 h1.art 的 4px 左侧色条语言（那一竖是栏目色），但缩到 3px 且用
+   var(--line) 而不是栏目色：同一页里栏目色已经在标题上用过了，竖线再用一次
+   栏目色会让"小标题"看起来像另一个标题。短横线才是真正区分层级的那一笔。
+
+   作用域限定在 body[data-page="post"]：列表页的 h2 是日期分组/板块名，
+   用整宽分隔线才对（上面那条 h2 规则已经覆盖）。限定作用域比覆盖写法更稳 ——
+   以后新增页面类型，页面级 h2 不会被顺带改掉。 */
+body[data-page="post"] h2 {
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 1.9rem 0 .8rem;
+  padding: 0 0 .45rem .7rem;
+  border-bottom: 0;                                  /* 覆盖通用 h2 的整宽线 */
+  border-left: 3px solid var(--line);                /* 竖线 */
+  position: relative;
+}
+body[data-page="post"] h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2.6rem;                                      /* 短横线，不通栏 */
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+/* 深色模式下竖线太重会糊成一片，accent 也要提亮才看得见 */
+html[data-theme="dark"] body[data-page="post"] h2 { border-left-color: #4a443c; }
+
+/* 小标题紧跟元信息行时（正文第一段之后就是标题）不要顶那么开 */
+body[data-page="post"] .art-meta + h2,
+body[data-page="post"] .lead + h2 { margin-top: 1.4rem; }
+
 h1 .cnt { font-family: var(--sans); font-size: .8rem; color: var(--muted); font-weight: 400; }
 
 /* 文章标题：左侧是栏目色条（颜色来自 cat-colors.css 的 .cat-<键>） */
@@ -116,7 +160,12 @@ h1.art {
 .note .hl { color: var(--fg); font-weight: 700; }
 .ex { color: var(--muted); font-size: .84rem; margin: .15rem 0 .7rem; }
 
-/* ---------- 首页文章卡片 ---------- */
+/* ---------- 首页文章卡片 ----------
+   ⚠️ 整块当前**没有任何元素命中**：首页在 2026-09-27 改成"全站最新 10 条"
+   列表式以后，正文直铺的 <article data-srow> 卡片就没了（全站 0 处匹配）。
+   留着是因为如果哪天首页要恢复全文直铺，这套卡片样式直接生效；确认不再需要时
+   连同下面两条 article[data-srow] h2 / p 一起删。注意 article[data-srow] h2
+   那条的 1.02rem 与单篇页小标题不一致，但既然没有元素命中，先不动。 */
 article[data-srow] {
   background: var(--card);
   border: 1px solid var(--line);
