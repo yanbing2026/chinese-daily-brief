@@ -1,4 +1,4 @@
-# AGENTS.md — chinese-daily-brief (在美华人每日简报)
+# AGENTS.md — chinese-daily-brief (DecodeNews AI 新闻解码)
 
 面向所有在这个仓库干活的人与 AI（Hermes、ChatGPT、Meta AI、以及发布主机上的 Merc 等）。
 动手前先读这份。站点：https://yanbing2026.github.io/chinese-daily-brief/
