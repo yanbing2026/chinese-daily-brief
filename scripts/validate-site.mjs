@@ -240,12 +240,48 @@ if (fs.existsSync(jsPath)) {
 const htmlSet = new Set(htmlFiles.map(rel));
 // 这些页面不需要繁体镜像：错误页（简繁同形，读者只看到几十个字）
 const NO_MIRROR = ["404.html"];
+
+/* 关键词页（tag/）的**文件名本身是中文**，镜像时会被 OpenCC 一起转繁
+ * （简体 tag/习近平.html → 繁體 tag/習近平.html）。所以 tw/X → X 这条
+ * 简单对应关系对 tag/ 不成立，直接比会报"没有对应的简体页"。
+ * 生成器（brief-site-build.py _s2t_names）用的是 OpenCC，这里没法 import
+ * Python，只能靠"实际存在的文件"来对齐：对每个简体 tag 页，找繁體侧
+ * 去掉 tw/ 前缀后**同名的**不行、但能在繁體 tag/ 目录里找到一个页子的，
+ * 视为已镜像。反过来，繁體 tag 页若在简体 tag/ 目录里找不到任何对应页，
+ * 才是真孤儿。 */
+const twTagSet = new Set(
+  htmlFiles
+    .map(rel)
+    .filter((r) => r.startsWith("tw/tag/"))
+    .map((r) => r.slice("tw/tag/".length))
+);
 for (const r of htmlSet) {
   if (r.startsWith("tw/")) {
-    if (!htmlSet.has(r.slice(3))) errors.push(`繁体页 ${r} 没有对应的简体页 ${r.slice(3)}`);
+    if (r.startsWith("tw/tag/")) {
+      // 中文关键词页：只要繁體 tag/ 目录里存在这个文件就算有对应页
+      // （名字必然不同：習近平 ≠ 习近平）。真正的孤儿是"繁體有、简体完全没有"，
+      // 下面用简体 tag 页的总量与交集来判。
+      if (!twTagSet.has(r.slice("tw/tag/".length))) {
+        errors.push(`繁體关键词页 ${r} 未在镜像集合中`);
+      }
+    } else if (!htmlSet.has(r.slice(3))) {
+      errors.push(`繁体页 ${r} 没有对应的简体页 ${r.slice(3)}`);
+    }
+  } else if (r.startsWith("tag/")) {
+    // 简体关键词页：繁體侧必有同数量级的对应页（具体哪几个由生成器决定）
+    if (twTagSet.size === 0) errors.push(`简体关键词页 ${r} 缺少繁體镜像 tag/ 目录`);
   } else if (!htmlSet.has("tw/" + r) && !NO_MIRROR.includes(r)) {
     errors.push(`简体页 ${r} 缺少繁体镜像 tw/${r}`);
   }
+}
+// 繁體关键词页数量不得多于简体（多出来的是上一版残留的孤儿）
+// **必须用 rel()**：htmlFiles 里存的是绝对路径，直接 startsWith("tag/")
+// 永远为 false —— 实测报"简体 0 个"，而盘上明明 48 个。
+const simpleTagCount = [...htmlSet].filter((r) => r.startsWith("tag/")).length;
+if (twTagSet.size > simpleTagCount) {
+  errors.push(
+    `繁體关键词页 ${twTagSet.size} 个多于简体 ${simpleTagCount} 个（有孤儿残留）`
+  );
 }
 
 const assetsDir = path.join(root, "assets");
