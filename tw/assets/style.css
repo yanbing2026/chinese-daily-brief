@@ -266,17 +266,11 @@ ul { list-style: none; padding-left: 0; margin: 0; }
   border-radius: .5rem; padding: .4rem .55rem; max-width: 12rem;
   font: inherit; font-size: .84rem;
 }
-.today-focus {
   margin: 0 0 1.4rem; padding: .95rem 1.1rem .9rem;
   background: var(--card); border: 1px solid var(--line);
   border-left: 4px solid var(--accent); border-radius: .35rem var(--radius) var(--radius) .35rem;
   box-shadow: var(--shadow);
 }
-.today-focus strong { font-family: var(--serif); font-size: .98rem; letter-spacing: .03em; }
-.today-focus ol { margin: .5rem 0 0 1.25rem; padding: 0; }
-.today-focus li { padding: .18rem 0; margin: 0; border: 0; background: none; }
-.today-focus a { color: var(--fg); text-decoration: none; }
-.today-focus a:hover { color: var(--accent); text-decoration: underline; }
 
 /* ---------- 进度条 / 回到顶部 ---------- */
 .read-progress {

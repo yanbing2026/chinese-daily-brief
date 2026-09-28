@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>页面不存在 · DecodeNews AI 新闻解码</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="assets/style.css?v=f36ea2ba">
+<link rel="stylesheet" href="assets/style.css?v=02bdd8ec">
 <link rel="stylesheet" href="assets/cat-colors.css?v=a4de58e1">
 <style>
-/* 404 专属外观（手写页内样式：不碰 assets/style.css?v=f36ea2ba，就不用重盖全站资源指纹） */
+/* 404 专属外观（手写页内样式：不碰 assets/style.css?v=02bdd8ec，就不用重盖全站资源指纹） */
 .nf { text-align:center; padding:2.6rem .5rem 2.2rem; }
 .nf-code { font-size:4.6rem; font-weight:800; letter-spacing:.06em; line-height:1;
   color:var(--accent); }
@@ -37,7 +37,16 @@
   </ul>
 </article>
 </div>
-<script src="assets/site-v2.js?v=84d4d752" defer></script>
+<script src="assets/site-v2.js?v=e9362281" defer></script>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -596,7 +605,7 @@
   // 栏目条、免责声明、评论。做法是"白名单取元素"，而不是"整块减去黑名单"——
   // 后者会把页头之类的东西顺带念出来。
   var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta,"
-           + " .today-focus, .site-tools, .fsr, .speak, .top, .foot, .read-progress, .back-top,"
+           + " .site-tools, .fsr, .speak, .top, .foot, .read-progress, .back-top,"
            + " script, style, nav";
 
   function clean(el) {

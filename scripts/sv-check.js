@@ -71,6 +71,13 @@ for (const f of files) {
   }
   if (!rows.length) continue;
   ok(!!rows[0].getAttribute("data-cat"), "行上带 data-cat");
+  // 「今日快速入口」已按用户要求删除（用户 2026-09-27、09-28 两次要求）。
+  // 反向断言：它**不该**出现 —— 该区块是 JS 动态生成的，生成器删了容器
+  // 不等于它消失，宿主元素（.site-tools/.catnav）一在它就自己长回来。
+  // 位置很重要：必须在下面 `if (noSearch) continue;` **之前** —— 首页声明了
+  // data-nosearch，写在后面就永远不执行（我第一版就是这么写的）。
+  ok(doc.querySelector(".today-focus") === null, "今日快速入口已移除");
+
   if (noSearch) continue;      // 无搜索条，下面的搜索/清除/计数断言都不适用
 
   const input = bar.querySelector("input");
@@ -119,7 +126,6 @@ for (const f of files) {
       const none = Array.prototype.filter.call(doc.querySelectorAll("[data-srow]"), (r) => !r.hidden);
       ok(none.length === 0, "类别 + 搜索同时生效（不存在的词 → 0 条）");
     }
-    ok(doc.querySelector(".today-focus") !== null, "今日快速入口已挂");
   }
 }
 

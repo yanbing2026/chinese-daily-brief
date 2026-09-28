@@ -1,11 +1,10 @@
-/* 站点交互：搜索、类别筛选、今日快速入口、阅读进度条、返回顶部。
+/* 站点交互：搜索、类别筛选、阅读进度条、返回顶部。
  *
  * 与建站脚本的契约（**改选择器前先看 brief-site-build.py**）：
  *   [data-srow]             每一"条"可被搜索/筛选的内容行（首页卡片、栏目页/往期/常读页的 li）
  *   行上的 data-cat          该行所属栏目键（如 uscis），类别筛选直接读它
  *   .catnav a[data-cat]      栏目导航链接：既是分类页入口，也是筛选下拉的选项来源
- *   h1.today                 首页标记。只有它存在时才是首页专属功能（类别筛选、今日快速入口）
- *   article h1.art           首页卡片标题（今日快速入口取它）
+ *   h1.today                 首页标记。只有它存在时才是首页专属功能（类别筛选）
  *
  * 走 data 属性而不是类名：同一份脚本要用在结构差别很大的几页上（首页是 article 卡片，
  * 栏目/往期/常读页是 li），类名会漂，数据属性是显式契约。
@@ -23,9 +22,9 @@
   // 于是繁体版里搜索框写着"搜索本站内容…"、筛选写着"全部类别" —— i18n 漏网。
   var L = (document.documentElement.lang || "zh-Hans").indexOf("Hant") >= 0
     ? { search: "搜尋本站內容…", clear: "清除", found: "找到 ", item: " 項",
-        filter: "按類別篩選", all: "全部類別", focus: "今日快速入口" }
+        filter: "按類別篩選", all: "全部類別" }
     : { search: "搜索本站内容…", clear: "清除", found: "找到 ", item: " 项",
-        filter: "按类别筛选", all: "全部类别", focus: "今日快速入口" };
+        filter: "按类别筛选", all: "全部类别" };
 
   ready(function () {
     var rows = Array.prototype.slice.call(document.querySelectorAll("[data-srow]"));
@@ -105,40 +104,16 @@
       }
     }
 
-    /* ---- 首页：今日快速入口 ----
-       首页 2026-09-27 起只列 10 条标题（不再全文直铺），所以入口改成"先看哪几条"：
-       从清单行里挑字数最多的 5 条（长稿通常是当天更值钱的那几条），链到单篇页。
-       标题一律取生成器写在行上的 data-title —— 不要从 DOM 里猜文字：
-       老写法用正则去掉开头那段非空白字符，在中文标题上是灾难
-       （标题没空格，贪婪匹配会吃掉整串，链接文字变成空字符串）。 */
-    if (isHome) {
-      var rowsAll = Array.prototype.slice.call(document.querySelectorAll("[data-srow]"));
-      if (rowsAll.length > 2) {
-        var box = document.createElement("aside");
-        box.className = "today-focus";
-        var strong = document.createElement("strong");
-        strong.textContent = L.focus;
-        box.appendChild(strong);
-        var ol = document.createElement("ol");
-        rowsAll.map(function (r) { return { row: r, han: parseInt(r.getAttribute("data-han") || "0", 10) || 0 }; })
-          .sort(function (a, b) { return b.han - a.han; })
-          .slice(0, 5)
-          .forEach(function (it) {
-            var a = it.row.querySelector("a[href]");
-            if (!a) return;
-            var li = document.createElement("li"), link = document.createElement("a");
-            link.href = a.getAttribute("href");
-            link.textContent = it.row.getAttribute("data-title") || (a.textContent || "").trim();
-            li.appendChild(link);
-            ol.appendChild(li);
-          });
-        if (ol.children.length) {
-          box.appendChild(ol);
-          var host = document.querySelector(".site-tools") || nav;
-          if (host) host.insertAdjacentElement("afterend", box);
-        }
-      }
-    }
+    /* 「今日快速入口」已删除（用户 2026-09-27、2026-09-28 两次要求拿掉）。
+
+       它原来是纯 JS 动态生成的：找到 .site-tools 或 .catnav，往后面插一个
+       <aside class="today-focus">。所以**即使生成器不再输出容器，只要那个
+       宿主元素还在，这个区块就会自己长回来** —— 2026-09-27 用户看到的
+       "5 个编号链接渲染出来是空的"，就是这么来的：容器已被删，JS 还在跑。
+
+       连同 L.focus / L 里的 i18n 文案一起清掉。留着就是一颗定时炸弹：
+       哪天 .site-tools 重新出现，区块就自己回来了。 */
+    void 0;
 
     /* ---- 全站：阅读进度条 + 返回顶部 ---- */
     var progress = document.createElement("div");

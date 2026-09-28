@@ -58,7 +58,7 @@ explicit data attributes. Generated markup must keep providing them:
 | `data-cat` on that row | the row's category key, e.g. `uscis` |
 | `.catnav a[data-cat]` | category nav links — also the option source for the homepage filter |
 | `h1.today` | present only on the homepage (gates homepage-only features) |
-| `article h1.art` | homepage card title, used by the "今日快速入口" list |
+| `article h1.art` | homepage card title |
 
 Generated pages must preserve:
 1. `assets/style.css` and `assets/site-v2.js` (both stamped with a content fingerprint `?v=`)

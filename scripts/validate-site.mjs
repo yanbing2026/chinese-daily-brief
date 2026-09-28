@@ -201,7 +201,7 @@ if (fs.existsSync(cssPath) && fs.existsSync(jsPath) && fs.existsSync(catCssPath)
 // 丢了页面看着正常、控件却变形/无样式，这类故障静态检查很难发现。
 const REQUIRED_SELECTORS = [
   ".wrap", ".site-tools", ".searchbox", ".category-filter", ".result-count", ".clear-search",
-  ".read-progress", ".back-top", ".today-focus", ".catnav", ".chip", ".art", ".art-meta",
+  ".read-progress", ".back-top", ".catnav", ".chip", ".art", ".art-meta",
   ".notice", ".c-link", ".ex", ".comments", ".c-form", ".c-item", ".c-report",
   ".fsr", ".th", ".guide", ".lead", ".hl", ".cnt", ".postnav",
   // 邮件订阅表单已于 2026-09-28 移除（Gary："拿掉邮箱订阅"），对应的
