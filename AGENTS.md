@@ -16,7 +16,7 @@
 `sitemap.xml`、`robots.txt`（两者由 `brief-site-build.py` 的 `build_sitemap()` 生成，
 robots 里的 Sitemap 行与 sitemap 里的 loc 同源，手改一处就会对不上）。
 
-**手写、可以改的**：`assets/style.css`（设计）、`assets/site-v2.js`（交互）。
+**手写、可以改的**：`assets/style.css`（设计）、`assets/site-v2.js`（交互）、`assets/logo.svg`（站标＋favicon，`currentColor` 单色，随主题变色）。
 改设计只动 `style.css`；版式/新栏目/分类键属于生成器的事（见 `docs/style-contract.md`）。
 
 生成页面依赖的**挂载钩子不能删**：`[data-srow]`、`data-cat`、`.catnav a[data-cat]`、
