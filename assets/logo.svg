@@ -1,5 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="DecodeNews">
-  <rect x="2.5" y="2.5" width="27" height="27" rx="6" fill="none" stroke="currentColor" stroke-width="2.2"/>
-  <path d="M9 20.5V11h4.2c3.2 0 5.3 1.9 5.3 4.75S16.4 20.5 13.2 20.5H9Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
-  <circle cx="22.5" cy="19.5" r="1.8" fill="currentColor"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" width="32" height="32">
+  <!--
+    DecodeNews AI 新闻解码 LOGO
+    含义：多束光线（英文多源）→ 折射汇入中央透镜 → 聚焦输出一个圆点（中文报告）
+    只用 path / circle / line，无 text，无外部字体，单色 currentColor。
+    32×32 viewBox，文件约 1KB，16px 下仍可识别。
+  -->
+
+  <!-- 外圆框：取景器/镜头边框，代表「聚焦」 -->
+  <circle cx="16" cy="16" r="13.5" stroke="currentColor" stroke-width="1.6"/>
+
+  <!-- 内圆：透镜主体，稍小，略粗 -->
+  <circle cx="16" cy="16" r="7.5" stroke="currentColor" stroke-width="1.4"/>
+
+  <!-- 从外圆射向内圆的 4 条「信源光线」，均匀分布于 45°/135°/225°/315° 方向
+       外端点在外圆边缘（r=13.5），内端点在内圆边缘（r=7.5）
+       45° 方向：外 (25.5, 6.5) → 内 (21.3, 10.7)  -->
+  <line x1="25.0" y1="7.0"  x2="21.3" y2="10.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="7.0"  y1="7.0"  x2="10.7" y2="10.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="7.0"  y1="25.0" x2="10.7" y2="21.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="25.0" y1="25.0" x2="21.3" y2="21.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- 十字辅线：水平与垂直方向各一条穿越透镜，代表「解码/扫描」 -->
+  <line x1="2.5"  y1="16" x2="8.5"  y2="16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="23.5" y1="16" x2="29.5" y2="16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16"   y1="2.5"  x2="16" y2="8.5"  stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16"   y1="23.5" x2="16" y2="29.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- 焦点圆点：透镜中央，代表「汇聚后的一份中文报告」，实心强调 -->
+  <circle cx="16" cy="16" r="2.6" fill="currentColor"/>
 </svg>

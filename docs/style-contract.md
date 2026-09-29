@@ -33,7 +33,28 @@
 - **常读页 guide/identity.html**（54 个类）：`art-meta`, `back`, `brand`, `catnav`, `chip`, `cnt`, `ex`, `hl`, `lead`, `note`, `sub`, `sub-btn`, `sub-form`, `sub-hp`, `sub-mail`, `sub-msg`, `sub-note`, `subscribe`, `toc`, `top`, `v1`, `v2`, `wrap`
 - **繁体 tw/index.html**（75 个类）：`art`, `art-meta`, `back`, `brand`, `c-link`, `catnav`, `chip`, `notice`, `sub`, `sub-btn`, `sub-form`, `sub-hp`, `sub-mail`, `sub-msg`, `sub-note`, `subscribe`, `today`, `top`, `v1`, `v2`, `wrap`
 
-## 五、全局 CSS 变量（改配色从这里起步）
+## 五、LOGO 与站头（2026-09-29 加）
+
+`assets/logo.svg` 是**手写资产**（和 `style.css` 同级，生成器不覆盖、只镜像到 `tw/assets/`），同时
+当 favicon 用。站头品牌块由生成器写成这样，两块**整块是回首页的链接**：
+
+```html
+<a class="brand" href="{root}index.html">
+  <img class="brandmark" src="{root}assets/logo.svg" alt="" width="30" height="30"><span class="brandname">DecodeNews AI 新闻解码</span>
+</a>
+```
+
+三个要点，改设计时别踩：
+
+1. **LOGO 用 `currentColor`**，所以它跟随 `--fg`（深色主题自动变浅）——`style.css` 里不要给它写死颜色。
+2. `.brand` 现在是 `<a>` 不是 `<div>`：不要加下划线，要留 hover/`:focus-visible` 反馈。
+3. 单篇页模板（`POST_PAGE`）是**另一份模板**，它也有这套品牌块；改站头要两个模板一起改，
+   否则文章页会没有 LOGO 也没有回首页的链接（文章页另有一个 `.back` 文字链接，保留不动）。
+
+favicon 声明在两个模板里各一行：`<link rel="icon" type="image/svg+xml" href="…/assets/logo.svg">`。
+**引用不存在 = 校验报「本地引用不存在」并阻塞推送**，所以换 LOGO 文件名时要先落文件再改模板。
+
+## 六、全局 CSS 变量（改配色从这里起步）
 
 ```css
 :root { --fg:#1a1a1a; --muted:#6b7280; --bg:#fbfbfd; --card:#fff; --line:#e5e7eb; --accent:#0f766e;

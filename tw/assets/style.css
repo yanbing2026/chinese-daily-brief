@@ -1,399 +1,508 @@
 /* ============================================================
    DecodeNews AI 新闻解码 · 站点外观（手写文件，由人维护）
    ------------------------------------------------------------
-   - 版式 / 配色 / 字体 / 间距 / 动效：改这里。
-   - 生成器（brief-site-build.py）只在文件缺失时播种一次，
-     重建永远不会覆盖它。
-   - 栏目颜色不在这里：assets/cat-colors.css 数据驱动，每次构建重写。
-   - 约束（scripts/validate-site.mjs 会校验）：
-     1) 下面列出的控件选择器不许删（删了=对应控件裸奔）；
-     2) 禁止引用外部资源（@import / url(http…)），本站零外链。
-   - 全局 6 个颜色变量由主题脚本写入行内样式（localStorage 记忆），
-     这里只给默认值；新增变量必须在 html[data-theme="dark"] 里补深色值。
+   规则：
+   · 禁止 @import / 外部 url()，本站零外链。
+   · 配色只用 var(--fg/--muted/--bg/--card/--line/--accent)，
+     由主题脚本注入行内样式；这里给 :root 写默认值。
+   · 版式必须用 rem，不给 html 写死 font-size（字号控件
+     靠 documentElement.style.fontSize 缩放）。
+   · 挂载钩子不许删：[data-srow]  data-cat  .catnav a[data-cat]
+     h1.today  h1.art  .chip
    ============================================================ */
+
+/* ── 1. 全局变量（浅色默认，深色在 html[data-theme="dark"] 覆盖） ── */
 :root {
-  --fg: #1d1a15;
-  --muted: #6f675c;
-  --bg: #faf8f4;          /* 暖纸色底 */
-  --card: #ffffff;
-  --line: #e7e0d2;
-  --accent: #0f766e;
-  --accent-deep: #0b5a55; /* 按钮 hover */
-  --accent-ink: #ffffff;  /* accent 底上的字 */
-  --shadow: 0 1px 2px rgba(29, 26, 21, .05), 0 4px 14px rgba(29, 26, 21, .06);
-  --radius: .8rem;
-  --serif: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", "Noto Serif SC", serif;
-  --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
-          "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+  --fg:          #1a1a1a;
+  --muted:       #6b7280;
+  --bg:          #f7f6f3;
+  --card:        #ffffff;
+  --line:        #e4e2db;
+  --accent:      #0f766e;
+
+  /* 扩展变量 */
+  --accent-deep: #0a5c55;
+  --accent-ink:  #ffffff;
+  --accent-glow: rgba(15, 118, 110, .15);
+  --shadow-sm:   0 1px 3px rgba(0,0,0,.06), 0 1px 8px rgba(0,0,0,.04);
+  --shadow-md:   0 2px 6px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.06);
+  --radius:      .75rem;
+  --radius-sm:   .4rem;
+
+  --serif: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC",
+           "Noto Serif SC", Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, "PingFang SC",
+           "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+           system-ui, sans-serif;
+  --mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
   color-scheme: light;
 }
+
 html[data-theme="dark"] {
-  --fg: #ece7dc;
-  --muted: #a29a8b;
-  --bg: #141311;
-  --card: #1d1c19;
-  --line: #2f2c26;
-  --accent: #5eead4;
-  --accent-deep: #7ff0db;
-  --accent-ink: #0c2b28;
-  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 18px rgba(0, 0, 0, .35);
+  --fg:          #e8e8ea;
+  --muted:       #9aa0a6;
+  --bg:          #14161a;
+  --card:        #1b1e24;
+  --line:        #2c313a;
+  --accent:      #5eead4;
+
+  --accent-deep: #7ff5e2;
+  --accent-ink:  #0c2b28;
+  --accent-glow: rgba(94, 234, 212, .12);
+  --shadow-sm:   0 1px 3px rgba(0,0,0,.25), 0 1px 8px rgba(0,0,0,.2);
+  --shadow-md:   0 2px 8px rgba(0,0,0,.35), 0 6px 20px rgba(0,0,0,.3);
   color-scheme: dark;
 }
 
-* { box-sizing: border-box; }
+/* ── 2. 重置 & 全局基础 ── */
+*, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  line-height: 1.75;
   font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
 }
 ::selection { background: var(--accent); color: var(--accent-ink); }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: .25rem; }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
 
-.wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.15rem 4rem; }
+/* ── 3. 布局容器 ── */
+/* max-width 42rem：16px × 42 = 672px，正文约 36–38 汉字/行，手机 375px 不滚 */
+.wrap { max-width: 42rem; margin: 0 auto; padding: 0 1rem 5rem; }
 
-/* ---------- 刊头：报纸式 nameplate ---------- */
+/* ── 4. 站头 ── */
 header.top {
-  border-top: .35rem solid var(--fg);
-  border-bottom: 1px solid var(--line);
   padding: 1.1rem 0 .85rem;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
 }
-header.top .brand {
-  font-family: var(--serif);
-  font-size: 1.65rem;
+/* 顶部细线：品牌色条 */
+header.top::before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+  border-radius: 0 0 2px 2px;
+  margin-bottom: .25rem;
+}
+
+/* 品牌标志 */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-family: var(--sans);
+  font-size: 1.15rem;
   font-weight: 700;
-  letter-spacing: .06em;
-}
-header.top .sub {                     /* 更新时间 dateline */
-  color: var(--muted);
-  font-size: .82rem;
-  margin-top: .25rem;
   letter-spacing: .02em;
-}
-header.top nav { margin-top: .7rem; display: flex; flex-wrap: wrap; gap: .2rem 1.1rem; }
-nav a {
   color: var(--fg);
   text-decoration: none;
-  font-size: .92rem;
-  font-weight: 600;
+  line-height: 1;
+}
+.brand:hover { color: var(--accent); }
+.brand:focus-visible { border-radius: var(--radius-sm); }
+.brandmark {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  color: var(--accent);     /* currentColor 的 SVG 继承这个颜色 */
+  display: inline-block;
+}
+html[data-theme="dark"] .brandmark { color: var(--accent); }
+
+/* 更新时间 dateline */
+header.top .sub {
+  color: var(--muted);
+  font-size: .8rem;
+  letter-spacing: .01em;
+}
+
+/* 导航栏 */
+header.top nav {
+  margin-top: .2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .15rem .9rem;
+  align-items: center;
+}
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .88rem;
+  font-weight: 500;
   padding: .15rem 0;
   border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s;
 }
 nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-/* ---------- 标题层级 ---------- */
-h1, h2, h3 { font-family: var(--serif); line-height: 1.45; text-wrap: pretty; }
-h1 { font-size: 1.5rem; margin: .2rem 0 1rem; }
-h1.today {                             /* 首页「今日原创 · N 篇」 */
-  font-size: 1.35rem;
+/* ── 5. 标题体系 ── */
+h1, h2, h3 { font-family: var(--sans); line-height: 1.5; text-wrap: pretty; }
+h1 { font-size: 1.45rem; margin: .25rem 0 1rem; font-weight: 700; }
+
+/* 首页「今日原创 · N 篇」 */
+h1.today {
+  font-size: 1.2rem;
+  font-weight: 700;
   letter-spacing: .04em;
-  padding-bottom: .6rem;
-  border-bottom: 3px double var(--line);
-  margin-bottom: 1.1rem;
+  padding-bottom: .55rem;
+  border-bottom: 2px solid var(--line);
+  margin-bottom: 1rem;
 }
-/* 页面级 h2（往期日期分组、常读页「先看这几篇」）：整宽分隔线，因为它们切的是**页面的大块** */
+
+/* 页面级 h2（往期日期分组、常读页）*/
 h2 {
-  font-size: 1.12rem;
+  font-size: 1.05rem;
+  font-weight: 600;
   margin: 2rem 0 .7rem;
-  padding-bottom: .35rem;
+  padding-bottom: .3rem;
   border-bottom: 1px solid var(--line);
 }
 
-/* ---------- 正文小标题（单篇页 h2）--------------------------------------
-   模型产出的小标题高度不统一：有的 4 个字（「结论」），有的 37 个
-   （「行情核心驱动：地缘风险与美债抛售双重施压」）。所以这里**不靠字号拉开
-   层级**——短标题撑不住大字号，长标题会折行。改用「左侧竖线 + 短横线」两段式：
-
-     结论
-     └── 2px 短横线（accent 色，随主题变）
-
-   竖线沿用 h1.art 的 4px 左侧色条语言（那一竖是栏目色），但缩到 3px 且用
-   var(--line) 而不是栏目色：同一页里栏目色已经在标题上用过了，竖线再用一次
-   栏目色会让"小标题"看起来像另一个标题。短横线才是真正区分层级的那一笔。
-
-   作用域限定在 body[data-page="post"]：列表页的 h2 是日期分组/板块名，
-   用整宽分隔线才对（上面那条 h2 规则已经覆盖）。限定作用域比覆盖写法更稳 ——
-   以后新增页面类型，页面级 h2 不会被顺带改掉。 */
+/* 文章页内容 h2（小标题） */
 body[data-page="post"] h2 {
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.5;
-  margin: 1.9rem 0 .8rem;
-  padding: 0 0 .45rem .7rem;
-  border-bottom: 0;                                  /* 覆盖通用 h2 的整宽线 */
-  border-left: 3px solid var(--line);                /* 竖线 */
+  margin: 2rem 0 .8rem;
+  padding: 0 0 .4rem .7rem;
+  border-bottom: 0;
+  border-left: 3px solid var(--accent-glow);
   position: relative;
 }
 body[data-page="post"] h2::after {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 2.6rem;                                      /* 短横线，不通栏 */
-  height: 2px;
+  left: 0; bottom: 0;
+  width: 2.4rem; height: 2px;
   background: var(--accent);
   border-radius: 1px;
 }
-/* 深色模式下竖线太重会糊成一片，accent 也要提亮才看得见 */
-html[data-theme="dark"] body[data-page="post"] h2 { border-left-color: #4a443c; }
+html[data-theme="dark"] body[data-page="post"] h2 {
+  border-left-color: rgba(94, 234, 212, .1);
+}
 
-/* 小标题紧跟元信息行时（正文第一段之后就是标题）不要顶那么开 */
 body[data-page="post"] .art-meta + h2,
-body[data-page="post"] .lead + h2 { margin-top: 1.4rem; }
+body[data-page="post"] .lead + h2 { margin-top: 1.5rem; }
 
-h1 .cnt { font-family: var(--sans); font-size: .8rem; color: var(--muted); font-weight: 400; }
+h1 .cnt { font-family: var(--sans); font-size: .78rem; color: var(--muted); font-weight: 400; }
 
-/* 文章标题：左侧是栏目色条（颜色来自 cat-colors.css 的 .cat-<键>） */
+/* 文章标题（首页 / 文章页）：左侧栏目色条 */
 h1.art {
-  font-size: 1.28rem;
-  letter-spacing: .015em;
-  margin: .2rem 0 .35rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+  margin: .15rem 0 .3rem;
   border-left: 4px solid var(--line);
   padding-left: .75rem;
+  line-height: 1.55;
 }
-.art-meta { color: var(--muted); font-size: .85rem; margin-bottom: .4rem; }
-.lead { font-size: 1.04rem; margin: .2rem 0 .9rem; color: var(--fg); }
-.note { color: var(--muted); font-size: .88rem; margin: 0 0 1rem; }
-.note .hl { color: var(--fg); font-weight: 700; }
-.ex { color: var(--muted); font-size: .84rem; margin: .15rem 0 .7rem; }
 
-/* ---------- 首页文章卡片 ----------
-   ⚠️ 整块当前**没有任何元素命中**：首页在 2026-09-27 改成"全站最新 10 条"
-   列表式以后，正文直铺的 <article data-srow> 卡片就没了（全站 0 处匹配）。
-   留着是因为如果哪天首页要恢复全文直铺，这套卡片样式直接生效；确认不再需要时
-   连同下面两条 article[data-srow] h2 / p 一起删。注意 article[data-srow] h2
-   那条的 1.02rem 与单篇页小标题不一致，但既然没有元素命中，先不动。 */
+/* ── 6. 正文辅助样式 ── */
+.art-meta { color: var(--muted); font-size: .82rem; margin-bottom: .4rem; line-height: 1.5; }
+.lead { font-size: 1.02rem; margin: .2rem 0 .9rem; color: var(--fg); line-height: 1.85; }
+.note { color: var(--muted); font-size: .86rem; margin: 0 0 1rem; }
+.note .hl { color: var(--fg); font-weight: 700; }
+.ex { color: var(--muted); font-size: .82rem; margin: .15rem 0 .7rem; }
+
+/* ── 7. 首页文章卡片（article[data-srow]，当前无命中，保留备用） ── */
 article[data-srow] {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.15rem 1.25rem 1.05rem;
-  margin: 0 0 1rem;
-  box-shadow: var(--shadow);
+  padding: 1.1rem 1.2rem 1rem;
+  margin: 0 0 .85rem;
+  box-shadow: var(--shadow-sm);
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
 article[data-srow]:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   border-color: var(--accent);
+  box-shadow: var(--shadow-md);
 }
-article[data-srow] h2 { font-size: 1.02rem; margin-top: 1.2rem; }
-article[data-srow] p { margin: .7em 0; }
+article[data-srow] h2 { font-size: 1rem; margin-top: 1.1rem; }
+article[data-srow] p { margin: .65em 0; }
 
-/* ---------- 列表页（往期 / 栏目 / 常读） ---------- */
+/* ── 8. 首页「最新 10 条」列表（.hfeed / .hlist） ── */
 ul { list-style: none; padding-left: 0; margin: 0; }
 
-/* ---------- 首页「最新 10 条」 ----------
-   注意：.hfeed / .hlist 的样式**只存在于生成器 brief-site-build.py 的 CSS 常量里**，
-   而 assets/style.css 是手写设计文件、生成器只在文件缺失时播种不覆盖 —— 所以那份
-   常量对已存在的站点一直是无效的，这里必须手写。
-   用户 2026-09-27 定：标题不加下划线（此前没有任何规则命中 .hlist，于是走了浏览器
-   默认的 a { text-decoration: underline }，整页标题全是下划线）。 */
 .hfeed { list-style: none; padding: 0; margin: .2rem 0 1rem; }
 .hfeed li {
-  padding: .7rem 0; border-bottom: 1px solid var(--line);
+  padding: .75rem 0;
+  border-bottom: 1px solid var(--line);
+  transition: background .12s;
 }
 .hfeed li:last-child { border-bottom: 0; }
-.hfeed .hlist {
-  display: block; text-decoration: none;      /* ← 标题不要下划线 */
-  color: var(--fg); font-size: 1.04rem; line-height: 1.45; font-weight: 500;
-}
-.hfeed .hlist:hover { color: var(--accent); text-decoration: none; }
-.hfeed .art-meta { margin-top: .25rem; }
-.hfeed .tags { margin-top: .3rem; }
 
+.hfeed .hlist {
+  display: block;
+  text-decoration: none;
+  color: var(--fg);
+  font-size: 1.03rem;
+  line-height: 1.5;
+  font-weight: 500;
+  transition: color .15s;
+}
+.hfeed .hlist:hover { color: var(--accent); }
+.hfeed .art-meta { margin-top: .22rem; }
+.hfeed .tags { margin-top: .28rem; }
+
+/* 首页标题 */
+.home-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 0 0 .5rem;
+  letter-spacing: .04em;
+  text-transform: none;
+}
+
+/* ── 9. 往期 / 栏目 / 常读列表（.toc） ── */
 .toc li, .dates a {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: .6rem;
+  border-radius: var(--radius-sm);
+  transition: border-color .15s, background .15s;
 }
-.toc li { padding: .65rem .9rem; margin: .5rem 0; transition: border-color .15s ease, background .15s ease; }
+.toc li {
+  padding: .6rem .85rem;
+  margin: .45rem 0;
+}
 .toc li:hover { border-color: var(--accent); }
 .toc li a { color: var(--fg); text-decoration: none; font-weight: 500; word-break: break-all; }
 .toc li a:hover { color: var(--accent); }
-.toc li em, li em { color: var(--muted); font-style: normal; font-size: .85rem; }
-.dates { display: flex; flex-wrap: wrap; gap: .5rem; }
-.dates a { padding: .35rem .7rem; color: var(--fg); text-decoration: none; font-size: .9rem; }
+.toc li em, li em { color: var(--muted); font-style: normal; font-size: .83rem; }
+.dates { display: flex; flex-wrap: wrap; gap: .45rem; }
+.dates a { padding: .3rem .65rem; color: var(--fg); text-decoration: none; font-size: .88rem; }
 .dates a:hover { border-color: var(--accent); color: var(--accent); }
 
-/* ---------- 栏目导航 chips ---------- */
-.catnav { display: flex; flex-wrap: wrap; gap: .4rem; margin: .2rem 0 1.2rem; }
-.catnav .chip { text-decoration: none; transition: transform .12s ease, filter .12s ease; }
-.catnav .chip:hover { transform: translateY(-1px); filter: brightness(1.08); }
-.catnav .chip.here { outline: 2px solid var(--fg); outline-offset: 1px; }
+/* ── 10. 栏目导航（.catnav .chip） ── */
+/* 挂载钩子：.catnav a[data-cat]  必须保留 */
+.catnav { display: flex; flex-wrap: wrap; gap: .35rem; margin: .15rem 0 1.1rem; }
+.catnav .chip {
+  text-decoration: none;
+  transition: transform .12s ease, opacity .12s ease;
+}
+.catnav .chip:hover { transform: translateY(-1px); opacity: .88; }
+.catnav .chip.here {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+/* 挂载钩子：.chip  必须保留 */
 .chip {
   display: inline-block;
   font-family: var(--sans);
-  font-size: .74rem;
+  font-size: .72rem;
   font-weight: 600;
-  padding: .12rem .5rem;
+  padding: .11rem .48rem;
   border-radius: 999px;
   color: #fff;
-  margin-right: .45rem;
+  margin-right: .4rem;
   vertical-align: .1em;
   letter-spacing: .02em;
+  line-height: 1.5;
 }
 
-/* ---------- 工具条（搜索 / 筛选 / 今日速览） ---------- */
+/* ── 11. 工具条（搜索 / 筛选） ── */
 [hidden] { display: none !important; }
 .site-tools {
   position: sticky; top: .4rem; z-index: 20;
-  display: flex; align-items: center; gap: .55rem; flex-wrap: wrap;
-  margin: .7rem 0 1.1rem; padding: .5rem .6rem;
+  display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+  margin: .65rem 0 1rem; padding: .45rem .55rem;
   background: var(--card); border: 1px solid var(--line);
-  border-radius: var(--radius); box-shadow: var(--shadow);
+  border-radius: var(--radius); box-shadow: var(--shadow-md);
 }
 .searchbox {
-  display: flex; align-items: center; gap: .45rem; flex: 1; min-width: 9rem;
+  display: flex; align-items: center; gap: .4rem; flex: 1; min-width: 9rem;
   background: var(--bg); border: 1px solid var(--line);
-  border-radius: .55rem; padding: .3rem .7rem; color: var(--muted);
+  border-radius: var(--radius-sm); padding: .28rem .65rem; color: var(--muted);
+  transition: border-color .15s;
 }
 .searchbox input {
   width: 100%; min-width: 0; border: 0; outline: 0;
-  background: transparent; color: var(--fg); font: inherit; font-size: .92rem;
+  background: transparent; color: var(--fg); font: inherit; font-size: .9rem;
 }
 .searchbox:focus-within { border-color: var(--accent); }
 .clear-search {
   border: 1px solid var(--line); background: var(--card); color: var(--fg);
-  border-radius: .5rem; padding: .35rem .65rem; cursor: pointer; font: inherit; font-size: .85rem;
+  border-radius: var(--radius-sm); padding: .32rem .6rem; cursor: pointer;
+  font: inherit; font-size: .83rem;
+  transition: border-color .15s, color .15s;
 }
 .clear-search:hover { border-color: var(--accent); color: var(--accent); }
-.result-count { font-size: .78rem; color: var(--muted); white-space: nowrap; }
+.result-count { font-size: .76rem; color: var(--muted); white-space: nowrap; }
 .category-filter {
   border: 1px solid var(--line); background: var(--bg); color: var(--fg);
-  border-radius: .5rem; padding: .4rem .55rem; max-width: 12rem;
-  font: inherit; font-size: .84rem;
-}
-  margin: 0 0 1.4rem; padding: .95rem 1.1rem .9rem;
-  background: var(--card); border: 1px solid var(--line);
-  border-left: 4px solid var(--accent); border-radius: .35rem var(--radius) var(--radius) .35rem;
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-sm); padding: .38rem .5rem; max-width: 12rem;
+  font: inherit; font-size: .82rem;
 }
 
-/* ---------- 进度条 / 回到顶部 ---------- */
+/* ── 12. 进度条 / 回到顶部 ── */
 .read-progress {
   position: fixed; z-index: 100; left: 0; top: 0; width: 0; height: 3px;
   background: linear-gradient(90deg, var(--accent), var(--accent-deep));
   transition: width .08s linear;
+  border-radius: 0 2px 2px 0;
 }
 .back-top {
   position: fixed; z-index: 50; right: 1rem; bottom: 1rem;
-  width: 2.6rem; height: 2.6rem;
+  width: 2.5rem; height: 2.5rem;
   border: 1px solid var(--line); border-radius: 50%;
   background: var(--card); color: var(--fg);
-  font-size: 1.15rem; cursor: pointer; box-shadow: var(--shadow);
-  transition: border-color .15s ease, color .15s ease, transform .15s ease;
+  font-size: 1.1rem; cursor: pointer; box-shadow: var(--shadow-md);
+  transition: border-color .15s, color .15s, transform .15s;
 }
 .back-top:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
 
-/* ---------- 按钮（字号 / 日夜 / 朗读） ---------- */
+/* ── 13. 控件按钮（字号 / 日夜 / 朗读） ── */
 .fsr, .thm, .speak {
   background: var(--card); color: var(--fg);
   border: 1px solid var(--line); border-radius: 999px;
-  padding: .22rem .75rem; font: inherit; font-size: .82rem; cursor: pointer;
-  transition: border-color .15s ease, color .15s ease;
+  padding: .2rem .7rem; font: inherit; font-size: .8rem; cursor: pointer;
+  transition: border-color .15s, color .15s;
 }
 .fsr:hover, .thm:hover, .speak:hover { border-color: var(--accent); color: var(--accent); }
-nav .fsr, .postnav .fsr, nav .thm, .postnav .thm { margin-left: .6rem; vertical-align: middle; }
+nav .fsr, .postnav .fsr, nav .thm, .postnav .thm { margin-left: .5rem; vertical-align: middle; }
 .postnav .speak { margin-left: auto; }
 
-/* ---------- 页脚导航 ---------- */
+/* ── 14. 页脚导航 ── */
 .postnav {
-  margin: 1.8rem 0 .6rem; padding-top: .9rem;
-  border-top: 3px double var(--line);
-  display: flex; gap: 1rem; font-size: .92rem; flex-wrap: wrap;
+  margin: 1.8rem 0 .5rem; padding-top: .85rem;
+  border-top: 1px solid var(--line);
+  display: flex; gap: .9rem; font-size: .9rem; flex-wrap: wrap; align-items: center;
 }
 .postnav a { color: var(--fg); text-decoration: none; font-weight: 600; }
 .postnav a:hover { color: var(--accent); }
-.back { display: inline-block; margin-bottom: 1rem; font-size: .9rem; color: var(--accent); text-decoration: none; }
-.back:hover { text-decoration: underline; }
-.c-link { margin-top: .6rem; font-size: .88rem; }
+
+/* 返回链接 */
+.back {
+  display: inline-flex; align-items: center; gap: .25rem;
+  margin-bottom: 1rem; font-size: .88rem;
+  color: var(--accent); text-decoration: none;
+  transition: opacity .15s;
+}
+.back:hover { opacity: .75; text-decoration: none; }
+.back::before { content: "←"; font-size: .9em; }
+
+.c-link { margin-top: .6rem; font-size: .86rem; }
 .c-link a { color: var(--accent); text-decoration: none; font-weight: 600; }
 .c-link a:hover { text-decoration: underline; }
 
-/* ---------- 订阅 ---------- */
-/* 邮件订阅表单已于 2026-09-28 移除（Gary："拿掉邮箱订阅"）。下面是它原来的样式，
-   整块删掉而不是留着 —— 留着没有元素用得上，但下次有人搜 ".sub-btn" 找样式时
-   会以为订阅功能还在。表单的 HTML 由 brief-site-build.py 的 inject_subscribe()
-   负责从已发布页面里清掉（它靠一对 HTML 注释标记定位）。 */
+/* ── 15. 订阅（类名保留，无可见样式——表单已于 2026-09-28 移除） ── */
+/* .sub  .sub-btn  .sub-form  .sub-hp  .sub-mail  .sub-msg  .sub-note
+   .subscribe  .sub-hp 由 brief-site-build.py inject_subscribe() 管理 */
 
-/* ---------- 评论 ---------- */
-.comments { margin-top: 2.4rem; padding-top: 1.3rem; border-top: 3px double var(--line); }
-.comments h3 { font-size: 1.1rem; margin: 0 0 .2rem; }
-.comments .c-note { color: var(--muted); font-size: .84rem; margin-bottom: .9rem; }
+/* ── 16. 评论 ── */
+.comments { margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.comments h3 { font-size: 1.05rem; margin: 0 0 .2rem; }
+.comments .c-note { color: var(--muted); font-size: .82rem; margin-bottom: .85rem; }
 .c-item {
   background: var(--card); border: 1px solid var(--line);
   border-left: 3px solid var(--line);
-  border-radius: .35rem .6rem .6rem .35rem;
-  padding: .65rem .9rem; margin-bottom: .6rem;
+  border-radius: var(--radius-sm) var(--radius-sm) var(--radius-sm) 0;
+  padding: .6rem .85rem; margin-bottom: .55rem;
+  transition: border-left-color .15s;
 }
-.c-item .c-head { font-size: .82rem; color: var(--muted); margin-bottom: .25rem; }
-.c-item .c-body { white-space: pre-wrap; word-break: break-word; }
+.c-item:hover { border-left-color: var(--accent); }
+.c-item .c-head { font-size: .8rem; color: var(--muted); margin-bottom: .22rem; }
+.c-item .c-body { white-space: pre-wrap; word-break: break-word; line-height: 1.75; }
 .c-item .c-report {
-  font-size: .78rem; color: var(--muted); background: none; border: 0;
-  cursor: pointer; padding: 0; margin-top: .35rem; text-decoration: underline;
+  font-size: .76rem; color: var(--muted); background: none; border: 0;
+  cursor: pointer; padding: 0; margin-top: .3rem; text-decoration: underline;
 }
 .c-item .c-report:hover { color: var(--accent); }
 .c-form input[type=text], .c-form textarea {
   width: 100%; background: var(--bg); color: var(--fg);
-  border: 1px solid var(--line); border-radius: .5rem;
-  padding: .5rem .65rem; font: inherit; font-size: .92rem; margin-bottom: .5rem;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: .48rem .62rem; font: inherit; font-size: .9rem; margin-bottom: .45rem;
+  transition: border-color .15s, box-shadow .15s;
 }
 .c-form input[type=text]:focus, .c-form textarea:focus {
   outline: none; border-color: var(--accent);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
-.c-form textarea { min-height: 5.2rem; resize: vertical; }
+.c-form textarea { min-height: 5rem; resize: vertical; }
 .c-form button {
   background: var(--accent); color: var(--accent-ink); border: 0;
-  border-radius: .5rem; padding: .5rem 1.1rem;
-  font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer;
-  transition: background .15s ease;
+  border-radius: var(--radius-sm); padding: .48rem 1.1rem;
+  font: inherit; font-size: .88rem; font-weight: 700; cursor: pointer;
+  transition: background .15s, opacity .15s;
 }
 .c-form button:hover { background: var(--accent-deep); }
-.c-form button[disabled] { opacity: .55; cursor: default; }
+.c-form button[disabled] { opacity: .5; cursor: default; }
 .c-hp { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
-.c-msg { font-size: .85rem; margin-top: .5rem; color: var(--muted); }
+.c-msg { font-size: .83rem; margin-top: .45rem; color: var(--muted); }
 
-/* ---------- 免责声明 / 常读页 ---------- */
+/* ── 17. 常读页 / 通知框 ── */
 .notice {
   background: var(--card); border: 1px dashed var(--line);
-  border-radius: .6rem; padding: .85rem 1.05rem;
-  font-size: .87rem; color: var(--muted); margin: 1.4rem 0 2rem;
+  border-radius: var(--radius-sm); padding: .8rem 1rem;
+  font-size: .85rem; color: var(--muted); margin: 1.3rem 0 1.8rem;
+  line-height: 1.7;
 }
-.notice a { word-break: break-all; }
-.guide h2 { margin: 1.6rem 0 .4rem; }
+.notice a { word-break: break-all; color: var(--accent); }
+.guide h2 { margin: 1.5rem 0 .4rem; }
 .guide .lead { font-family: var(--serif); }
 
-/* ---------- 页脚 / 通用 ---------- */
-footer {
-  color: var(--muted); font-size: .8rem; margin-top: 3rem;
-  border-top: 1px solid var(--line); padding-top: 1rem;
+/* 栏目导航（mainnav / mnav） */
+.mainnav, .mnav {
+  display: flex; flex-wrap: wrap; gap: .35rem .7rem;
+  margin: .2rem 0 1rem; font-size: .88rem;
 }
-hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+.mainnav a, .mnav a {
+  color: var(--muted); text-decoration: none;
+  padding: .12rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.mainnav a:hover, .mnav a:hover,
+.mainnav a.here, .mnav a.here { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ── 18. 页脚 / 通用 ── */
+footer {
+  color: var(--muted); font-size: .78rem; margin-top: 3rem;
+  border-top: 1px solid var(--line); padding-top: 1rem;
+  line-height: 1.75;
+}
+hr { border: 0; border-top: 1px solid var(--line); margin: 1.8rem 0; }
 code {
   background: var(--card); border: 1px solid var(--line); border-radius: .25rem;
-  padding: .05rem .3rem; font-size: .85em;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  padding: .04rem .28rem; font-size: .84em;
+  font-family: var(--mono);
 }
-em { color: var(--muted); font-style: normal; font-size: .86rem; }
+em { color: var(--muted); font-style: normal; font-size: .84rem; }
 
-/* ---------- 小屏 ---------- */
+/* ── 19. 小屏（≤600px，移动端优先微调） ── */
 @media (max-width: 600px) {
-  .wrap { padding-left: .9rem; padding-right: .9rem; }
-  header.top .brand { font-size: 1.4rem; }
-  article[data-srow] { padding: .95rem 1rem .85rem; }
+  .wrap { padding-left: .85rem; padding-right: .85rem; }
+  header.top .brand { font-size: 1.05rem; }
+  article[data-srow] { padding: .9rem .95rem .8rem; }
   .category-filter { max-width: 8.5rem; }
-  .site-tools { gap: .4rem; padding: .4rem; }
-  h1.art { font-size: 1.15rem; }
+  .site-tools { gap: .35rem; padding: .38rem; }
+  h1.art { font-size: 1.12rem; }
+  .back-top { right: .65rem; bottom: .65rem; }
+  .hfeed .hlist { font-size: .97rem; }
 }
 
-/* ---------- 打印：只留正文 ---------- */
+/* ── 20. 打印：只留正文 ── */
 @media print {
   .site-tools, .back-top, .read-progress, .subscribe, .comments,
   .postnav, .catnav, .fsr, .thm, .speak { display: none !important; }
-  body { background: #fff; }
+  body { background: #fff; color: #000; }
   article[data-srow] { box-shadow: none; break-inside: avoid; }
+  .notice { border-color: #ccc; }
 }
