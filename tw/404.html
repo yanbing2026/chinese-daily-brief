@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>頁面不存在 · DecodeNews AI 新聞解碼</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="assets/style.css?v=51563b26">
+<link rel="stylesheet" href="assets/style.css?v=239b9fe7">
 <link rel="stylesheet" href="assets/cat-colors.css?v=02fc485c">
 <style>
-/* 404 專屬外觀（手寫頁內樣式：不碰 assets/style.css?v=51563b26，就不用重蓋全站資源指紋） */
+/* 404 專屬外觀（手寫頁內樣式：不碰 assets/style.css?v=239b9fe7，就不用重蓋全站資源指紋） */
 .nf { text-align:center; padding:2.6rem .5rem 2.2rem; }
 .nf-code { font-size:4.6rem; font-weight:800; letter-spacing:.06em; line-height:1;
   color:var(--accent); }
@@ -815,6 +815,12 @@
 
 
 
+
+
+
+
+
+
 <!--fs:head--><script>
 (function () {
   var STEPS = [100, 112, 125, 90];          // 標準 → 大 → 特大 → 小 → 循環
@@ -829,12 +835,24 @@
     try { localStorage.setItem("fs", String(pct)); } catch (e) {}
   }
 
-  var btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "fsr";
+  // 字號鍵現在由**生成器**寫在站頭工具條裏（圖標 + 文字，見 brief-site-build.py 的
+  // TOOL_ICON_SIZE / toolbar()），這裏只認它、不再自己造按鈕：JS 自造容器會留下
+  // 「生成器刪了容器、JS 還在跑」的空殼（site-v2.js 裏「今日快速入口」的教訓）。
+  var btn = document.querySelector('[data-tool="fs"]');
+  var made = false;
+  if (!btn) {                    // 兜底：萬一某頁沒有工具條，仍造一個，別讓字號鍵消失
+    btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "fsr";
+    made = true;
+  }
+  var lab = btn.querySelector(".tool-label");
+
   function label() {
-    btn.textContent = "字 " + (LABEL[cur] || cur + "%");
-    btn.setAttribute("aria-label", "文字大小：" + (LABEL[cur] || cur + "%") + "，點擊切換");
+    var txt = LABEL[cur] || (cur + "%");
+    if (lab) lab.textContent = txt;          // 工具條裏的文字標籤
+    if (made) btn.textContent = "字 " + txt; // 兜底按鈕保持舊樣式
+    btn.setAttribute("aria-label", "文字大小：" + txt + "，點擊切換");
     btn.title = "點擊切換文字大小";
   }
   label();
@@ -844,6 +862,7 @@
   });
 
   function mount() {
+    if (!made) return;                         // 已在工具條裏，沒有要掛的東西
     if (document.querySelector(".fsr")) return;
     // 文字大小是整頁偏好，所以每頁只放一個，放在站點導航裏（不是每篇一個）
     var host = document.querySelector("nav") || document.querySelector(".postnav");
@@ -884,11 +903,23 @@
   var cur = intent();
   apply(cur);
 
-  var btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "thm";
+  // 日夜鍵同理：圖標由生成器出（TOOL_ICON_SUN / TOOL_ICON_MOON，兩枚都寫在 HTML 裏，
+  // 由 CSS 按 html[data-theme] 決定顯示哪一枚 —— 所以切主題不需要換圖標節點），
+  // 這裏只更新文字與 aria。**不再用 emoji**（☀/🌙 的字形和顏色由系統決定，
+  // 和同一排的線性圖標對不齊）。
+  var btn = document.querySelector('[data-tool="theme"]');
+  var made = false;
+  if (!btn) {
+    btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "thm";
+    made = true;
+  }
+  var lab = btn.querySelector(".tool-label");
+
   function label() {
-    btn.textContent = ICON[cur] + " " + LABEL[cur];
+    if (lab) lab.textContent = LABEL[cur];
+    if (made) btn.textContent = ICON[cur] + " " + LABEL[cur];
     btn.setAttribute("aria-label", "配色：" + LABEL[cur] + "，點擊切換日/夜");
     btn.title = "點擊切換日/夜";
   }
@@ -900,6 +931,7 @@
   });
 
   function mount() {
+    if (!made) return;
     if (document.querySelector(".thm")) return;
     var host = document.querySelector("nav") || document.querySelector(".postnav");
     if (!host) {
@@ -1084,6 +1116,6 @@
   } else { mount(); }
 })();
 </script><!--tts:end-->
-<div class="postnav"><a href="index.html">首頁</a><a href="posts.html">往期</a><a href="../404.html">簡體</a></div></body>
+<div class="postnav"><a href="index.html">首頁</a><a href="posts.html">往期</a><a class="tool tool-lang" href="../404.html" aria-label="切換到簡體" title="簡體"><svg class="ic ic-lang" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2"/><ellipse cx="12" cy="12" rx="4" ry="8.6"/></svg><span class="tool-label">簡體</span></a></div></body>
 </html>
 

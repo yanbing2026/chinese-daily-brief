@@ -128,6 +128,50 @@ header.top::before {
 }
 html[data-theme="dark"] .brandmark { color: var(--logo-ink); }
 
+/* ── 站头工具条：简/繁 · 字号 · 日/夜 ─────────────────────────────────────
+   用户 2026-09-29：三种控件做成**一套规范图标**，另起一行放在分类下面。
+   图标本身是生成器内联进 HTML 的线性 SVG（24 视框 / 1.75 线宽 / currentColor），
+   所以这里只管排布，不引入任何图形资源。三枚按钮外观必须**完全一致** ——
+   区别只在图标与文字，这正是一套规范图标的含义。 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .45rem;
+  margin-top: .7rem;
+}
+.tool {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .3rem .6rem;
+  min-height: 2rem;                 /* 触控目标：手指点得中 */
+  border: 1px solid var(--line);
+  border-radius: 999px;             /* 药丸形，与分类导航的方块在形状上区分开 */
+  background: var(--card);
+  color: var(--fg);
+  font: inherit;
+  font-size: .8rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.tool:hover { border-color: var(--accent); color: var(--accent); }
+.tool:focus-visible { outline: 2px solid var(--accent-glow); outline-offset: 1px; }
+.tool .ic { width: 1.05rem; height: 1.05rem; flex-shrink: 0; }
+.tool .tool-label { letter-spacing: .01em; white-space: nowrap; }
+
+/* 日夜只用一枚按钮：两枚图标都在 HTML 里，由 CSS 按当前主题挑一枚显示。
+   这样切主题不需要换 DOM（JS 只改文字标签），也不会出现图标延迟。 */
+[data-tool="theme"] .ic-moon { display: none; }
+html[data-theme="dark"] [data-tool="theme"] .ic-sun { display: none; }
+html[data-theme="dark"] [data-tool="theme"] .ic-moon { display: inline-block; }
+
+@media (max-width: 600px) {
+  .toolbar { gap: .35rem; margin-top: .55rem; }
+  .tool { padding: .28rem .52rem; font-size: .76rem; }
+}
+
 /* 更新时间 dateline */
 header.top .sub {
   color: var(--muted);
