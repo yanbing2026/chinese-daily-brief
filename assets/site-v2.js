@@ -151,4 +151,59 @@
     window.addEventListener("resize", scrollUI);
     scrollUI();
   });
+
+  /* ---- 单篇页：分享键（零外链、零追踪） ----
+   * 只用浏览器自带能力，按可用性依次退让：
+   *   navigator.share（系统分享面板）→ navigator.clipboard（复制链接）
+   *   → execCommand("copy") 兜底 → 还不行就提示手动复制。
+   * **绝不接第三方分享服务**（AddThis/百度分享那类）：那等于把每次分享都拿去追踪，
+   * 与本站「零外链、零追踪、无广告」的承诺正面冲突 —— 那正是这个站存在的理由。
+   * 分享的是当前页地址（location.href）：简体页分出去还是简体页，繁体页还是繁体页。
+   * 按钮标记由生成器写在站头工具条里（只有单篇页有），这里只接行为。 */
+  var shareBtn = document.querySelector('.toolbar [data-tool="share"]');
+  if (shareBtn) {
+    var shareLabel = shareBtn.querySelector(".tool-label") || shareBtn;
+    var shareIdle = shareLabel.textContent;
+    var shareTimer = null;
+    // 繁体页上的字面要跟着走：site-v2.js 是共享资源、**不经过 OpenCC**，
+    // 写死的简体字在繁体页上会很扎眼
+    var hant = (document.documentElement.getAttribute("lang") || "") === "zh-Hant";
+    var MSG_COPIED = hant ? "已複製連結" : "已复制链接";
+    var MSG_MANUAL = hant ? "請長按複製" : "请长按复制";
+    function flash(txt) {
+      shareLabel.textContent = txt;
+      if (shareTimer) clearTimeout(shareTimer);
+      shareTimer = setTimeout(function () { shareLabel.textContent = shareIdle; }, 1800);
+    }
+    function copyFallback(url) {
+      try {
+        var ta = document.createElement("textarea");
+        ta.value = url;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.top = "-1000px";
+        document.body.appendChild(ta);
+        ta.select();
+        var done = document.execCommand && document.execCommand("copy");
+        document.body.removeChild(ta);
+        flash(done ? MSG_COPIED : MSG_MANUAL);
+      } catch (e) { flash(MSG_MANUAL); }
+    }
+    shareBtn.addEventListener("click", function () {
+      var url = location.href;
+      var h1 = document.querySelector("h1.art") || document.querySelector("h1");
+      var title = ((h1 && h1.textContent) || document.title || "").replace(/\s+/g, " ").trim();
+      if (navigator.share) {
+        // 系统面板自己会给反馈；读者取消（AbortError）也不要弹错
+        navigator.share({ title: title, url: url })["catch"](function () {});
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { flash(MSG_COPIED); },
+                                               function () { copyFallback(url); });
+        return;
+      }
+      copyFallback(url);
+    });
+  }
 })();

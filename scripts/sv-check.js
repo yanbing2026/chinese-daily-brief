@@ -16,6 +16,9 @@ if (!files.length) {
 }
 
 let bad = 0;
+// 有些断言要等微任务（例：分享键走 clipboard.then 才改标签）。它们推进这里，
+// 末尾统一 drain 再打印结论 —— 否则 promise 回调会在 process.exit 之后才跑，永远不打印。
+const pending = [];
 const ok = (cond, msg) => {
   console.log((cond ? "  ✓ " : "  ✗ ") + msg);
   if (!cond) bad++;
@@ -84,7 +87,8 @@ for (const f of files) {
     // 判据用**文件名**而不是 h1.today —— 那份模板里首页的标题是 h1.home-title，
     // h1.today 早就不在了（老断言靠它，一直在空转）。
     const isFront = /(^|\/)index\.html$/.test(f) && !/\/category\//.test(f);
-    const want = isFront ? 5 : 6;
+    const isPost = /data-page="post"/.test(html);
+    const want = isFront ? 4 : (isPost ? 7 : 5);
     ok(tools.length === want, `工具条控件数 = ${want}（实得 ${tools.length}）`);
     const first = toolbar.querySelector(".tool");
     ok(isFront ? first.classList.contains("tool-lang") : first.classList.contains("tool-home"),
@@ -135,15 +139,29 @@ for (const f of files) {
           addEventListener() {}, speaking: false, pending: false, paused: false,
         };
         w.__spoken = spoken;
+        // 桌面主路径：没有 navigator.share，只有 clipboard → 点一下应该"复制链接"
+        w.__copied = [];
+        Object.defineProperty(w.navigator, "clipboard", {
+          configurable: true,
+          value: { writeText(t) { w.__copied.push(t); return Promise.resolve(); } },
+        });
       },
     });
     const { window: w2 } = dom2;
     const doc2 = w2.document;
     if (doc2.readyState === "loading") doc2.dispatchEvent(new w2.Event("DOMContentLoaded"));
+    // 分享键的行为在 **site-v2.js**（外部资源，jsdom 不会自动加载），所以要像主循环那样
+    // 手动 eval。TTS_JS 是内联脚本、解析时已经跑过了。
+    // 顺序跟线上一致：内联脚本先（解析时），site-v2.js 后（defer）。
+    try {
+      w2.eval(fs.readFileSync(jsFile, "utf8"));
+    } catch (e) {
+      ok(false, "单篇页里 site-v2.js 抛异常: " + e.message);
+    }
     const b2 = doc2.querySelector('.toolbar [data-tool="tts"]');
     ok(!!b2, "单篇页工具条里有朗读键");
     if (b2) {
-      ok(!b2.classList.contains("is-off"), "朗读键已启用（TTS_JS 把 .is-off 摘掉了）");
+      ok(!b2.classList.contains("is-off"), "朗读键可见（列表页不写这枚，单篇页才写）");
       ok(doc2.querySelectorAll("h1.art + button.speak").length === 0,
         "不再另造一枚挨着标题的朗读钮");
       const lab = () => b2.querySelector(".tool-label").textContent;
@@ -156,6 +174,23 @@ for (const f of files) {
       b2.dispatchEvent(new w2.Event("click", { bubbles: true }));
       ok(lab() === idle && !b2.classList.contains("speaking"),
         `再点一次 → 回到「${lab()}」并摘掉 .speaking`);
+    }
+    // 分享键：桌面路径（有 clipboard、没有 navigator.share）→ 复制当前页地址
+    const sb = doc2.querySelector('.toolbar [data-tool="share"]');
+    ok(!!sb, "单篇页工具条里有分享键");
+    if (sb) {
+      ok(sb.querySelectorAll("svg").length === 1, "分享键带内联图标");
+      const slab = () => sb.querySelector(".tool-label").textContent;
+      const before = slab();
+      sb.dispatchEvent(new w2.Event("click", { bubbles: true }));
+      ok(w2.__copied.length === 1 && /\/posts\/x\.html$/.test(w2.__copied[0]),
+        `点分享键 → 复制了当前页地址：${w2.__copied[0] || "（没复制）"}`);
+      const copiedMsg = /zh-Hant/.test(doc2.documentElement.getAttribute("lang") || "")
+        ? "已複製連結" : "已复制链接";
+      // 标签是在 clipboard.then 里改的 —— 要等一个微任务才看得到
+      pending.push(Promise.resolve().then(() => {
+        ok(slab() === copiedMsg, `分享键标签回执「${slab()}」（原「${before}」）`);
+      }));
     }
   }
 
@@ -221,5 +256,7 @@ for (const f of files) {
   }
 }
 
-console.log(bad ? `\n=== ${bad} 项 FAILED` : "\n=== 全部通过");
-process.exit(bad ? 1 : 0);
+Promise.all(pending).then(() => {
+  console.log(bad ? `\n=== ${bad} 项 FAILED` : "\n=== 全部通过");
+  process.exit(bad ? 1 : 0);
+});
