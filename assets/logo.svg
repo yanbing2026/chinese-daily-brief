@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="DecodeNews">
+  <rect x="2.5" y="2.5" width="27" height="27" rx="6" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M9 20.5V11h4.2c3.2 0 5.3 1.9 5.3 4.75S16.4 20.5 13.2 20.5H9Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="22.5" cy="19.5" r="1.8" fill="currentColor"/>
+</svg>
