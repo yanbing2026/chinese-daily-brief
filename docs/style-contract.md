@@ -115,7 +115,19 @@
     都在 `<header class="top …">` 内（`.top` 也在 SKIP 里），所以这条是双保险 —— 别把工具条
     挪到 header 外面去，那会让它变成朗读正文的一部分。
 
-## 七、全局 CSS 变量（改配色从这里起步）
+## 七、页脚（站点一句话介绍在这里）
+
+页脚第一行永远是**站点一句话介绍** —— 生成器 `SITE_TAGLINE`（Gary 2026-09-29 定稿：「读同题多家英文报道，由 AI 整理成中文研究报告，事实说话，立场中立。」），
+`<footer><p class="tagline">…</p>` + 原免责声明。三条口径：
+
+1. **唯一出处是 `SITE_TAGLINE`**。它同时供站点 meta description（`SITE_DESC` 的最前一句）
+   与 repo 描述使用 —— 同一句话写两处必然漂。
+2. **`footer .tagline` 比免责声明抬一档**（`var(--fg)`、`.86rem`），让它读起来像「这个站是什么」，
+   而不是免责条款的开头。字号全用 rem（写死 `px`/`html{font-size}` 会毁掉站头字号控件）。
+3. **`TTS_JS` 的 `SKIP` 必须含 `footer`**：否则朗读会把页脚这句话当成正文最后一段念出来。
+   单篇页的 `<footer>` 是这一轮新加的（此前只有 `.notice`，没有 footer 元素）。
+
+## 八、全局 CSS 变量（改配色从这里起步）
 
 ```css
 :root { --fg:#1a1a1a; --muted:#6b7280; --bg:#fbfbfd; --card:#fff; --line:#e5e7eb; --accent:#0f766e;
