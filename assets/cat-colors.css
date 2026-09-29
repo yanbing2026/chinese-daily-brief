@@ -58,6 +58,10 @@
 .chip-election { background:#9d174d; }
 .cat-election.v1 { color:#9d1b17; border-left-color:#9d1b17; }
 .cat-election.v2 { color:#9d1787; border-left-color:#9d1787; }
+.cat-politics { color:#5b21b6; border-left-color:#5b21b6; }
+.chip-politics { background:#5b21b6; }
+.cat-politics.v1 { color:#9c21b6; border-left-color:#9c21b6; }
+.cat-politics.v2 { color:#2128b6; border-left-color:#2128b6; }
 .cat-economy { color:#065f46; border-left-color:#065f46; }
 .chip-economy { background:#065f46; }
 .cat-economy.v1 { color:#06515f; border-left-color:#06515f; }
@@ -194,6 +198,10 @@ html[data-theme="dark"] .cat-election { color:#f9a8d4; border-left-color:#f9a8d4
 html[data-theme="dark"] .chip-election { background:#f9a8d4; color:#111; }
 html[data-theme="dark"] .cat-election.v1 { color:#f9a8b1; border-left-color:#f9a8b1; }
 html[data-theme="dark"] .cat-election.v2 { color:#f9a8f7; border-left-color:#f9a8f7; }
+html[data-theme="dark"] .cat-politics { color:#ddd6fe; border-left-color:#ddd6fe; }
+html[data-theme="dark"] .chip-politics { background:#ddd6fe; color:#111; }
+html[data-theme="dark"] .cat-politics.v1 { color:#eed6fe; border-left-color:#eed6fe; }
+html[data-theme="dark"] .cat-politics.v2 { color:#d6e0fe; border-left-color:#d6e0fe; }
 html[data-theme="dark"] .cat-economy { color:#a7f3d0; border-left-color:#a7f3d0; }
 html[data-theme="dark"] .chip-economy { background:#a7f3d0; color:#111; }
 html[data-theme="dark"] .cat-economy.v1 { color:#a7f3f1; border-left-color:#a7f3f1; }
