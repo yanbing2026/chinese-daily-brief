@@ -24,6 +24,10 @@
   --accent-deep: #0a5c55;
   --accent-ink:  #ffffff;
   --accent-glow: rgba(15, 118, 110, .15);
+  /* 站标专用色。**要比 --accent 亮**：--accent 那支深青是给文字/链接用的，
+     当图形色偏暗（用户 2026-09-29：「换个明亮颜色」）。日夜各一支，靠下面的
+     html[data-theme="dark"] 覆盖 —— 站标是内联 SVG，所以它真能继承这个颜色。 */
+  --logo-ink:    #14b8a6;
   --shadow-sm:   0 1px 3px rgba(0,0,0,.06), 0 1px 8px rgba(0,0,0,.04);
   --shadow-md:   0 2px 6px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.06);
   --radius:      .75rem;
@@ -50,6 +54,7 @@ html[data-theme="dark"] {
   --accent-deep: #7ff5e2;
   --accent-ink:  #0c2b28;
   --accent-glow: rgba(94, 234, 212, .12);
+  --logo-ink:    #5eead4;
   --shadow-sm:   0 1px 3px rgba(0,0,0,.25), 0 1px 8px rgba(0,0,0,.2);
   --shadow-md:   0 2px 8px rgba(0,0,0,.35), 0 6px 20px rgba(0,0,0,.3);
   color-scheme: dark;
@@ -118,10 +123,10 @@ header.top::before {
   height: 30px;
   flex-shrink: 0;
   vertical-align: middle;
-  color: var(--accent);     /* currentColor 的 SVG 继承这个颜色 */
+  color: var(--logo-ink);   /* 内联 SVG 继承这个颜色；日夜两套值见上方变量块 */
   display: inline-block;
 }
-html[data-theme="dark"] .brandmark { color: var(--accent); }
+html[data-theme="dark"] .brandmark { color: var(--logo-ink); }
 
 /* 更新时间 dateline */
 header.top .sub {
