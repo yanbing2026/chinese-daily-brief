@@ -12,7 +12,9 @@
 
 ## 绝不手改的生成文件（改了下一次构建就没了）
 `index.html`、`posts.html`、`404.html`、`posts/**`（含 `posts/index.json`）、`category/**`、
-`topic/**`、`guide/**`、`tw/**`（繁体镜像整树）、`assets/cat-colors.css`。
+`topic/**`、`guide/**`、`tw/**`（繁体镜像整树）、`assets/cat-colors.css`、
+`sitemap.xml`、`robots.txt`（两者由 `brief-site-build.py` 的 `build_sitemap()` 生成，
+robots 里的 Sitemap 行与 sitemap 里的 loc 同源，手改一处就会对不上）。
 
 **手写、可以改的**：`assets/style.css`（设计）、`assets/site-v2.js`（交互）。
 改设计只动 `style.css`；版式/新栏目/分类键属于生成器的事（见 `docs/style-contract.md`）。
