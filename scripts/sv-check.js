@@ -102,6 +102,36 @@ for (const f of files) {
   const after = Array.prototype.filter.call(doc.querySelectorAll("[data-srow]"), (r) => !r.hidden);
   ok(after.length === rows.length, `清除后全部恢复（${after.length}）`);
 
+  /* ---- 站头工具条（简/繁 · 字号 · 日/夜）：图标由生成器写进 HTML，JS 只接行为 ---- */
+  const toolbar = doc.querySelector(".toolbar");
+  ok(toolbar !== null, "站头工具条已挂（分类下面另起一行）");
+  if (toolbar) {
+    const tools = toolbar.querySelectorAll(".tool");
+    ok(tools.length === 3, `工具条三枚控件（实得 ${tools.length}）`);
+    ok(toolbar.querySelectorAll(".tool .ic").length >= tools.length,
+      `每枚控件都有内联 SVG 图标（共 ${toolbar.querySelectorAll(".tool .ic").length} 枚）`);
+    ok(!!toolbar.querySelector('[data-tool="fs"] .tool-label')
+       && !!toolbar.querySelector('[data-tool="theme"] .tool-label'),
+      "字号/日夜控件各带一个文字标签（.tool-label）");
+    const lang = toolbar.querySelector(".tool-lang");
+    ok(!!lang && /\.html$/.test(lang.getAttribute("href") || ""),
+      `语言切换指向真实页面（不是占位的 #）：${lang && lang.getAttribute("href")}`);
+    const fsb = toolbar.querySelector('[data-tool="fs"]');
+    const l0 = fsb.querySelector(".tool-label").textContent;
+    const h0 = doc.documentElement.style.fontSize;
+    fsb.dispatchEvent(new window.Event("click", { bubbles: true }));
+    ok(fsb.querySelector(".tool-label").textContent !== l0,
+      `点字号键 → 标签「${l0}」→「${fsb.querySelector(".tool-label").textContent}」`);
+    ok(doc.documentElement.style.fontSize !== h0,
+      `根字号真的变了：${h0 || "默认"} → ${doc.documentElement.style.fontSize || "默认"}`);
+    const thb = toolbar.querySelector('[data-tool="theme"]');
+    const t0 = thb.querySelector(".tool-label").textContent;
+    thb.dispatchEvent(new window.Event("click", { bubbles: true }));
+    const scheme = doc.documentElement.getAttribute("data-theme");
+    ok(thb.querySelector(".tool-label").textContent !== t0 && /^(light|dark)$/.test(scheme || ""),
+      `点日夜键 → 「${t0}」→「${thb.querySelector(".tool-label").textContent}」（data-theme=${scheme}）`);
+  }
+
   if (home) {
     ok(!!filter, "首页出现类别筛选下拉");
     if (filter) {
