@@ -20,7 +20,7 @@
   color:var(--accent); border-radius:.6rem; font-weight:600; }
 .nf-links a:hover { background:var(--accent); color:#fff; text-decoration:none; }
 </style>
-<!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--></head>
+<!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--></head>
 <body>
 <div class="wrap">
 <header class="top">
@@ -906,6 +906,65 @@
 
 
 
+
+
+<!--fs:head--><script>
+(function () {
+  var STEPS = [100, 112, 125, 90];          // 标准 → 大 → 特大 → 小 → 循环
+  var LABEL = { 100: "标准", 112: "大", 125: "特大", 90: "小" };
+  var root = document.documentElement;
+  var cur = 100;
+  try { cur = parseInt(localStorage.getItem("fs"), 10) || 100; } catch (e) {}
+  if (STEPS.indexOf(cur) < 0) cur = 100;
+
+  function apply(pct) {
+    root.style.fontSize = (16 * pct / 100) + "px";
+    try { localStorage.setItem("fs", String(pct)); } catch (e) {}
+  }
+
+  // 字号键现在由**生成器**写在站头工具条里（图标 + 文字，见 brief-site-build.py 的
+  // TOOL_ICON_SIZE / toolbar()），这里只认它、不再自己造按钮：JS 自造容器会留下
+  // 「生成器删了容器、JS 还在跑」的空壳（site-v2.js 里「今日快速入口」的教训）。
+  var btn = document.querySelector('[data-tool="fs"]');
+  var made = false;
+  if (!btn) {                    // 兜底：万一某页没有工具条，仍造一个，别让字号键消失
+    btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "fsr";
+    made = true;
+  }
+  var lab = btn.querySelector(".tool-label");
+
+  function label() {
+    var txt = LABEL[cur] || (cur + "%");
+    if (lab) lab.textContent = txt;          // 工具条里的文字标签
+    if (made) btn.textContent = "字 " + txt; // 兜底按钮保持旧样式
+    btn.setAttribute("aria-label", "文字大小：" + txt + "，点击切换");
+    btn.title = "点击切换文字大小";
+  }
+  label();
+  btn.addEventListener("click", function () {
+    cur = STEPS[(STEPS.indexOf(cur) + 1) % STEPS.length];
+    apply(cur); label();
+  });
+
+  function mount() {
+    if (!made) return;                         // 已在工具条里，没有要挂的东西
+    if (document.querySelector(".fsr")) return;
+    // 文字大小是整页偏好，所以每页只放一个，放在站点导航里（不是每篇一个）
+    var host = document.querySelector("nav") || document.querySelector(".postnav");
+    if (!host) {
+      var back = document.querySelector(".back") || document.querySelector("h1");
+      if (back) { back.insertAdjacentElement("afterend", btn); return; }
+      return;
+    }
+    host.appendChild(btn);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--fs:end-->
 <!--th:start--><script>
 (function () {
   // 两态（日 ⇄ 夜），默认"日"。不要"跟随系统"这个中间态：浅色机器上"跟随"和"日"
@@ -1187,63 +1246,6 @@
   } else { mount(); }
 })();
 </script><!--tts:end-->
-<!--fs:head--><script>
-(function () {
-  var STEPS = [100, 112, 125, 90];          // 标准 → 大 → 特大 → 小 → 循环
-  var LABEL = { 100: "标准", 112: "大", 125: "特大", 90: "小" };
-  var root = document.documentElement;
-  var cur = 100;
-  try { cur = parseInt(localStorage.getItem("fs"), 10) || 100; } catch (e) {}
-  if (STEPS.indexOf(cur) < 0) cur = 100;
-
-  function apply(pct) {
-    root.style.fontSize = (16 * pct / 100) + "px";
-    try { localStorage.setItem("fs", String(pct)); } catch (e) {}
-  }
-
-  // 字号键现在由**生成器**写在站头工具条里（图标 + 文字，见 brief-site-build.py 的
-  // TOOL_ICON_SIZE / toolbar()），这里只认它、不再自己造按钮：JS 自造容器会留下
-  // 「生成器删了容器、JS 还在跑」的空壳（site-v2.js 里「今日快速入口」的教训）。
-  var btn = document.querySelector('[data-tool="fs"]');
-  var made = false;
-  if (!btn) {                    // 兜底：万一某页没有工具条，仍造一个，别让字号键消失
-    btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "fsr";
-    made = true;
-  }
-  var lab = btn.querySelector(".tool-label");
-
-  function label() {
-    var txt = LABEL[cur] || (cur + "%");
-    if (lab) lab.textContent = txt;          // 工具条里的文字标签
-    if (made) btn.textContent = "字 " + txt; // 兜底按钮保持旧样式
-    btn.setAttribute("aria-label", "文字大小：" + txt + "，点击切换");
-    btn.title = "点击切换文字大小";
-  }
-  label();
-  btn.addEventListener("click", function () {
-    cur = STEPS[(STEPS.indexOf(cur) + 1) % STEPS.length];
-    apply(cur); label();
-  });
-
-  function mount() {
-    if (!made) return;                         // 已在工具条里，没有要挂的东西
-    if (document.querySelector(".fsr")) return;
-    // 文字大小是整页偏好，所以每页只放一个，放在站点导航里（不是每篇一个）
-    var host = document.querySelector("nav") || document.querySelector(".postnav");
-    if (!host) {
-      var back = document.querySelector(".back") || document.querySelector("h1");
-      if (back) { back.insertAdjacentElement("afterend", btn); return; }
-      return;
-    }
-    host.appendChild(btn);
-  }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", mount);
-  } else { mount(); }
-})();
-</script><!--fs:end-->
 </body>
 </html>
 
