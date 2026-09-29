@@ -128,11 +128,15 @@ header.top::before {
 }
 html[data-theme="dark"] .brandmark { color: var(--logo-ink); }
 
-/* ── 站头工具条：简/繁 · 字号 · 日/夜 ─────────────────────────────────────
-   用户 2026-09-29：三种控件做成**一套规范图标**，另起一行放在分类下面。
+/* ── 站头工具条：简/繁 · 字号 · 日/夜 · 朗读 · 顶部 ───────────────────────
+   用户 2026-09-29：控件做成**一套规范图标**，另起一行放在分类下面。
    图标本身是生成器内联进 HTML 的线性 SVG（24 视框 / 1.75 线宽 / currentColor），
-   所以这里只管排布，不引入任何图形资源。三枚按钮外观必须**完全一致** ——
-   区别只在图标与文字，这正是一套规范图标的含义。 */
+   所以这里只管排布，不引入任何图形资源。所有按钮外观必须**完全一致** ——
+   区别只在图标与文字，这正是一套规范图标的含义。
+
+   选择器一律写成 `.toolbar .tool`（两层）而不是 `.tool`：文件下半部分还有旧的
+   `.fsr, .thm, .speak { … }` 和 `.back-top { position:fixed }` 单层规则，
+   同权重时**靠后的赢**，只写 `.tool` 会被它们盖掉（浮动、圆角、内边距都会回旧样）。 */
 .toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -140,7 +144,7 @@ html[data-theme="dark"] .brandmark { color: var(--logo-ink); }
   gap: .45rem;
   margin-top: .7rem;
 }
-.tool {
+.toolbar .tool {
   display: inline-flex;
   align-items: center;
   gap: .3rem;
@@ -155,21 +159,46 @@ html[data-theme="dark"] .brandmark { color: var(--logo-ink); }
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
+  transition: border-color .15s, color .15s;
 }
-.tool:hover { border-color: var(--accent); color: var(--accent); }
-.tool:focus-visible { outline: 2px solid var(--accent-glow); outline-offset: 1px; }
-.tool .ic { width: 1.05rem; height: 1.05rem; flex-shrink: 0; }
-.tool .tool-label { letter-spacing: .01em; white-space: nowrap; }
+.toolbar .tool:hover { border-color: var(--accent); color: var(--accent); }
+.toolbar .tool:focus-visible { outline: 2px solid var(--accent-glow); outline-offset: 1px; }
+.toolbar .tool .ic { width: 1.05rem; height: 1.05rem; flex-shrink: 0; }
+.toolbar .tool .tool-label { letter-spacing: .01em; white-space: nowrap; }
+
+/* 「顶部」键原来是**浮动圆钮**（.back-top 单层规则：position:fixed / 圆形 / 阴影）。
+   它现在住进工具条，所以在这里把浮动的那套按掉。用户 2026-09-29：「浮在角落的收进这一排」。
+   注意只按掉"位置与外观"，点击行为（滚回顶部）在 site-v2.js 里，不受影响。 */
+.toolbar .back-top {
+  position: static;
+  right: auto; bottom: auto;
+  width: auto; height: auto;
+  z-index: auto;
+  box-shadow: none;
+  font-size: .8rem;
+}
+.toolbar .back-top:hover { transform: none; }
 
 /* 日夜只用一枚按钮：两枚图标都在 HTML 里，由 CSS 按当前主题挑一枚显示。
    这样切主题不需要换 DOM（JS 只改文字标签），也不会出现图标延迟。 */
-[data-tool="theme"] .ic-moon { display: none; }
-html[data-theme="dark"] [data-tool="theme"] .ic-sun { display: none; }
-html[data-theme="dark"] [data-tool="theme"] .ic-moon { display: inline-block; }
+.toolbar [data-tool="theme"] .ic-moon { display: none; }
+html[data-theme="dark"] .toolbar [data-tool="theme"] .ic-sun { display: none; }
+html[data-theme="dark"] .toolbar [data-tool="theme"] .ic-moon { display: inline-block; }
+
+/* 朗读键只在单篇页出现（列表页每行各有自己的朗读键，整页念没意义 ——
+   见 TTS_JS 里那条注释）。没有朗读区域时按钮由 JS 加 .is-off 隐藏，
+   但**不能 display:none**：藏了之后 JS 还得负责把它放回来。 */
+.toolbar .tool.is-off { display: none; }
+/* 朗读进行中：文字标签换成「停止」，图标换成方块（两枚图标都写在 HTML 里，
+   由 .speaking 这个类决定显示哪一枚 —— 和日夜键用同一套办法），并换成强调色 */
+.toolbar .tool.speaking { border-color: var(--accent); color: var(--accent); }
+.toolbar .tool .ic-stop { display: none; }
+.toolbar .tool.speaking .ic-speak { display: none; }
+.toolbar .tool.speaking .ic-stop { display: inline-block; }
 
 @media (max-width: 600px) {
   .toolbar { gap: .35rem; margin-top: .55rem; }
-  .tool { padding: .28rem .52rem; font-size: .76rem; }
+  .toolbar .tool { padding: .28rem .52rem; font-size: .76rem; }
 }
 
 /* 更新时间 dateline */

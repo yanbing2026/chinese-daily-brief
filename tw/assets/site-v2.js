@@ -118,25 +118,34 @@
     /* ---- 全站：阅读进度条 + 返回顶部 ---- */
     var progress = document.createElement("div");
     progress.className = "read-progress";
-    var topBtn = document.createElement("button");
-    topBtn.className = "back-top";
-    topBtn.type = "button";
-    topBtn.textContent = "↑";
+    // 「顶部」键现在住在站头工具条里（生成器写在 HTML 上。用户 2026-09-29：
+    // 把浮在角落的收进这一排）。有它就只接行为 —— 不再造浮动圆钮，也**不再按滚动隐藏**：
+    // 同一排里的键忽隐忽现比"一直在那儿、点了就上"更让人困惑。
+    // 没有工具条的页面照旧造浮动钮（老页面兼容）。
+    var topBtn = document.querySelector('.toolbar [data-tool="top"]');
+    var floating = false;
+    if (!topBtn) {
+      topBtn = document.createElement("button");
+      topBtn.className = "back-top";
+      topBtn.type = "button";
+      topBtn.textContent = "↑";
+      floating = true;
+    }
     topBtn.title = "回到顶部";
     topBtn.setAttribute("aria-label", "回到顶部");
-    topBtn.hidden = true;
+    if (floating) topBtn.hidden = true;
     topBtn.addEventListener("click", function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
     document.body.appendChild(progress);
-    document.body.appendChild(topBtn);
+    if (floating) document.body.appendChild(topBtn);
 
     function scrollUI() {
       var doc = document.documentElement;
       var max = doc.scrollHeight - doc.clientHeight;
       var y = window.scrollY || doc.scrollTop || 0;
       progress.style.width = (max > 0 ? Math.min(100, (y / max) * 100) : 0) + "%";
-      topBtn.hidden = y < 500;
+      if (floating) topBtn.hidden = y < 500;      // 工具条里那枚始终可点
     }
     window.addEventListener("scroll", scrollUI, { passive: true });
     window.addEventListener("resize", scrollUI);

@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>頁面不存在 · DecodeNews AI 新聞解碼</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="assets/style.css?v=239b9fe7">
+<link rel="stylesheet" href="assets/style.css?v=fd4e3009">
 <link rel="stylesheet" href="assets/cat-colors.css?v=02fc485c">
 <style>
-/* 404 專屬外觀（手寫頁內樣式：不碰 assets/style.css?v=239b9fe7，就不用重蓋全站資源指紋） */
+/* 404 專屬外觀（手寫頁內樣式：不碰 assets/style.css?v=fd4e3009，就不用重蓋全站資源指紋） */
 .nf { text-align:center; padding:2.6rem .5rem 2.2rem; }
 .nf-code { font-size:4.6rem; font-weight:800; letter-spacing:.06em; line-height:1;
   color:var(--accent); }
@@ -37,7 +37,7 @@
   </ul>
 </article>
 </div>
-<script src="assets/site-v2.js?v=e9362281" defer></script>
+<script src="assets/site-v2.js?v=74bceb05" defer></script>
 
 
 
@@ -872,6 +872,9 @@
 
 
 
+
+
+
 <!--fs:head--><script>
 (function () {
   var STEPS = [100, 112, 125, 90];          // 標準 → 大 → 特大 → 小 → 循環
@@ -1024,6 +1027,9 @@
   // 後者會把頁頭之類的東西順帶念出來。
   var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta,"
            + " .site-tools, .fsr, .speak, .top, .foot, .read-progress, .back-top,"
+           // .toolbar 必須在這裏：單篇頁的工具條在 </header> **外面**（列表頁在 .top 裏，
+           // 已被上面的 .top 蓋住），不加它，朗讀會把「繁體 標準 日 朗讀 頂部」當正文念出來。
+           + " .toolbar, .tool,"
            + " script, style, nav";
 
   function clean(el) {
@@ -1083,7 +1089,11 @@
 
   function stop() {
     window.speechSynthesis.cancel();
-    if (current) { current.textContent = "🔊 朗讀"; current = null; }
+    if (current) {
+      setLabel(current, setLang());
+      current.classList.remove("speaking");
+      current = null;
+    }
   }
 
   function speak(btn, region) {
@@ -1098,20 +1108,42 @@
       if (voice) u.voice = voice;
       u.rate = 0.95; u.pitch = 1;
       if (i === pieces.length - 1) {
-        u.onend = function () { if (current === btn) { btn.textContent = "🔊 朗讀"; current = null; } };
+        u.onend = function () {
+          if (current === btn) {
+            setLabel(btn, setLang());
+            btn.classList.remove("speaking");
+            current = null;
+          }
+        };
       }
       window.speechSynthesis.speak(u);
     });
-    btn.textContent = "⏹ 停止";
+    setLabel(btn, "停止");
+    btn.classList.add("speaking");
     current = btn;
   }
 
-  function makeButton(region, host) {
-    var btn = document.createElement("button");
-    btn.className = "speak";
-    btn.type = "button";
-    btn.textContent = "🔊 朗讀";
-    btn.setAttribute("aria-label", "朗讀本文");
+  // 按鈕上的文字：工具條裏的朗讀鍵有 <span class="tool-label">（圖標是內聯 SVG，
+  // 不能像老按鈕那樣用 textContent 整體覆蓋 —— 那樣會把圖標抹掉）。
+  function setLabel(btn, txt) {
+    var lab = btn.querySelector ? btn.querySelector(".tool-label") : null;
+    if (lab) { lab.textContent = txt; } else { btn.textContent = txt; }
+  }
+  function setLang() {
+    // 繁體鏡像頁的標籤要用繁體字面（頁面已被生成器轉換過一次，JS 裏再寫簡體就前後不一致）
+    var t = document.documentElement.getAttribute("lang") || "";
+    return t === "zh-Hant" ? "朗讀" : "朗讀";
+  }
+
+  function makeButton(region, host, existing) {
+    // existing：工具條裏已經存在的那枚朗讀鍵（標記由生成器出，這裏只接行爲）
+    var btn = existing || document.createElement("button");
+    if (!existing) {
+      btn.className = "speak";
+      btn.type = "button";
+      btn.setAttribute("aria-label", "朗讀本文");
+    }
+    setLabel(btn, setLang());
     btn.addEventListener("click", function () {
       if (current === btn) { stop(); } else { speak(btn, region); }
     });
@@ -1145,12 +1177,25 @@
       });
       return;
     }
-    // 單篇頁：沒有條目元素，整塊 .wrap 當朗讀區域，按鈕放到標題旁。
+    // 單篇頁：沒有條目元素，整塊 .wrap 當朗讀區域。
     // 判據是生成器寫在 <body> 上的 data-page —— 不要從 DOM 裏認：
     // 欄目頁的標題也是 h1.art（撞上了），.c-body 又是評論的正文容器（也撞上了）。
     if ((document.body.getAttribute("data-page") || "") !== "post") return;
     var wrap = document.querySelector(".wrap");
-    if (!wrap || wrap.querySelector(".speak")) return;
+    if (!wrap) return;
+    // 站頭工具條裏那枚朗讀鍵（由生成器寫進 HTML）：單篇頁就用它。
+    // 用戶 2026-09-29 要求控件收進同一排、同一套圖標，所以別再造一枚挨在標題旁的。
+    // **必須在這句之前找它**：工具條現在在 <header> 裏，也就落在 .wrap 內，
+    // 下面那句 wrap.querySelector(".speak") 會命中它並直接 return（鍵永遠打不開）。
+    var tb = document.querySelector('.toolbar [data-tool="tts"]');
+    if (tb) {
+      tb.classList.remove("is-off");
+      // 既不是 hidden 也不是 aria-hidden：鍵盤和讀屏用戶都要能找到它
+      makeButton(wrap, null, tb);
+      return;
+    }
+    if (wrap.querySelector(".speak")) return;
+    // 兜底（老頁面/異常模板裏沒有工具條）：仍舊造一枚按鈕挨着標題。
     // 按鈕插在標題**後面作爲兄弟節點**（insertAdjacentElement 是"之後"，不是"裏面"）：
     // 早前用 appendChild(host) 時按鈕成了 h1 的子節點，標題文字裏就混進了「🔊 朗讀」，
     // 被念出來變成"AI治理加速…🔊 朗讀"。另外單篇頁的 .postnav 在 .wrap 外面，別指望它。

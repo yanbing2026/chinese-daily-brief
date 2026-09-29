@@ -62,7 +62,13 @@ for (const f of files) {
 
   ok(doc.querySelector(".read-progress") !== null, "进度条已挂");
   ok(doc.querySelector(".back-top") !== null, "返回顶部按钮已挂");
-  ok(doc.querySelector(".back-top").hidden === true, "返回顶部初始隐藏");
+  // 「返回顶部」2026-09-29 起住在站头工具条里（原来是浮动圆钮）：有工具条就不该
+  // 再另造一个浮动钮，而且工具条里那枚不该按滚动隐藏（忽隐忽现比一直可点更困惑）。
+  var topInBar = doc.querySelector(".toolbar .back-top");
+  ok(doc.querySelectorAll("body > .back-top").length === 0,
+    "不再另造浮动圆钮（工具条里那枚接管了）");
+  ok(topInBar === null || topInBar.hidden === false,
+    "工具条里的顶部键始终可点（不随滚动隐藏）");
   // 常读总目录这类页本来就没有"条目行"（它列的是常读页本身），没有行就不该出现搜索条
   if (noSearch) {
     ok(!bar, "页面声明 data-nosearch → 不挂搜索条");
@@ -74,7 +80,19 @@ for (const f of files) {
   ok(toolbar !== null, "站头工具条已挂（分类下面另起一行）");
   if (toolbar) {
     const tools = toolbar.querySelectorAll(".tool");
-    ok(tools.length === 3, `工具条三枚控件（实得 ${tools.length}）`);
+    // 首页自己不出「回首页」（已经在首页了），所以首页少一枚。
+    // 判据用**文件名**而不是 h1.today —— 那份模板里首页的标题是 h1.home-title，
+    // h1.today 早就不在了（老断言靠它，一直在空转）。
+    const isFront = /(^|\/)index\.html$/.test(f) && !/\/category\//.test(f);
+    const want = isFront ? 5 : 6;
+    ok(tools.length === want, `工具条控件数 = ${want}（实得 ${tools.length}）`);
+    const first = toolbar.querySelector(".tool");
+    ok(isFront ? first.classList.contains("tool-lang") : first.classList.contains("tool-home"),
+      `最左边那枚是${isFront ? "语言" : "回首页"}（实得 ${first.className}）`);
+    const home = toolbar.querySelector(".tool-home");
+    ok(isFront ? !home : !!home, isFront ? "首页自己不出「回首页」" : "首页外都有「回首页」");
+    if (home) ok(/index\.html$/.test(home.getAttribute("href") || ""),
+      `回首页指向 ${home.getAttribute("href")}`);
     ok(toolbar.querySelectorAll(".tool .ic").length >= tools.length,
       `每枚控件都有内联 SVG 图标（共 ${toolbar.querySelectorAll(".tool .ic").length} 枚）`);
     ok(!!toolbar.querySelector('[data-tool="fs"] .tool-label')
@@ -97,6 +115,48 @@ for (const f of files) {
     const scheme = doc.documentElement.getAttribute("data-theme");
     ok(thb.querySelector(".tool-label").textContent !== t0 && /^(light|dark)$/.test(scheme || ""),
       `点日夜键 → 「${t0}」→「${thb.querySelector(".tool-label").textContent}」（data-theme=${scheme}）`);
+  }
+
+  /* ---- 单篇页专测：工具条那枚朗读键的接线 ----
+     上面那个 JSDOM 里没有 speechSynthesis，TTS_JS 会在门口安静退出（`if (!("speechSynthesis"
+     in window)) return;`），所以这枚键永远是 .is-off —— 必须单独造一个**带 TTS 桩**的
+     JSDOM 才测得到真实接线。桩要连 SpeechSynthesisUtterance 一起给，否则点击时抛
+     ReferenceError，看起来像"接上了但一按就炸"。 */
+  if (/data-page="post"/.test(html)) {
+    const dom2 = new JSDOM(html, {
+      runScripts: "dangerously",
+      pretendToBeVisual: true,
+      url: "https://example.test/chinese-daily-brief/posts/x.html",
+      beforeParse(w) {
+        const spoken = [];
+        w.SpeechSynthesisUtterance = function (t) { this.text = t; };
+        w.speechSynthesis = {
+          cancel() {}, speak(u) { spoken.push(u); }, getVoices() { return []; },
+          addEventListener() {}, speaking: false, pending: false, paused: false,
+        };
+        w.__spoken = spoken;
+      },
+    });
+    const { window: w2 } = dom2;
+    const doc2 = w2.document;
+    if (doc2.readyState === "loading") doc2.dispatchEvent(new w2.Event("DOMContentLoaded"));
+    const b2 = doc2.querySelector('.toolbar [data-tool="tts"]');
+    ok(!!b2, "单篇页工具条里有朗读键");
+    if (b2) {
+      ok(!b2.classList.contains("is-off"), "朗读键已启用（TTS_JS 把 .is-off 摘掉了）");
+      ok(doc2.querySelectorAll("h1.art + button.speak").length === 0,
+        "不再另造一枚挨着标题的朗读钮");
+      const lab = () => b2.querySelector(".tool-label").textContent;
+      // 繁体页上的字面是繁体（OpenCC 把内联脚本里的字符串一起转了），所以期望值要跟着 lang 走
+      const idle = (doc2.documentElement.getAttribute("lang") || "") === "zh-Hant" ? "朗讀" : "朗读";
+      b2.dispatchEvent(new w2.Event("click", { bubbles: true }));
+      ok(lab() === "停止" && b2.classList.contains("speaking"),
+        `点朗读键 → 标签「${lab()}」且带 .speaking`);
+      ok(b2.querySelectorAll("svg").length >= 2, "朗读键里两枚图标（喇叭 + 方块）都在，不是被文字覆盖掉");
+      b2.dispatchEvent(new w2.Event("click", { bubbles: true }));
+      ok(lab() === idle && !b2.classList.contains("speaking"),
+        `再点一次 → 回到「${lab()}」并摘掉 .speaking`);
+    }
   }
 
 
