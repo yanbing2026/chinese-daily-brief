@@ -558,6 +558,13 @@ footer {
   border-top: 1px solid var(--line); padding-top: 1rem;
   line-height: 1.75;
 }
+/* 页脚第一行 = 站点一句话介绍（生成器 SITE_TAGLINE，Gary 2026-09-29 定稿）。
+   比下面的免责声明抬一档：字号略大、用正文的墨色、上边距留白，
+   让它读起来像"这个站是什么"，而不是免责条款的一部分。 */
+footer .tagline {
+  color: var(--fg); font-size: .86rem; line-height: 1.7;
+  margin: 0 0 .55rem;
+}
 hr { border: 0; border-top: 1px solid var(--line); margin: 1.8rem 0; }
 code {
   background: var(--card); border: 1px solid var(--line); border-radius: .25rem;
