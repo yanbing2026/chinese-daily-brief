@@ -1,0 +1,382 @@
+<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OpenAI 暂停发布 GPT-6 Astra 模型 安全测试未达标</title>
+<link rel="stylesheet" href="../assets/style.css?v=02bdd8ec">
+<link rel="stylesheet" href="../assets/cat-colors.css?v=a4de58e1"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--></head>
+<body data-page="post" data-slug="2026-09-28-disc-openai-release-c19403.html"><div class="wrap">
+<a class="back" href="../index.html">← 回首页</a>
+<h1 class="art" data-section="科技与AI">OpenAI 暂停发布 GPT-6 Astra 模型 安全测试未达标</h1>
+<div class="art-meta cat-ai">2026-09-28 22:09 EDT　·　AI 整理　·　依据 54 家来源（网络）　·　1886 字</div>
+<p>OpenAI 决定不发布其最新一代人工智能模型 GPT-6 Astra，原因是该模型在内部安全测试中未能达到公司设定的标准。这一决定意味着原本计划向公众开放的最强模型将被搁置，取而代之的是同一代系列中定位不同的 GPT-6 Sol 和 Luna 模型已先后推出。对开发者和企业用户而言，最强模型的缺席会影响依赖高阶推理能力的应用规划，但同一代 cheaper 模型的降价上线又构成了替代选择。下面按时间线和规则细节把这件事讲清楚。</p>
+<h2>搁置发布的模型是什么</h2>
+<p>多家媒体报道指出，OpenAI 取消了代号为 Astra 的新模型发布计划。该模型此前被公司描述为其最强、能力最广的模型，涵盖计算机操作、编码和多步任务处理等场景。在内部测试过程中，OpenAI 发现该模型在安全相关指标上出现了退化或未达标的情况，因此决定不对外发布。公司方面表示，该模型“没有完全达到标准”，这是此次搁置的直接原因。</p>
+<p>与此同时，OpenAI 已经推出了 GPT-6 系列中的其他模型。GPT-6 Sol 面向复杂任务，例如编码；GPT-6 Luna 则更适合高流量的明确目标任务，如文档摘要、信息提取或快速问答。这两个模型在 2026 年 9 月 22 日起陆续面向 ChatGPT Work、Codex 以及 API 用户开放，覆盖 Plus、Pro、Business、Enterprise 和 Edu 账户，Luna 也通过桌面应用提供给 Free 和 Go 用户。API 名称分别为 gpt-6-sol 和 gpt-6-luna，并在当天内逐步完成 rollout。</p>
+<h2>安全测试未达标的具体情况</h2>
+<p>报道和公司表述都指向同一件事：GPT-6 Astra 在内部测试中的安全表现不如预期。有媒体援引公司话语称该模型在安全方面出现了“回归”，即部分安全相关能力不如之前的基准。OpenAI 强调，GPT-6 Sol 和 Luna 是使用与 Astra 相同的对齐保护措施训练的，公司称 Astra 是其“迄今为止对齐程度最高的模型”。这一说法意味着，即便 Astra 在对齐设计上被寄予厚望，实际测试结果仍促使公司选择不发布。</p>
+<p>从公开信息来看，公司没有列出具体的安全测试项目、量化门槛或失败的详细条款。目前可确认的只有定性结论：模型未达到发布所需的安全标准，因此被搁置。对于外界想要了解“到底哪类安全问题导致搁置”的问题，材料中没有对应的细节。</p>
+<h2>价格和能力的同时调整</h2>
+<p>同一代模型的发布节奏里，价格变化是另一头条。OpenAI 将 GPT-6 系列 Sol 和 Luna 的 API 价格降至 GPT-5.6 系列同类模型的一半。公司将这一降价归因于缓存和推理效率的改进。除价格外，OpenAI 还改进了提示缓存，默认提高缓存命中率，对命中缓存的输入 token 读取提供 90% 的折扣。公司还引入了监控仪表板、诊断工具和控制选项，让开发者可以在不失效缓存上下文的前提下调整推理努力程度和工具可用性。</p>
+<p>在能力描述上，OpenAI 表示 GPT-6 Sol 在内部事实性评估中错误率约为之前的一半，该评估基于用户标记过错误的去标识真实对话数据。公司还指出新模型在编码任务上的出错率更低。这些说法出现在多家媒体转述的公司介绍中，但并没有公布独立第三方的测试数据。</p>
+<h2>对不同人群的实际影响</h2>
+<p>对开发者和企业用户来说，GPT-6 Astra 的搁置意味着目前无法通过 OpenAI 获取其宣称的最强模型。若应用场景依赖高阶推理、复杂编码或多步计算机操作，现有的替代是 GPT-6 Sol 和 Luna。两者在 2026 年 9 月 22 日起可通过 API 和 ChatGPT Work、Codex 使用，价格是上一代同类模型的一半，缓存折扣进一步降低了反复调用的成本。开发者可以借助新提供的监控和诊断工具调整推理强度和工具权限，同时保持缓存上下文不失效。</p>
+<p>对普通消费者而言，影响相对间接。Luna 通过桌面应用向 Free 和 Go 用户开放，Sol 和 Luna 也面向付费层级用户可用。最强模型未发布不会直接改变当前 ChatGPT 的使用体验，但若用户期待更强的代理式任务处理能力，现阶段只能依赖已发布的 Sol 和 Luna。</p>
+<p>对行业竞争格局来说，同一时期 OpenAI 和 Anthropic 都推出了更便宜的模型，媒体报道将此置于价格战加剧的背景下。OpenAI 在同一轮公告中也强调回答的清晰度会提升，减少术语和冗余细节，同时保持实质内容。这类表述指向用户体验层面的改进，而不仅是价格问题。</p>
+<h2>发布节奏和会议背景</h2>
+<p>有报道提到，此次模型发布计划的调整发生在 OpenAI 开发者会议（DevDay）之前。从公开的时间线看，GPT-6 Astra 此前已被公司介绍为其最新一代的旗舰模型，而 Sol 和 Luna 则是同一代系列中面向不同使用场景的模型。9 月 22 日是 Sol 和 Luna 开始向各账户层级和 API 推送的时间点，此后逐步完成 rollout。</p>
+<p>公司在说明中重申，GPT-6 Astra 之所以被搁置，是因为安全测试未达标，而不是因为能力不足被放弃。也就是说，能力层面曾被描述为新一代智能的起点，但安全门槛成为实际发布的决定性因素。</p>
+<h2>接下来该等什么、该做什么</h2>
+<p>目前没有公开信息表明 GPT-6 Astra 会在某个确定日期重新发布，也没有披露后续修复或重新测试的时间表。对依赖高阶模型能力的团队来说，当前可操作的做法是基于 GPT-6 Sol 和 Luna 规划应用，并利用新的缓存折扣和监控工具控制成本与行为。如果安全表现是关键考量，应关注后续是否有关于 Astra 重新测试或部分发布的官方说明。</p>
+<p>对已经在使用 GPT-5.6 系列的开发者来说，迁移到 GPT-6 Sol 或 Luna 意味着成本下降约一半，并可使用改进后的缓存机制和诊断控制。但迁移时应注意模型定位差异：Sol 更适合复杂任务，Luna 更适合高流量、目标明确的任务，未必所有场景都能直接替换。</p>
+<p>对普通用户来说，现阶段无需等待未发布的 Astra，因为同一代中已有可用的 Sol 和 Luna。若关心回答质量和成本，可以在 2026 年 9 月 22 日之后观察 API 和 ChatGPT 侧的逐步开放情况，并根据账户层级确认可用模型范围。</p>
+<p>总的来说，这件事的核心是 OpenAI 因安全测试未达标而搁置了 GPT-6 Astra 的发布，同期推出了 GPT-6 Sol 和 Luna 并大幅降价。最强模型的缺席影响了那些原本计划依赖其高阶能力的开发者和企业，而降价后的同代模型提供了替代路径。接下来需要关注的，是公司是否会就 Astra 的后续处理给出更新，以及已发布模型在实际使用中的安全和成本表现是否符合预期。</p>
+<div class="c-link"><a href="#comments">读者评论 →</a></div>
+<div class="related kwrow"><div class="rhead">关键词</div><ul><li><a class="kw" href="../tag/OpenAI.html">OpenAI</a><span class="rmeta">6 篇</span></li><li><span class="kw-solo">GPT-6 Astra</span></li><li><span class="kw-solo">安全测试</span></li><li><span class="kw-solo">模型发布</span></li><li><span class="kw-solo">GPT-6 Sol</span></li></ul></div>
+<div class="tags"><a class="chip chip-ai" data-cat="ai" href="../category/ai.html">AI</a></div>
+<div class="notice">本文由 AI 整理自公开英文资料后写成中文，事实与数据取自原始材料、
+未沿用来源的成段表达；不含外链。文章未经人工逐字校对，涉及政策与法律的内容
+仅供参考，具体个案请咨询持牌专业人士。</div>
+</div><script src="../assets/site-v2.js?v=e9362281" defer></script>
+<section class="comments" id="comments">
+  <h3>读者评论</h3>
+  <div class="c-note">评论提交后立即显示，并每 3 小时自动复查一次。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
+  <div id="c-list"><div class="c-note">正在载入评论…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="称呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想补充什么？（2000 字以内）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="请勿填写">
+    <button type="submit" id="c-send">提交评论</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">还没有评论。欢迎做第一个。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">举报</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已举报，谢谢"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">评论载入失败（不影响阅读）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "内容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          // 提交即显示（2026-09-28 起从"待审"改成"先显示后复查"），
+          // 所以不能再承诺"审核通过后显示"——那会让人刷新半天找不到自己的评论。
+          msg.textContent = "已提交，刷新即可看到。";
+        } else {
+          msg.textContent = "没提交成功：" + ((res.j && res.j.error) || "服务暂时不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "没提交成功：网络或服务问题。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+<!--fs:head--><script>
+(function () {
+  var STEPS = [100, 112, 125, 90];          // 标准 → 大 → 特大 → 小 → 循环
+  var LABEL = { 100: "标准", 112: "大", 125: "特大", 90: "小" };
+  var root = document.documentElement;
+  var cur = 100;
+  try { cur = parseInt(localStorage.getItem("fs"), 10) || 100; } catch (e) {}
+  if (STEPS.indexOf(cur) < 0) cur = 100;
+
+  function apply(pct) {
+    root.style.fontSize = (16 * pct / 100) + "px";
+    try { localStorage.setItem("fs", String(pct)); } catch (e) {}
+  }
+
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "fsr";
+  function label() {
+    btn.textContent = "字 " + (LABEL[cur] || cur + "%");
+    btn.setAttribute("aria-label", "文字大小：" + (LABEL[cur] || cur + "%") + "，点击切换");
+    btn.title = "点击切换文字大小";
+  }
+  label();
+  btn.addEventListener("click", function () {
+    cur = STEPS[(STEPS.indexOf(cur) + 1) % STEPS.length];
+    apply(cur); label();
+  });
+
+  function mount() {
+    if (document.querySelector(".fsr")) return;
+    // 文字大小是整页偏好，所以每页只放一个，放在站点导航里（不是每篇一个）
+    var host = document.querySelector("nav") || document.querySelector(".postnav");
+    if (!host) {
+      var back = document.querySelector(".back") || document.querySelector("h1");
+      if (back) { back.insertAdjacentElement("afterend", btn); return; }
+      return;
+    }
+    host.appendChild(btn);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--fs:end-->
+<!--th:start--><script>
+(function () {
+  // 两态（日 ⇄ 夜），默认"日"。不要"跟随系统"这个中间态：浅色机器上"跟随"和"日"
+  // 视觉完全相同，点一下看不出变化，会被判定为"按键没反应"。
+  var PALETTE = {"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};
+  var MODES = ["light", "dark"];
+  var LABEL = { light: "日", dark: "夜" };
+  var ICON  = { light: "☀", dark: "🌙" };
+  var root = document.documentElement;
+
+  function intent() {
+    try { var v = localStorage.getItem("th"); return MODES.indexOf(v) >= 0 ? v : "light"; }
+    catch (e) { return "light"; }
+  }
+  // 颜色写成行内样式：不依赖外部 CSS 是否新鲜，也不受选择器优先级影响
+  function apply(i) {
+    var p = PALETTE[i] || PALETTE.light;
+    for (var k in p) { if (Object.prototype.hasOwnProperty.call(p, k)) root.style.setProperty(k, p[k]); }
+    root.style.colorScheme = (i === "dark") ? "dark" : "light";
+    root.setAttribute("data-theme", i);
+  }
+
+  var cur = intent();
+  apply(cur);
+
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "thm";
+  function label() {
+    btn.textContent = ICON[cur] + " " + LABEL[cur];
+    btn.setAttribute("aria-label", "配色：" + LABEL[cur] + "，点击切换日/夜");
+    btn.title = "点击切换日/夜";
+  }
+  label();
+  btn.addEventListener("click", function () {
+    cur = MODES[(MODES.indexOf(cur) + 1) % MODES.length];
+    try { localStorage.setItem("th", cur); } catch (e) {}
+    apply(cur); label();
+  });
+
+  function mount() {
+    if (document.querySelector(".thm")) return;
+    var host = document.querySelector("nav") || document.querySelector(".postnav");
+    if (!host) {
+      var back = document.querySelector(".back") || document.querySelector("h1");
+      if (back) { back.insertAdjacentElement("afterend", btn); }
+      return;
+    }
+    host.appendChild(btn);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--th:end-->
+<!--tts:start--><script>
+(function () {
+  if (!("speechSynthesis" in window)) return;            // 老浏览器直接安静退出
+
+  // zh-Hans / zh-Hant 映射到语音引擎认的 BCP-47 标签
+  var pageLang = (document.documentElement.lang || "zh-Hans");
+  var lang = pageLang.indexOf("Hant") >= 0 ? "zh-TW" : "zh-CN";
+
+  function pickVoice() {
+    var wants = lang.toLowerCase();
+    var vs = window.speechSynthesis.getVoices() || [];
+    for (var i = 0; i < vs.length; i++) {
+      var l = (vs[i].lang || "").replace("_", "-").toLowerCase();
+      if (l === wants) return vs[i];
+    }
+    for (var j = 0; j < vs.length; j++) {
+      var l2 = (vs[j].lang || "").replace("_", "-").toLowerCase();
+      if (l2.indexOf(wants.split("-")[0]) === 0) return vs[j];
+    }
+    return null;
+  }
+
+  // 只念**标题 + 正文**：不念页头（站名/副标题）、meta 行（日期·栏目·字数）、
+  // 栏目条、免责声明、评论。做法是"白名单取元素"，而不是"整块减去黑名单"——
+  // 后者会把页头之类的东西顺带念出来。
+  var SKIP = ".comments, .notice, .postnav, .catnav, .c-link, .art-meta,"
+           + " .site-tools, .fsr, .speak, .top, .foot, .read-progress, .back-top,"
+           + " script, style, nav";
+
+  function clean(el) {
+    return (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
+  }
+
+  function textOf(region) {
+    var out = [];
+    // 按偏好顺序找标题：不能用一次性 querySelector("h1, a")——它返回**文档顺序**里
+    // 第一个命中的元素，单篇页里 <a class="back">← 回首页</a> 排在 h1 前面，会被当成标题。
+    var title = region.querySelector("h1.art") || region.querySelector("h1, h2, h3, .ttl")
+             || region.querySelector("a");
+    var titleText = "";
+    if (title && !(title.closest && title.closest(SKIP))) {
+      var tc = title.cloneNode(true);
+      Array.prototype.forEach.call(tc.querySelectorAll(".chip, .cnt"), function (n) {
+        n.parentNode && n.parentNode.removeChild(n);
+      });
+      titleText = clean(tc);
+      if (titleText) out.push(titleText);
+    }
+    var nodes = region.querySelectorAll("h2, h3, p");
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (n === title) continue;
+      if (n.closest && n.closest(SKIP)) continue;
+      var t = clean(n);
+      if (t && t !== titleText) out.push(t);
+    }
+    if (!out.length) {                       // 兜底：没有段落的结构（如纯列表项）
+      var c = region.cloneNode(true);
+      Array.prototype.forEach.call(c.querySelectorAll(SKIP + ", .speak"), function (n) {
+        n.parentNode && n.parentNode.removeChild(n);
+      });
+      var t2 = clean(c);
+      if (t2) out.push(t2);
+    }
+    return out.join("\n");
+  }
+
+  // 长文切成小段排队，避免部分浏览器对单次朗读有长度/时长限制。
+  // 不用 lookbehind 正则（(?<=...)）：老版本 Safari 解析阶段就报错，会让整段脚本失效。
+  function chunk(text) {
+    var out = [], buf = "";
+    var parts = text.split(/([。！？!?；;\n])/);
+    for (var i = 0; i < parts.length; i += 2) {
+      var piece = (parts[i] || "") + (parts[i + 1] || "");
+      if (!piece.trim()) continue;
+      if ((buf + piece).length > 220 && buf) { out.push(buf); buf = ""; }
+      buf += piece;
+    }
+    if (buf.trim()) out.push(buf);
+    return out;
+  }
+
+  var current = null;      // 正在朗读的按钮
+
+  function stop() {
+    window.speechSynthesis.cancel();
+    if (current) { current.textContent = "🔊 朗读"; current = null; }
+  }
+
+  function speak(btn, region) {
+    stop();
+    var text = textOf(region);
+    if (text.length < 8) return;   // 列表页只有标题，门槛别定太高
+    var voice = pickVoice();
+    var pieces = chunk(text);
+    pieces.forEach(function (piece, i) {
+      var u = new SpeechSynthesisUtterance(piece);
+      u.lang = lang;
+      if (voice) u.voice = voice;
+      u.rate = 0.95; u.pitch = 1;
+      if (i === pieces.length - 1) {
+        u.onend = function () { if (current === btn) { btn.textContent = "🔊 朗读"; current = null; } };
+      }
+      window.speechSynthesis.speak(u);
+    });
+    btn.textContent = "⏹ 停止";
+    current = btn;
+  }
+
+  function makeButton(region, host) {
+    var btn = document.createElement("button");
+    btn.className = "speak";
+    btn.type = "button";
+    btn.textContent = "🔊 朗读";
+    btn.setAttribute("aria-label", "朗读本文");
+    btn.addEventListener("click", function () {
+      if (current === btn) { stop(); } else { speak(btn, region); }
+    });
+    if (host) host.appendChild(btn);     // host 为空时由调用方决定插哪儿
+    return btn;
+  }
+
+  function mount() {
+    // 首页是 <article>（全文直铺），往期/栏目页是 <li>（只有标题）——两种都要能念，
+    // 而且按钮一律挨着标题放：之前挂在文章末尾的「读者评论」那一行，
+    // 读者得先读完一整篇才看得见按钮。
+    // 只挂到**有正文的条目**：首页卡片是 <article>（全文直铺），单篇页走下面的兜底分支。
+    // 两条教训叠出来的规则：
+    //   ① 用户明确要求"朗读键只有在正文里面才有" —— 列表页(栏目/往期/常读)每行只有标题，
+    //      34 行就是 34 个按钮，念出来还是空气；
+    //   ② 早前用 querySelectorAll("article, li")，把导航、目录、postnav 也当成了条目，
+    //      页面上出现"今日原创 [朗读] 往期原创 [朗读]"这种莫名其妙的东西。
+    // 错误页（404）声明了 noindex，就别在上面挂朗读按钮。
+    // 这里用"取属性再查字符串"，不用 [content~="noindex"] 这种属性词选择器 ——
+    // 花式选择器一旦不被支持就是整段脚本抛错（朗读按钮全站消失），不值这个风险。
+    var rb = document.querySelector('meta[name="robots"]');
+    if (rb && (rb.getAttribute("content") || "").indexOf("noindex") >= 0) return;
+    var items = document.querySelectorAll("article[data-srow]");
+    if (items.length) {
+      Array.prototype.forEach.call(items, function (it) {
+        if (it.querySelector(".speak")) return;
+        var title = it.querySelector("h1, h2, h3, .ttl, a");
+        var btn = makeButton(it, null);
+        if (title) { title.insertAdjacentElement("afterend", btn); }
+        else { it.appendChild(btn); }
+      });
+      return;
+    }
+    // 单篇页：没有条目元素，整块 .wrap 当朗读区域，按钮放到标题旁。
+    // 判据是生成器写在 <body> 上的 data-page —— 不要从 DOM 里认：
+    // 栏目页的标题也是 h1.art（撞上了），.c-body 又是评论的正文容器（也撞上了）。
+    if ((document.body.getAttribute("data-page") || "") !== "post") return;
+    var wrap = document.querySelector(".wrap");
+    if (!wrap || wrap.querySelector(".speak")) return;
+    // 按钮插在标题**后面作为兄弟节点**（insertAdjacentElement 是"之后"，不是"里面"）：
+    // 早前用 appendChild(host) 时按钮成了 h1 的子节点，标题文字里就混进了「🔊 朗读」，
+    // 被念出来变成"AI治理加速…🔊 朗读"。另外单篇页的 .postnav 在 .wrap 外面，别指望它。
+    var h1 = wrap.querySelector("h1.art") || wrap.querySelector("h1");
+    var btn = makeButton(wrap, null);
+    if (h1) { h1.insertAdjacentElement("afterend", btn); }
+    else if (wrap.firstElementChild) { wrap.insertBefore(btn, wrap.firstElementChild); }
+    else { wrap.appendChild(btn); }
+  }
+
+  window.addEventListener("pagehide", stop);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else { mount(); }
+})();
+</script><!--tts:end-->
+<div class="postnav"><a href="../index.html">首页</a><a href="../posts.html">往期</a><a href="../tw/posts/2026-09-28-disc-openai-release-c19403.html">繁體</a></div></body></html>
