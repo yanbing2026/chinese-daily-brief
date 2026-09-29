@@ -20,7 +20,82 @@
 <div class="notice">本文由 AI 整理自公开英文资料后写成中文，事实与数据取自原始材料、
 未沿用来源的成段表达；不含外链。文章未经人工逐字校对，涉及政策与法律的内容
 仅供参考，具体个案请咨询持牌专业人士。</div>
-</div><script src="../assets/site-v2.js?v=e9362281" defer></script><!--fs:head--><script>
+</div><script src="../assets/site-v2.js?v=e9362281" defer></script>
+<section class="comments" id="comments">
+  <h3>读者评论</h3>
+  <div class="c-note">评论提交后立即显示，并每 3 小时自动复查一次。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
+  <div id="c-list"><div class="c-note">正在载入评论…</div></div>
+  <form class="c-form" id="c-form" autocomplete="off">
+    <input type="text" id="c-author" maxlength="40" placeholder="称呼（可留空）">
+    <textarea id="c-body" maxlength="2000" placeholder="想补充什么？（2000 字以内）" required></textarea>
+    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="请勿填写">
+    <button type="submit" id="c-send">提交评论</button>
+    <div class="c-msg" id="c-msg"></div>
+  </form>
+</section>
+<script>
+(function () {
+  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
+  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
+  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
+  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+  function load() {
+    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
+          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        if (!rows.length) { list.innerHTML = '<div class="c-note">还没有评论。欢迎做第一个。</div>'; return; }
+        list.innerHTML = rows.map(function (c) {
+          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
+                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
+                 '<div class="c-body">' + esc(c.body) + '</div>' +
+                 '<button class="c-report" data-id="' + c.id + '">举报</button></div>';
+        }).join("");
+        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
+          b.addEventListener("click", function () {
+            fetch(SB + "/rest/v1/rpc/report_comment",
+                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
+              .then(function () { b.textContent = "已举报，谢谢"; b.disabled = true; });
+          });
+        });
+      })
+      .catch(function () { list.innerHTML = '<div class="c-note">评论载入失败（不影响阅读）。</div>'; });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var body = document.getElementById("c-body").value.trim();
+    if (body.length < 2) { msg.textContent = "内容太短。"; return; }
+    send.disabled = true; msg.textContent = "提交中…";
+    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
+        p_slug: SLUG,
+        p_author: document.getElementById("c-author").value.trim(),
+        p_body: body,
+        p_hp: document.getElementById("c-hp").value
+      }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.j && res.j.ok) {
+          form.reset();
+          // 提交即显示（2026-09-28 起从"待审"改成"先显示后复查"），
+          // 所以不能再承诺"审核通过后显示"——那会让人刷新半天找不到自己的评论。
+          msg.textContent = "已提交，刷新即可看到。";
+        } else {
+          msg.textContent = "没提交成功：" + ((res.j && res.j.error) || "服务暂时不可用");
+        }
+      })
+      .catch(function () { msg.textContent = "没提交成功：网络或服务问题。"; })
+      .finally(function () { send.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+<!--fs:head--><script>
 (function () {
   var STEPS = [100, 112, 125, 90];          // 标准 → 大 → 特大 → 小 → 循环
   var LABEL = { 100: "标准", 112: "大", 125: "特大", 90: "小" };
@@ -290,87 +365,3 @@
 })();
 </script><!--tts:end-->
 <div class="postnav"><a href="../index.html">首页</a><a href="../posts.html">往期</a><a href="../tw/posts/2026-09-27---98964344.html">繁體</a></div></body></html>
-v class="rhead">关键词</div><ul><li><span class="kw-solo">美南签证</span></li><li><a class="kw" href="../tag/签证限制.html">签证限制</a><span class="rmeta">2 篇</span></li><li><a class="kw" href="../tag/南非.html">南非</a><span class="rmeta">3 篇</span></li><li><span class="kw-solo">双边关系</span></li></ul></div>
-<div class="tags"><a class="chip chip-visa" data-cat="visa" href="../category/visa.html">签证</a></div>
-<div class="notice">本文由 AI 整理自公开英文资料后写成中文，事实与数据取自原始材料、
-未沿用来源的成段表达；不含外链。文章未经人工逐字校对，涉及政策与法律的内容
-仅供参考，具体个案请咨询持牌专业人士。</div>
-</div><script src="../assets/site-v2.js?v=e9362281" defer></script>
-<section class="comments" id="comments">
-  <h3>读者评论</h3>
-  <div class="c-note">评论提交后立即显示，并每 3 小时自动复查一次。请勿发布个人信息；本栏目欢迎补充事实与不同视角。</div>
-  <div id="c-list"><div class="c-note">正在载入评论…</div></div>
-  <form class="c-form" id="c-form" autocomplete="off">
-    <input type="text" id="c-author" maxlength="40" placeholder="称呼（可留空）">
-    <textarea id="c-body" maxlength="2000" placeholder="想补充什么？（2000 字以内）" required></textarea>
-    <input class="c-hp" type="text" id="c-hp" tabindex="-1" aria-hidden="true" placeholder="请勿填写">
-    <button type="submit" id="c-send">提交评论</button>
-    <div class="c-msg" id="c-msg"></div>
-  </form>
-</section>
-<script>
-(function () {
-  var SB = "https://oyurhnzkpjltswspehaz.supabase.co", KEY = "sb_publishable_JnddqnH9UcdHeK-KCNpBdg_hT48_mV0", SLUG = document.body.dataset.slug || "";
-  var list = document.getElementById("c-list"), form = document.getElementById("c-form");
-  var msg = document.getElementById("c-msg"), send = document.getElementById("c-send");
-  var H = { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" };
-
-  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
-
-  function load() {
-    fetch(SB + "/rest/v1/comments?slug=eq." + encodeURIComponent(SLUG)
-          + "&select=id,author,body,created_at&order=created_at.asc", { headers: H })
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (rows) {
-        if (!rows.length) { list.innerHTML = '<div class="c-note">还没有评论。欢迎做第一个。</div>'; return; }
-        list.innerHTML = rows.map(function (c) {
-          return '<div class="c-item"><div class="c-head">' + esc(c.author) + '　' +
-                 esc((c.created_at || "").slice(0, 10)) + '</div>' +
-                 '<div class="c-body">' + esc(c.body) + '</div>' +
-                 '<button class="c-report" data-id="' + c.id + '">举报</button></div>';
-        }).join("");
-        Array.prototype.forEach.call(list.querySelectorAll(".c-report"), function (b) {
-          b.addEventListener("click", function () {
-            fetch(SB + "/rest/v1/rpc/report_comment",
-                  { method: "POST", headers: H, body: JSON.stringify({ p_id: Number(b.dataset.id) }) })
-              .then(function () { b.textContent = "已举报，谢谢"; b.disabled = true; });
-          });
-        });
-      })
-      .catch(function () { list.innerHTML = '<div class="c-note">评论载入失败（不影响阅读）。</div>'; });
-  }
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var body = document.getElementById("c-body").value.trim();
-    if (body.length < 2) { msg.textContent = "内容太短。"; return; }
-    send.disabled = true; msg.textContent = "提交中…";
-    fetch(SB + "/rest/v1/rpc/submit_comment", { method: "POST", headers: H, body: JSON.stringify({
-        p_slug: SLUG,
-        p_author: document.getElementById("c-author").value.trim(),
-        p_body: body,
-        p_hp: document.getElementById("c-hp").value
-      }) })
-      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-      .then(function (res) {
-        if (res.j && res.j.ok) {
-          form.reset();
-          // 提交即显示（2026-09-28 起从"待审"改成"先显示后复查"），
-          // 所以不能再承诺"审核通过后显示"——那会让人刷新半天找不到自己的评论。
-          msg.textContent = "已提交，刷新即可看到。";
-        } else {
-          msg.textContent = "没提交成功：" + ((res.j && res.j.error) || "服务暂时不可用");
-        }
-      })
-      .catch(function () { msg.textContent = "没提交成功：网络或服务问题。"; })
-      .finally(function () { send.disabled = false; });
-  });
-
-  load();
-})();
-</script>
-
-
-
-
-</body></html>
