@@ -466,7 +466,9 @@ nav .fsr, .postnav .fsr, nav .thm, .postnav .thm { margin-left: .5rem; vertical-
 .postnav a { color: var(--fg); text-decoration: none; font-weight: 600; }
 .postnav a:hover { color: var(--accent); }
 
-/* 返回链接 */
+/* 返回链接：**已无页面使用**。单篇页那行「← 回首页」2026-09-29 收进了站头工具条
+   （.toolbar .tool-home）。规则先留着 —— 万一还有老页面/外部引用，删掉会突然裸奔；
+   真要清理时先跑一次 `grep -rho '<a class="back" href' --include=*.html .` 确认是 0。 */
 .back {
   display: inline-flex; align-items: center; gap: .25rem;
   margin-bottom: 1rem; font-size: .88rem;

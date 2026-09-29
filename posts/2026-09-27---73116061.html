@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2026年9月绿卡排期发布 财年收官现两类分化</title>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-<link rel="stylesheet" href="../assets/style.css?v=fd4e3009">
+<link rel="stylesheet" href="../assets/style.css?v=2c4e0220">
 <link rel="stylesheet" href="../assets/cat-colors.css?v=02fc485c"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--></head>
 <body data-page="post" data-slug="2026-09-27---73116061.html"><div class="wrap">
 <header class="top post-top">
@@ -265,7 +265,8 @@
   function textOf(region) {
     var out = [];
     // 按偏好顺序找标题：不能用一次性 querySelector("h1, a")——它返回**文档顺序**里
-    // 第一个命中的元素，单篇页里 <a class="back">← 回首页</a> 排在 h1 前面，会被当成标题。
+    // 第一个命中的元素 —— 早前单篇页里「← 回首页」那行文字链接排在 h1 前面，会被当成标题。
+    // （那行链接 2026-09-29 已收进站头工具条，但选择器顺序照旧写死，别再退回去。）
     var title = region.querySelector("h1.art") || region.querySelector("h1, h2, h3, .ttl")
              || region.querySelector("a");
     var titleText = "";

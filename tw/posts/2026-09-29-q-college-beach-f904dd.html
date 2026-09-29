@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SFA兩名沙灘排球選手起訴學校與教練報復性除名</title>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-<link rel="stylesheet" href="../assets/style.css?v=fd4e3009">
+<link rel="stylesheet" href="../assets/style.css?v=2c4e0220">
 <link rel="stylesheet" href="../assets/cat-colors.css?v=02fc485c"><!--fs:head--><script>try{var _f=localStorage.getItem("fs");if(_f)document.documentElement.style.fontSize=(16*parseInt(_f,10)/100)+"px";}catch(e){}</script><!--fs:end--><!--th:start--><script>(function(){try{var P={"light": {"--fg": "#1a1a1a", "--muted": "#6b7280", "--bg": "#fbfbfd", "--card": "#fff", "--line": "#e5e7eb", "--accent": "#0f766e"}, "dark": {"--fg": "#e8e8ea", "--muted": "#9aa0a6", "--bg": "#14161a", "--card": "#1b1e24", "--line": "#2c313a", "--accent": "#5eead4"}};var i=localStorage.getItem("th")==="dark"?"dark":"light";var e=document.documentElement, p=P[i];for(var k in p){e.style.setProperty(k,p[k]);}e.style.colorScheme=i==="dark"?"dark":"light";e.setAttribute("data-theme",i);}catch(x){}})();</script><!--th:end--></head>
 <body data-page="post" data-slug="2026-09-29-q-college-beach-f904dd.html"><div class="wrap">
 <header class="top post-top">
@@ -269,7 +269,8 @@
   function textOf(region) {
     var out = [];
     // 按偏好順序找標題：不能用一次性 querySelector("h1, a")——它返回**文檔順序**裏
-    // 第一個命中的元素，單篇頁裏 <a class="back">← 回首頁</a> 排在 h1 前面，會被當成標題。
+    // 第一個命中的元素 —— 早前單篇頁裏「← 回首頁」那行文字鏈接排在 h1 前面，會被當成標題。
+    // （那行鏈接 2026-09-29 已收進站頭工具條，但選擇器順序照舊寫死，別再退回去。）
     var title = region.querySelector("h1.art") || region.querySelector("h1, h2, h3, .ttl")
              || region.querySelector("a");
     var titleText = "";
