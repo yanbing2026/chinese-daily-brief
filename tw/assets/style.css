@@ -583,6 +583,29 @@ footer .tagline {
   margin: 0 0 .55rem;
 }
 hr { border: 0; border-top: 1px solid var(--line); margin: 1.8rem 0; }
+
+/* ── 分页导航（列表页每 50 条一页，生成器 pager_html()） ──
+   静态站没有 JS 分页，这一排就是全部导航：上一页 / 页码 / 下一页 + 一行"这是第几页"。
+   `.is-off` 是首末页那两个不可点的箭头（用 span 不用 a：点不动的东西就不该长成链接）。 */
+.pager {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .35rem;
+  margin: 1.6rem 0 .4rem; padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.pager .pg {
+  display: inline-block; min-width: 1.9rem; padding: .22rem .5rem;
+  text-align: center; text-decoration: none;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--card); color: var(--fg); font-size: .82rem;
+}
+.pager a.pg:hover { border-color: var(--accent); color: var(--accent); }
+.pager .pg.is-cur { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.pager .pg.is-off { color: var(--muted); opacity: .55; }
+.pager .pg-arrow { padding: .22rem .7rem; }
+.pager .pg-gap { color: var(--muted); padding: 0 .15rem; }
+.pager .pg-info {
+  flex: 1 1 100%; color: var(--muted); font-size: .76rem; margin-top: .35rem;
+}
 code {
   background: var(--card); border: 1px solid var(--line); border-radius: .25rem;
   padding: .04rem .28rem; font-size: .84em;

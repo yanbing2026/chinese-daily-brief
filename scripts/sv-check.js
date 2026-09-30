@@ -59,7 +59,13 @@ for (const f of files) {
   const bar = doc.querySelector(".site-tools");
   const nav = doc.querySelector(".catnav");
   const isHome = !!doc.querySelector("h1.today");
-  const home = /index\.html$/.test(f) && !/\/category\/|\/guide\/|\/tw\//.test(f);
+  // 「首页」的判据：路径。注意两点：① 别写成 /\/guide\// —— 传相对路径时 f 是
+  // "guide/index.html"，前面没斜杠、排除会失效（guide/index.html 曾被当成首页）；
+  // ② 别把 tw/ 排除掉 —— tw/index.html 就是繁体首页，它同样没有那枚「回首页」键。
+  // 按路径段判最稳：index.html 且不在 guide/ 与 category/ 下。
+  const fparts = f.split(/[\\/]/);
+  const home = fparts[fparts.length - 1] === "index.html"
+    && !fparts.includes("guide") && !fparts.includes("category");
   // 页面显式声明不挂搜索框（用户 2026-09-27 定：首页只要导航 + 列表，不要搜索框）
   const noSearch = doc.body.hasAttribute("data-nosearch");
 
@@ -94,6 +100,33 @@ for (const f of files) {
   } else {
     ok(!!bar === (rows.length > 0), rows.length ? `可搜索行 [data-srow] = ${rows.length}` : "无条目行 → 不挂搜索条");
   }
+  // 分页（生成器 pager_html，2026-09-29）：列表页每 50 条一页。
+  // 这里钉三件事：一页不超过 50 条、分页页首/末页的箭头不可点、页码链接是同目录相对路径
+  // （写成 ../x-p2.html 在 tw/ 镜像里会跑到 tw/ 根 —— 首次生成就是这么错的）。
+  const paged = doc.querySelector(".pager");
+  if (paged) {
+    ok(rows.length <= 50, `分页页只有一页的量（${rows.length} ≤ 50）`);
+    const arrows = paged.querySelectorAll(".pg-arrow");
+    const curPage = paged.querySelector(".pg.is-cur");
+    const isFirst = curPage && curPage.textContent.trim() === "1";
+    const nums = Array.from(paged.querySelectorAll(".pg")).map(e => e.textContent.trim());
+    const lastNum = nums.filter(t => /^\d+$/.test(t)).pop();
+    ok(!!curPage, "分页条标出当前页");
+    const info = (paged.querySelector(".pg-info") || {}).textContent || "";
+    const m = info.match(/第\s*(\d+)\/(\d+)\s*页/);
+    const curN = m ? +m[1] : (isFirst ? 1 : 2);
+    const totalN = m ? +m[2] : 2;
+    ok(!!arrows[0] && (curN === 1 ? arrows[0].tagName !== "A" : arrows[0].tagName === "A"),
+      curN === 1 ? "第 1 页的「上一页」不可点" : "非首页的「上一页」是真链接");
+    ok(!!arrows[1] && (curN === totalN ? arrows[1].tagName !== "A" : arrows[1].tagName === "A"),
+      curN === totalN ? "末页的「下一页」不可点" : "非末页的「下一页」是真链接");
+    const hrefs = Array.from(paged.querySelectorAll("a.pg")).map(a => a.getAttribute("href"));
+    ok(hrefs.length === 0 || hrefs.every(h => h && !h.includes("/")),
+      "页码/箭头链接都是同目录相对路径（不带 /）");
+    ok(/共\s*\d+\s*篇/.test(paged.textContent) && /搜索/.test(paged.textContent),
+      "分页条写明共多少篇、搜索只作用于本页");
+    void lastNum;
+  }
   /* ---- 站头工具条（简/繁 · 字号 · 日/夜）：图标由生成器写进 HTML，JS 只接行为 ---- */
   const toolbar = doc.querySelector(".toolbar");
   ok(toolbar !== null, "站头工具条已挂（分类下面另起一行）");
@@ -102,17 +135,21 @@ for (const f of files) {
     // 首页自己不出「回首页」（已经在首页了），所以首页少一枚。
     // 判据用**文件名**而不是 h1.today —— 那份模板里首页的标题是 h1.home-title，
     // h1.today 早就不在了（老断言靠它，一直在空转）。
-    const isFront = /(^|\/)index\.html$/.test(f) && !/\/category\//.test(f);
+    // 「首页」的判据只能有一个：文件路径。
+    // 用 h1 类名判过两次都错（模板是 h1.home-title，不是 h1.today → 断言空转）；
+    // 用 /index.html$/ 也太松（guide/index.html 是「常读总目录」，不是首页 ——
+    // 它会拿到那枚「回首页」键，于是控件数是 5 不是 4，三条断言一起炸）。
+    const isFront = home;
     const isPost = /data-page="post"/.test(html);
     const want = isFront ? 4 : (isPost ? 7 : 5);
     ok(tools.length === want, `工具条控件数 = ${want}（实得 ${tools.length}）`);
     const first = toolbar.querySelector(".tool");
     ok(isFront ? first.classList.contains("tool-lang") : first.classList.contains("tool-home"),
       `最左边那枚是${isFront ? "语言" : "回首页"}（实得 ${first.className}）`);
-    const home = toolbar.querySelector(".tool-home");
-    ok(isFront ? !home : !!home, isFront ? "首页自己不出「回首页」" : "首页外都有「回首页」");
-    if (home) ok(/index\.html$/.test(home.getAttribute("href") || ""),
-      `回首页指向 ${home.getAttribute("href")}`);
+    const homeTool = toolbar.querySelector(".tool-home");
+    ok(isFront ? !homeTool : !!homeTool, isFront ? "首页自己不出「回首页」" : "首页外都有「回首页」");
+    if (homeTool) ok(/index\.html$/.test(homeTool.getAttribute("href") || ""),
+      `回首页指向 ${homeTool.getAttribute("href")}`);
     ok(toolbar.querySelectorAll(".tool .ic").length >= tools.length,
       `每枚控件都有内联 SVG 图标（共 ${toolbar.querySelectorAll(".tool .ic").length} 枚）`);
     ok(!!toolbar.querySelector('[data-tool="fs"] .tool-label')
