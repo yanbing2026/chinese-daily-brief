@@ -118,34 +118,52 @@
     /* ---- 全站：阅读进度条 + 返回顶部 ---- */
     var progress = document.createElement("div");
     progress.className = "read-progress";
-    // 「顶部」键现在住在站头工具条里（生成器写在 HTML 上。用户 2026-09-29：
-    // 把浮在角落的收进这一排）。有它就只接行为 —— 不再造浮动圆钮，也**不再按滚动隐藏**：
-    // 同一排里的键忽隐忽现比"一直在那儿、点了就上"更让人困惑。
-    // 没有工具条的页面照旧造浮动钮（老页面兼容）。
-    var topBtn = document.querySelector('.toolbar [data-tool="top"]');
-    var floating = false;
-    if (!topBtn) {
-      topBtn = document.createElement("button");
-      topBtn.className = "back-top";
-      topBtn.type = "button";
-      topBtn.textContent = "↑";
-      floating = true;
+    /* 「顶部」有两枚，各有各的活：
+       ① 站头工具条里那枚（生成器写在 HTML 上，class="tool back-top" data-tool="top"）——
+          与其它控件对齐、始终可点，位置不跳；
+       ② 右下角浮动钮 —— 用户 2026-09-29 追问「到顶部这个是不是要做成浮动的」。
+          单篇页 1500–2800 字，手机上要划三四屏才回到站头，那排键**恰好在最需要它的时候
+          够不着**。所以滚动一段后浮出来、回到上面就隐回去。
+       浮动钮的图标**从工具条那枚克隆**，不另画一份：图标只有生成器一个出处，
+       以后改线宽/形状两处一起变（预览脚本骗人的教训：渲染路径必须与真实来源一致）。 */
+    var isHant = (document.documentElement.lang || "").toLowerCase().indexOf("hant") >= 0;
+    var topLabel = isHant ? "回到頂部" : "回到顶部";
+    var rowTop = document.querySelector('.toolbar [data-tool="top"]');
+    if (rowTop) {
+      rowTop.title = topLabel;
+      rowTop.setAttribute("aria-label", topLabel);
+      rowTop.addEventListener("click", toTop);
     }
-    topBtn.title = "回到顶部";
-    topBtn.setAttribute("aria-label", "回到顶部");
-    if (floating) topBtn.hidden = true;
-    topBtn.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    document.body.appendChild(progress);
-    if (floating) document.body.appendChild(topBtn);
 
+    var floatTop = document.createElement("button");
+    floatTop.className = "back-top back-top-float";
+    floatTop.type = "button";
+    floatTop.title = topLabel;
+    floatTop.setAttribute("aria-label", topLabel);
+    var floatIcon = rowTop && rowTop.querySelector("svg");
+    if (floatIcon) floatTop.appendChild(floatIcon.cloneNode(true));
+    else floatTop.textContent = "↑";        // 没有工具条的页面（老页面/404）：退回文字箭头
+    floatTop.addEventListener("click", toTop);
+    document.body.appendChild(progress);
+    document.body.appendChild(floatTop);
+
+    function toTop() {
+      var noMotion = false;
+      try { noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+      window.scrollTo({ top: 0, behavior: noMotion ? "auto" : "smooth" });
+    }
+
+    /* 两个阈值（600 出、400 回）：单阈值时手指停在临界点上，钮会一闪一闪。
+       visibility 走 CSS（.back-top-float 默认透明且不可点），JS 只切一个类。 */
+    var SHOW_AT = 600, HIDE_AT = 400;
     function scrollUI() {
       var doc = document.documentElement;
       var max = doc.scrollHeight - doc.clientHeight;
       var y = window.scrollY || doc.scrollTop || 0;
       progress.style.width = (max > 0 ? Math.min(100, (y / max) * 100) : 0) + "%";
-      if (floating) topBtn.hidden = y < 500;      // 工具条里那枚始终可点
+      var on = floatTop.classList.contains("is-on");
+      if (!on && y > SHOW_AT) floatTop.classList.add("is-on");
+      else if (on && y < HIDE_AT) floatTop.classList.remove("is-on");
     }
     window.addEventListener("scroll", scrollUI, { passive: true });
     window.addEventListener("resize", scrollUI);

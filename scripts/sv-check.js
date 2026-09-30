@@ -64,14 +64,30 @@ for (const f of files) {
   const noSearch = doc.body.hasAttribute("data-nosearch");
 
   ok(doc.querySelector(".read-progress") !== null, "进度条已挂");
-  ok(doc.querySelector(".back-top") !== null, "返回顶部按钮已挂");
-  // 「返回顶部」2026-09-29 起住在站头工具条里（原来是浮动圆钮）：有工具条就不该
-  // 再另造一个浮动钮，而且工具条里那枚不该按滚动隐藏（忽隐忽现比一直可点更困惑）。
-  var topInBar = doc.querySelector(".toolbar .back-top");
-  ok(doc.querySelectorAll("body > .back-top").length === 0,
-    "不再另造浮动圆钮（工具条里那枚接管了）");
-  ok(topInBar === null || topInBar.hidden === false,
+  // 「返回顶部」两枚（2026-09-29）：站头工具条里那枚由生成器写在 HTML 上、始终可点；
+  // 右下角浮动钮由 site-v2.js 造，滚动一段才浮出（用户追问「到顶部这个是不是要做成浮动的」）。
+  const topInBar = doc.querySelector(".toolbar .back-top");
+  const topFloat = doc.querySelector("body > .back-top-float");
+  ok(topInBar !== null, "工具条里的顶部键已挂（标记来自生成器）");
+  ok(topFloat !== null, "右下角浮动钮已挂");
+  ok(!!topFloat && topFloat.querySelector("svg") !== null,
+    "浮动钮的图标是从工具条那枚克隆来的内联 svg（图标单一出处）");
+  ok(!!topFloat && !topFloat.classList.contains("is-on"), "刚打开页面时浮动钮不显示（还没滚动）");
+  ok(topInBar === null || topInBar.hidden !== true,
     "工具条里的顶部键始终可点（不随滚动隐藏）");
+  if (topFloat) {
+    const scrollToArgs = [];
+    window.scrollTo = function (a) { scrollToArgs.push(a && typeof a === "object" ? a.top : a); };
+    Object.defineProperty(window, "scrollY", { value: 1000, configurable: true, writable: true });
+    window.dispatchEvent(new window.Event("scroll"));
+    ok(topFloat.classList.contains("is-on"), "滚到 1000px → 浮动钮浮出");
+    topFloat.dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+    ok(scrollToArgs.length > 0 && scrollToArgs[scrollToArgs.length - 1] === 0,
+      "点浮动钮 → window.scrollTo(top: 0)");
+    window.scrollY = 300;
+    window.dispatchEvent(new window.Event("scroll"));
+    ok(!topFloat.classList.contains("is-on"), "滚回 300px → 浮动钮隐回去（两个阈值防抖）");
+  }
   // 常读总目录这类页本来就没有"条目行"（它列的是常读页本身），没有行就不该出现搜索条
   if (noSearch) {
     ok(!bar, "页面声明 data-nosearch → 不挂搜索条");

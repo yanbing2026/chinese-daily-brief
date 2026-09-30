@@ -443,8 +443,25 @@ ul { list-style: none; padding-left: 0; margin: 0; }
   background: var(--card); color: var(--fg);
   font-size: 1.1rem; cursor: pointer; box-shadow: var(--shadow-md);
   transition: border-color .15s, color .15s, transform .15s;
+  /* 图标（20px 内联 svg / 老页面的 "↑" 字）居中：按钮是固定 2.5rem 的圆 */
+  display: flex; align-items: center; justify-content: center;
 }
 .back-top:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+.back-top-float svg { width: 1.05rem; height: 1.05rem; display: block; }
+
+/* 右下角浮动钮（.back-top-float，site-v2.js 造）：滚动一段才浮出来。
+   默认透明 + visibility:hidden —— 不是 display:none：留着位置才能做淡入淡出，
+   而 visibility:hidden 的元素本来就点不到、也不进无障碍树，不用再管 tabindex。
+   两个阈值（600 出 / 400 回）由 JS 判，这里只管"在/不在"的过渡。 */
+.back-top-float {
+  opacity: 0; visibility: hidden; transform: translateY(.4rem);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+}
+.back-top-float.is-on { opacity: 1; visibility: visible; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .back-top-float { transition: none; }
+  .back-top:hover { transform: none; }
+}
 
 /* ── 13. 控件按钮（字号 / 日夜 / 朗读） ── */
 .fsr, .thm, .speak {
